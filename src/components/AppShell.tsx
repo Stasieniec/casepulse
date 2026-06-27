@@ -7,6 +7,7 @@ import { cn } from '../lib/cn'
 import { DATASET_CASE, GENERALIZES_LINE } from '../lib/framing'
 
 export const SECTIONS = [
+  { key: 'intake', label: 'Intake' },
   { key: 'lab', label: 'Extraction Lab' },
   { key: 'dashboard', label: 'Dashboard' },
   { key: 'pleading', label: 'Pleading' },
@@ -18,6 +19,12 @@ export const SECTIONS = [
 export type SectionKey = (typeof SECTIONS)[number]['key']
 
 const NAV_GLYPH: Record<SectionKey, ReactNode> = {
+  intake: (
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
+      <path d="M8 2 V10 M8 10 L5 7.5 M8 10 L11 7.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M2.5 13 H13.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+    </svg>
+  ),
   evidence: (
     <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
       <rect x="2" y="3" width="12" height="10" rx="1" stroke="currentColor" strokeWidth="1.3" />
