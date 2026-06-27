@@ -5,16 +5,8 @@ import { SECTIONS, type SectionKey } from '../components/AppShell'
 import { Dashboard } from '../components/Dashboard'
 import { PleadingView } from '../components/PleadingView'
 import { GraphView } from '../components/GraphView'
-import { ComingUp } from '../components/ComingUp'
+import { RedTeamPanel } from '../components/RedTeamPanel'
 import { cn } from '../lib/cn'
-
-const COMING_UP: Record<'redteam', { title: string; blurb: string }> = {
-  redteam: {
-    title: 'Opposing counsel',
-    blurb:
-      'An adversarial memo: cross-examination lines, strike-out arguments, and the verbatim documents that break each over-pleaded allegation — plus how to fix it.',
-  },
-}
 
 export default function CaseView() {
   const { id, section } = useParams()
@@ -49,7 +41,7 @@ export default function CaseView() {
         {active === 'dashboard' && <Dashboard caseId={caseId} />}
         {active === 'pleading' && <PleadingView caseId={caseId} />}
         {active === 'graph' && <GraphView caseId={caseId} />}
-        {active === 'redteam' && <ComingUp {...COMING_UP.redteam} />}
+        {active === 'redteam' && <RedTeamPanel caseId={caseId} />}
       </div>
     </div>
   )
