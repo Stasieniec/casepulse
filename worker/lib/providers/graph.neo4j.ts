@@ -140,18 +140,20 @@ export class Neo4jGraphProvider implements GraphProvider {
       headline: (r.headline as string) ?? '',
     }))
 
-    // Query (F): full edge export for viz
+    // Query (F): full edge export via two-hop path (extract-level model v2)
+    // Reconstructs {id, claimId, documentId, relation, confidence, quote, rationale}
+    // from (:Evidence)-[:CONTAINS]->(:Extract)-[:BEARS_ON]->(:Claim)
     const edgeRows = await cypher(
       this.env,
-      `MATCH (e:Evidence)-[r:SUPPORTS|CONTRADICTS|NEUTRAL]->(cl:Claim)
-       RETURN e.id AS source, e.title AS sourceTitle, cl.id AS target,
-              type(r) AS relation, r.confidence AS confidence,
-              r.quote AS quote, r.rationale AS rationale`,
+      `MATCH (e:Evidence)-[:CONTAINS]->(x:Extract)-[:BEARS_ON]->(cl:Claim)
+       RETURN x.id AS id, e.id AS source, e.title AS sourceTitle, cl.id AS target,
+              x.relation AS relation, x.confidence AS confidence,
+              x.quote AS quote, x.rationale AS rationale`,
     )
 
     // Build evidence catalog from edge data
     const evidenceMap = new Map<string, Evidence>()
-    const edges: Edge[] = edgeRows.map((r, idx) => {
+    const edges: Edge[] = edgeRows.map((r) => {
       const docId = r.source as string
       if (!evidenceMap.has(docId)) {
         evidenceMap.set(docId, {
@@ -163,7 +165,7 @@ export class Neo4jGraphProvider implements GraphProvider {
       }
       const relationRaw = (r.relation as string).toLowerCase() as Relation
       return {
-        id: `${docId}-${r.target as string}-${idx}`,
+        id: r.id as string,
         claimId: r.target as string,
         documentId: docId,
         relation: relationRaw,
@@ -189,18 +191,19 @@ export class Neo4jGraphProvider implements GraphProvider {
     if (claimRows.length === 0) throw new Error(`Claim ${claimId} not found`)
     const r = claimRows[0]
 
-    // Query (B): evidence for this claim
+    // Query (B): evidence for this claim via two-hop path (extract-level model v2)
     const evidenceRows = await cypher(
       this.env,
       `MATCH (cl:Claim {id:$claimId})
-       OPTIONAL MATCH (e:Evidence)-[rel:SUPPORTS|CONTRADICTS|NEUTRAL]->(cl)
-       RETURN type(rel) AS relation, e.id AS evidenceId, e.title AS title,
-              rel.confidence AS confidence, rel.quote AS quote, rel.rationale AS rationale`,
+       OPTIONAL MATCH (e:Evidence)-[:CONTAINS]->(x:Extract)-[:BEARS_ON]->(cl)
+       RETURN x.relation AS relation, e.id AS evidenceId, e.title AS title,
+              x.confidence AS confidence, x.quote AS quote, x.rationale AS rationale,
+              x.id AS extractId`,
       { claimId },
     )
 
-    const toEdge = (ev: Record<string, unknown>, idx: number): Edge => ({
-      id: `${ev.evidenceId as string}-${claimId}-${idx}`,
+    const toEdge = (ev: Record<string, unknown>): Edge => ({
+      id: ev.extractId as string,
       claimId,
       documentId: ev.evidenceId as string,
       relation: ((ev.relation as string) ?? 'neutral').toLowerCase() as Relation,
@@ -210,9 +213,9 @@ export class Neo4jGraphProvider implements GraphProvider {
     })
 
     const validEdges = evidenceRows.filter(e => e.evidenceId != null)
-    const supporting = validEdges.filter(e => (e.relation as string) === 'SUPPORTS').map(toEdge)
-    const contradicting = validEdges.filter(e => (e.relation as string) === 'CONTRADICTS').map(toEdge)
-    const neutral = validEdges.filter(e => (e.relation as string) === 'NEUTRAL').map(toEdge)
+    const supporting = validEdges.filter(e => (e.relation as string) === 'supports').map(toEdge)
+    const contradicting = validEdges.filter(e => (e.relation as string) === 'contradicts').map(toEdge)
+    const neutral = validEdges.filter(e => (e.relation as string) === 'neutral').map(toEdge)
 
     return {
       id: r.id as string,
@@ -231,13 +234,13 @@ export class Neo4jGraphProvider implements GraphProvider {
   }
 
   async getEvidenceForClaim(claimId: string): Promise<EvidenceLink[]> {
-    // Query (B): evidence links for claim
+    // Query (B): evidence links via two-hop path (extract-level model v2)
     const rows = await cypher(
       this.env,
       `MATCH (cl:Claim {id:$claimId})
-       OPTIONAL MATCH (e:Evidence)-[r:SUPPORTS|CONTRADICTS|NEUTRAL]->(cl)
-       RETURN type(r) AS relation, e.id AS evidenceId, e.title AS title,
-              r.confidence AS confidence, r.quote AS quote, r.rationale AS rationale
+       OPTIONAL MATCH (e:Evidence)-[:CONTAINS]->(x:Extract)-[:BEARS_ON]->(cl)
+       RETURN x.relation AS relation, e.id AS evidenceId, e.title AS title,
+              x.confidence AS confidence, x.quote AS quote, x.rationale AS rationale
        ORDER BY relation, confidence DESC`,
       { claimId },
     )

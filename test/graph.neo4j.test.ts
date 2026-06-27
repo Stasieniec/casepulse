@@ -40,7 +40,8 @@ describe.skipIf(!RUN)('Neo4jGraphProvider live (RUN_NEO4J=1 required)', () => {
     const graph = await provider.getCaseGraph('meridian')
     expect(graph.claims).toHaveLength(13)
     expect(graph.evidence).toHaveLength(18)
-    expect(graph.edges.length).toBeGreaterThan(20)
+    // 103 Extract nodes → 103 edges (one per finding, no deduplication in extract model)
+    expect(graph.edges.length).toBeGreaterThanOrEqual(103)
   })
 
   it('getStats returns contradicted=8 and wellSupported=3', async () => {
@@ -66,10 +67,10 @@ describe.skipIf(!RUN)('Neo4jGraphProvider live (RUN_NEO4J=1 required)', () => {
 
   it('getGdsOverlays returns real PageRank centrality for P9', async () => {
     const gds = await provider.getGdsOverlays('meridian')
-    // P9 has the highest claim centrality (1.7169) per gds-results.json
+    // P9 has high claim centrality (3.1682 in extract-level model) per gds-results.json
     expect(gds.centrality['P9']).toBeGreaterThan(1.5)
-    // P3 is in community 6 per Louvain results
-    expect(gds.communities['P3']).toBe(6)
+    // P3 is in community 123 per Louvain results (extract-level model v2)
+    expect(gds.communities['P3']).toBe(123)
     // missingEvidence should include high-risk gap claims
     expect(gds.missingEvidence).toContain('P6')
   })

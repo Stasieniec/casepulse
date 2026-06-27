@@ -1,579 +1,1484 @@
 {
-  "generatedAt": "2026-06-27T12:19:11.610Z",
+  "generatedAt": "2026-06-27T14:41:55.739Z",
   "graph": "crucible",
-  "sessionId": "31e59ba9-9d6ba106",
+  "sessionId": "31e59ba9-03e6eeee",
   "counts": {
     "claims": 13,
     "evidence": 18,
-    "supports": 31,
-    "contradicts": 48,
-    "neutral": 20,
+    "extracts": 103,
+    "contains": 103,
+    "bearsOn": 103,
     "redteam": 10
   },
-  "pageRankEvidence": [
+  "centralityMap": [
+    {
+      "id": "P9",
+      "score": 3.1682
+    },
+    {
+      "id": "P8",
+      "score": 3.1333
+    },
+    {
+      "id": "D16",
+      "score": 2.9673
+    },
+    {
+      "id": "D18",
+      "score": 2.9445
+    },
+    {
+      "id": "P6",
+      "score": 2.7487
+    },
     {
       "id": "D03",
-      "title": "Master Services Agreement",
-      "pageRank": 1.4639
+      "score": 2.7412
+    },
+    {
+      "id": "P5",
+      "score": 2.7354
+    },
+    {
+      "id": "D15",
+      "score": 2.6782
+    },
+    {
+      "id": "D14",
+      "score": 2.4768
+    },
+    {
+      "id": "D04",
+      "score": 2.4484
+    },
+    {
+      "id": "P3",
+      "score": 2.4348
+    },
+    {
+      "id": "D07",
+      "score": 2.2932
+    },
+    {
+      "id": "P1",
+      "score": 2.2854
+    },
+    {
+      "id": "D09",
+      "score": 2.0993
+    },
+    {
+      "id": "P10",
+      "score": 1.9965
+    },
+    {
+      "id": "D20",
+      "score": 1.8304
+    },
+    {
+      "id": "P13",
+      "score": 1.8253
+    },
+    {
+      "id": "P2",
+      "score": 1.802
+    },
+    {
+      "id": "D08",
+      "score": 1.7849
+    },
+    {
+      "id": "D10",
+      "score": 1.7477
+    },
+    {
+      "id": "D05",
+      "score": 1.535
+    },
+    {
+      "id": "D13",
+      "score": 1.5232
+    },
+    {
+      "id": "D12",
+      "score": 1.4893
+    },
+    {
+      "id": "D06",
+      "score": 1.4622
+    },
+    {
+      "id": "D17",
+      "score": 1.4182
+    },
+    {
+      "id": "D19",
+      "score": 1.4027
+    },
+    {
+      "id": "P12",
+      "score": 1.2815
+    },
+    {
+      "id": "D11",
+      "score": 1.1982
+    },
+    {
+      "id": "P7",
+      "score": 1.1621
+    },
+    {
+      "id": "D04-P11-6",
+      "score": 0.8629
+    },
+    {
+      "id": "D03-P4-3",
+      "score": 0.8486
+    },
+    {
+      "id": "D05-P2-1",
+      "score": 0.7543
+    },
+    {
+      "id": "D20-P12-0",
+      "score": 0.7473
+    },
+    {
+      "id": "D09-P7-3",
+      "score": 0.7387
+    },
+    {
+      "id": "D20-P13-1",
+      "score": 0.7281
+    },
+    {
+      "id": "D12-P13-2",
+      "score": 0.7275
+    },
+    {
+      "id": "D08-P10-0",
+      "score": 0.7272
+    },
+    {
+      "id": "D03-P2-1",
+      "score": 0.7224
+    },
+    {
+      "id": "D16-P7-3",
+      "score": 0.7215
+    },
+    {
+      "id": "D19-P8-0",
+      "score": 0.7195
+    },
+    {
+      "id": "D19-P9-2",
+      "score": 0.7159
+    },
+    {
+      "id": "D05-P1-0",
+      "score": 0.7156
+    },
+    {
+      "id": "D03-P1-0",
+      "score": 0.715
+    },
+    {
+      "id": "D06-P1-0",
+      "score": 0.7145
+    },
+    {
+      "id": "D17-P5-0",
+      "score": 0.7131
+    },
+    {
+      "id": "D17-P13-3",
+      "score": 0.7124
+    },
+    {
+      "id": "D10-P6-0",
+      "score": 0.7052
+    },
+    {
+      "id": "D03-P13-7",
+      "score": 0.7023
+    },
+    {
+      "id": "D04-P3-2",
+      "score": 0.702
+    },
+    {
+      "id": "D13-P8-1",
+      "score": 0.7017
+    },
+    {
+      "id": "D19-P9-3",
+      "score": 0.7017
+    },
+    {
+      "id": "D11-P9-1",
+      "score": 0.7002
+    },
+    {
+      "id": "D17-P8-1",
+      "score": 0.6938
+    },
+    {
+      "id": "D19-P8-1",
+      "score": 0.6905
+    },
+    {
+      "id": "D03-P3-2",
+      "score": 0.6903
+    },
+    {
+      "id": "D14-P1-0",
+      "score": 0.6902
+    },
+    {
+      "id": "D10-P5-2",
+      "score": 0.6894
+    },
+    {
+      "id": "D16-P6-1",
+      "score": 0.6883
+    },
+    {
+      "id": "D18-P10-5",
+      "score": 0.6873
+    },
+    {
+      "id": "D04-P1-0",
+      "score": 0.6868
+    },
+    {
+      "id": "D07-P6-0",
+      "score": 0.6866
+    },
+    {
+      "id": "D07-P3-3",
+      "score": 0.6832
+    },
+    {
+      "id": "D10-P3-1",
+      "score": 0.6822
+    },
+    {
+      "id": "D07-P6-1",
+      "score": 0.6812
+    },
+    {
+      "id": "D18-P6-4",
+      "score": 0.6808
+    },
+    {
+      "id": "D12-P8-3",
+      "score": 0.68
+    },
+    {
+      "id": "D15-P7-3",
+      "score": 0.6793
+    },
+    {
+      "id": "D15-P10-5",
+      "score": 0.6792
+    },
+    {
+      "id": "D18-P2-1",
+      "score": 0.6766
+    },
+    {
+      "id": "D07-P5-2",
+      "score": 0.6763
+    },
+    {
+      "id": "D09-P6-2",
+      "score": 0.6731
+    },
+    {
+      "id": "D16-P9-4",
+      "score": 0.6696
+    },
+    {
+      "id": "D16-P3-0",
+      "score": 0.6653
+    },
+    {
+      "id": "D06-P2-1",
+      "score": 0.6648
+    },
+    {
+      "id": "D14-P9-3",
+      "score": 0.6615
+    },
+    {
+      "id": "D15-P6-1",
+      "score": 0.6603
+    },
+    {
+      "id": "D13-P9-2",
+      "score": 0.6559
+    },
+    {
+      "id": "D16-P5-2",
+      "score": 0.6502
+    },
+    {
+      "id": "D08-P9-1",
+      "score": 0.6499
+    },
+    {
+      "id": "D18-P12-6",
+      "score": 0.6499
+    },
+    {
+      "id": "D18-P5-3",
+      "score": 0.648
+    },
+    {
+      "id": "D17-P9-2",
+      "score": 0.6478
+    },
+    {
+      "id": "D04-P6-4",
+      "score": 0.6461
+    },
+    {
+      "id": "D11-P8-0",
+      "score": 0.6452
+    },
+    {
+      "id": "D07-P10-4",
+      "score": 0.6439
+    },
+    {
+      "id": "D14-P5-1",
+      "score": 0.6427
+    },
+    {
+      "id": "D15-P3-0",
+      "score": 0.6416
+    },
+    {
+      "id": "D09-P5-1",
+      "score": 0.6394
+    },
+    {
+      "id": "D04-P5-3",
+      "score": 0.6393
+    },
+    {
+      "id": "D15-P13-6",
+      "score": 0.6369
+    },
+    {
+      "id": "D18-P3-2",
+      "score": 0.6351
+    },
+    {
+      "id": "D15-P8-4",
+      "score": 0.6337
+    },
+    {
+      "id": "D03-P12-6",
+      "score": 0.6309
+    },
+    {
+      "id": "D11-P8-2",
+      "score": 0.6307
+    },
+    {
+      "id": "D15-P5-2",
+      "score": 0.6266
+    },
+    {
+      "id": "D03-P6-4",
+      "score": 0.6266
+    },
+    {
+      "id": "D18-P1-0",
+      "score": 0.6247
+    },
+    {
+      "id": "D04-P2-1",
+      "score": 0.6217
+    },
+    {
+      "id": "D06-P6-3",
+      "score": 0.6191
+    },
+    {
+      "id": "D08-P5-2",
+      "score": 0.6175
+    },
+    {
+      "id": "D20-P8-3",
+      "score": 0.6169
+    },
+    {
+      "id": "D03-P9-5",
+      "score": 0.6149
+    },
+    {
+      "id": "D06-P3-2",
+      "score": 0.6116
+    },
+    {
+      "id": "D13-P5-0",
+      "score": 0.6098
+    },
+    {
+      "id": "D08-P8-3",
+      "score": 0.6091
+    },
+    {
+      "id": "D14-P10-4",
+      "score": 0.6078
+    },
+    {
+      "id": "D12-P8-1",
+      "score": 0.6077
+    },
+    {
+      "id": "D20-P2-2",
+      "score": 0.6059
+    },
+    {
+      "id": "D12-P9-0",
+      "score": 0.6058
+    },
+    {
+      "id": "D10-P10-3",
+      "score": 0.6042
+    },
+    {
+      "id": "D05-P12-3",
+      "score": 0.6015
+    },
+    {
+      "id": "D04-P9-5",
+      "score": 0.601
+    },
+    {
+      "id": "D16-P8-5",
+      "score": 0.6004
+    },
+    {
+      "id": "D07-P1-5",
+      "score": 0.5965
+    },
+    {
+      "id": "D18-P9-7",
+      "score": 0.596
+    },
+    {
+      "id": "D08-P1-4",
+      "score": 0.5929
+    },
+    {
+      "id": "D09-P10-5",
+      "score": 0.5899
+    },
+    {
+      "id": "D16-P13-6",
+      "score": 0.5885
+    },
+    {
+      "id": "D07-P2-6",
+      "score": 0.5881
+    },
+    {
+      "id": "D09-P3-0",
+      "score": 0.5843
+    },
+    {
+      "id": "D18-P8-8",
+      "score": 0.5838
+    },
+    {
+      "id": "D10-P7-4",
+      "score": 0.5833
+    },
+    {
+      "id": "D20-P9-4",
+      "score": 0.572
+    },
+    {
+      "id": "D16-P1-8",
+      "score": 0.5697
+    },
+    {
+      "id": "D14-P8-2",
+      "score": 0.5631
+    },
+    {
+      "id": "D05-P10-2",
+      "score": 0.5603
+    },
+    {
+      "id": "D14-P12-5",
+      "score": 0.56
+    },
+    {
+      "id": "D15-P12-7",
+      "score": 0.5599
+    },
+    {
+      "id": "D09-P9-4",
+      "score": 0.5582
+    },
+    {
+      "id": "D13-P3-3",
+      "score": 0.5544
+    },
+    {
+      "id": "D14-P13-6",
+      "score": 0.5502
+    },
+    {
+      "id": "D16-P10-7",
+      "score": 0.5436
+    },
+    {
+      "id": "P11",
+      "score": 0.4965
+    },
+    {
+      "id": "P4",
+      "score": 0.4867
+    }
+  ],
+  "pageRankEvidence": [
+    {
+      "id": "D16",
+      "title": "Witness — Helena Vance",
+      "pageRank": 2.9673
     },
     {
       "id": "D18",
       "title": "Witness — Priya Nair",
-      "pageRank": 1.3023
+      "pageRank": 2.9445
     },
     {
-      "id": "D16",
-      "title": "Witness — Helena Vance",
-      "pageRank": 1.2716
+      "id": "D03",
+      "title": "Master Services Agreement",
+      "pageRank": 2.7412
     },
     {
       "id": "D15",
       "title": "Letter — TechFlow response",
-      "pageRank": 1.1827
-    },
-    {
-      "id": "D04",
-      "title": "Statement of Work",
-      "pageRank": 1.0726
+      "pageRank": 2.6782
     },
     {
       "id": "D14",
       "title": "Letter — Notice of Termination",
-      "pageRank": 0.9706
+      "pageRank": 2.4768
+    },
+    {
+      "id": "D04",
+      "title": "Statement of Work",
+      "pageRank": 2.4484
     },
     {
       "id": "D07",
       "title": "Change Order No.3 (loyalty)",
-      "pageRank": 0.9571
-    },
-    {
-      "id": "D10",
-      "title": "Email — loyalty change request",
-      "pageRank": 0.8699
-    },
-    {
-      "id": "D17",
-      "title": "Witness — Raymond Okafor",
-      "pageRank": 0.8512
+      "pageRank": 2.2932
     },
     {
       "id": "D09",
       "title": "Email — go-live decision",
-      "pageRank": 0.7281
+      "pageRank": 2.0993
     },
     {
       "id": "D20",
       "title": "Expert — Fiona Greenhalgh FCA (quantum)",
-      "pageRank": 0.662
-    },
-    {
-      "id": "D05",
-      "title": "Order Form (Phase 1)",
-      "pageRank": 0.5931
+      "pageRank": 1.8304
     },
     {
       "id": "D08",
       "title": "Phase-1 UAT Acceptance Certificate",
-      "pageRank": 0.5916
+      "pageRank": 1.7849
+    },
+    {
+      "id": "D10",
+      "title": "Email — loyalty change request",
+      "pageRank": 1.7477
+    },
+    {
+      "id": "D05",
+      "title": "Order Form (Phase 1)",
+      "pageRank": 1.535
     },
     {
       "id": "D13",
       "title": "Defect/issue log",
-      "pageRank": 0.556
-    },
-    {
-      "id": "D19",
-      "title": "Expert — Dr Whitfield (IT)",
-      "pageRank": 0.5552
+      "pageRank": 1.5232
     },
     {
       "id": "D12",
       "title": "Email — internal Q4 trading",
-      "pageRank": 0.5504
+      "pageRank": 1.4893
     },
     {
       "id": "D06",
       "title": "Deed of Variation No.1",
-      "pageRank": 0.4887
+      "pageRank": 1.4622
+    },
+    {
+      "id": "D17",
+      "title": "Witness — Raymond Okafor",
+      "pageRank": 1.4182
+    },
+    {
+      "id": "D19",
+      "title": "Expert — Dr Whitfield (IT)",
+      "pageRank": 1.4027
     },
     {
       "id": "D11",
       "title": "Email — 25 Nov outage root cause",
-      "pageRank": 0.4267
-    }
-  ],
-  "centralityMap": [
-    {
-      "id": "P9",
-      "score": 1.7169
-    },
-    {
-      "id": "P6",
-      "score": 1.5675
-    },
-    {
-      "id": "P1",
-      "score": 1.5257
-    },
-    {
-      "id": "D03",
-      "score": 1.4639
-    },
-    {
-      "id": "P5",
-      "score": 1.4257
-    },
-    {
-      "id": "P8",
-      "score": 1.3699
-    },
-    {
-      "id": "P3",
-      "score": 1.3518
-    },
-    {
-      "id": "D18",
-      "score": 1.3023
-    },
-    {
-      "id": "P13",
-      "score": 1.2877
-    },
-    {
-      "id": "D16",
-      "score": 1.2716
-    },
-    {
-      "id": "D15",
-      "score": 1.1827
-    },
-    {
-      "id": "P2",
-      "score": 1.1794
-    },
-    {
-      "id": "P10",
-      "score": 1.1558
-    },
-    {
-      "id": "D04",
-      "score": 1.0726
-    },
-    {
-      "id": "D14",
-      "score": 0.9706
-    },
-    {
-      "id": "D07",
-      "score": 0.9571
-    },
-    {
-      "id": "D10",
-      "score": 0.8699
-    },
-    {
-      "id": "D17",
-      "score": 0.8512
-    },
-    {
-      "id": "P7",
-      "score": 0.7823
-    },
-    {
-      "id": "D09",
-      "score": 0.7281
-    },
-    {
-      "id": "D20",
-      "score": 0.662
-    },
-    {
-      "id": "P12",
-      "score": 0.6552
-    },
-    {
-      "id": "D05",
-      "score": 0.5931
-    },
-    {
-      "id": "D08",
-      "score": 0.5916
-    },
-    {
-      "id": "D13",
-      "score": 0.556
-    },
-    {
-      "id": "D19",
-      "score": 0.5552
-    },
-    {
-      "id": "D12",
-      "score": 0.5504
-    },
-    {
-      "id": "D06",
-      "score": 0.4887
-    },
-    {
-      "id": "D11",
-      "score": 0.4267
-    },
-    {
-      "id": "P11",
-      "score": 0.353
-    },
-    {
-      "id": "P4",
-      "score": 0.3335
+      "pageRank": 1.1982
     }
   ],
   "degreeEvidence": [
     {
-      "id": "D03",
-      "title": "Master Services Agreement",
-      "weightedDegree": 5.93
+      "id": "D16",
+      "title": "Witness — Helena Vance",
+      "weightedDegree": 9
     },
     {
       "id": "D18",
       "title": "Witness — Priya Nair",
-      "weightedDegree": 5.65
+      "weightedDegree": 9
     },
     {
-      "id": "D16",
-      "title": "Witness — Helena Vance",
-      "weightedDegree": 5.57
+      "id": "D03",
+      "title": "Master Services Agreement",
+      "weightedDegree": 8
     },
     {
       "id": "D15",
       "title": "Letter — TechFlow response",
-      "weightedDegree": 5.05
-    },
-    {
-      "id": "D07",
-      "title": "Change Order No.3 (loyalty)",
-      "weightedDegree": 4.14
+      "weightedDegree": 8
     },
     {
       "id": "D04",
       "title": "Statement of Work",
-      "weightedDegree": 4.02
+      "weightedDegree": 7
+    },
+    {
+      "id": "D07",
+      "title": "Change Order No.3 (loyalty)",
+      "weightedDegree": 7
     },
     {
       "id": "D14",
       "title": "Letter — Notice of Termination",
-      "weightedDegree": 3.95
-    },
-    {
-      "id": "D10",
-      "title": "Email — loyalty change request",
-      "weightedDegree": 3.7
-    },
-    {
-      "id": "D17",
-      "title": "Witness — Raymond Okafor",
-      "weightedDegree": 3.4
+      "weightedDegree": 7
     },
     {
       "id": "D09",
       "title": "Email — go-live decision",
-      "weightedDegree": 2.9
-    },
-    {
-      "id": "D20",
-      "title": "Expert — Fiona Greenhalgh FCA (quantum)",
-      "weightedDegree": 2.32
+      "weightedDegree": 6
     },
     {
       "id": "D08",
       "title": "Phase-1 UAT Acceptance Certificate",
-      "weightedDegree": 2.15
+      "weightedDegree": 5
+    },
+    {
+      "id": "D10",
+      "title": "Email — loyalty change request",
+      "weightedDegree": 5
+    },
+    {
+      "id": "D20",
+      "title": "Expert — Fiona Greenhalgh FCA (quantum)",
+      "weightedDegree": 5
     },
     {
       "id": "D05",
       "title": "Order Form (Phase 1)",
-      "weightedDegree": 2.1
-    },
-    {
-      "id": "D13",
-      "title": "Defect/issue log",
-      "weightedDegree": 1.95
-    },
-    {
-      "id": "D12",
-      "title": "Email — internal Q4 trading",
-      "weightedDegree": 1.9
-    },
-    {
-      "id": "D19",
-      "title": "Expert — Dr Whitfield (IT)",
-      "weightedDegree": 1.9
+      "weightedDegree": 4
     },
     {
       "id": "D06",
       "title": "Deed of Variation No.1",
-      "weightedDegree": 1.6
+      "weightedDegree": 4
+    },
+    {
+      "id": "D12",
+      "title": "Email — internal Q4 trading",
+      "weightedDegree": 4
+    },
+    {
+      "id": "D13",
+      "title": "Defect/issue log",
+      "weightedDegree": 4
+    },
+    {
+      "id": "D17",
+      "title": "Witness — Raymond Okafor",
+      "weightedDegree": 4
+    },
+    {
+      "id": "D19",
+      "title": "Expert — Dr Whitfield (IT)",
+      "weightedDegree": 4
     },
     {
       "id": "D11",
       "title": "Email — 25 Nov outage root cause",
-      "weightedDegree": 1.3
+      "weightedDegree": 3
     }
   ],
   "communities": [
     {
-      "communityId": 6,
-      "members": 12,
+      "communityId": 118,
+      "members": 22,
       "ids": [
-        "P3",
-        "P6",
-        "P10",
-        "D07",
-        "P5",
-        "D08",
-        "D09",
-        "P7",
-        "D10",
-        "D15",
-        "D16",
-        "D18"
+        "P1",
+        "D03-P1-0",
+        "D05-P1-0",
+        "D06-P1-0",
+        "P2",
+        "D03-P2-1",
+        "D05-P2-1",
+        "D06-P2-1",
+        "D03-P3-2",
+        "D06-P3-2",
+        "D03-P4-3",
+        "P4",
+        "D03-P6-4",
+        "D06-P6-3",
+        "D03-P9-5",
+        "D05-P10-2",
+        "D03-P12-6",
+        "D05-P12-3",
+        "D03-P13-7",
+        "D03",
+        "D05",
+        "D06"
       ]
     },
     {
-      "communityId": 20,
-      "members": 10,
+      "communityId": 123,
+      "members": 16,
       "ids": [
-        "P9",
-        "P13",
-        "D11",
+        "D07-P1-5",
+        "D07-P2-6",
+        "P3",
+        "D07-P3-3",
+        "D10-P3-1",
+        "D07-P5-2",
+        "D10-P5-2",
+        "P6",
+        "D07-P6-0",
+        "D07-P6-1",
+        "D10-P6-0",
+        "D10-P7-4",
+        "D07-P10-4",
+        "D10-P10-3",
+        "D07",
+        "D10"
+      ]
+    },
+    {
+      "communityId": 132,
+      "members": 16,
+      "ids": [
+        "D13-P3-3",
+        "D13-P5-0",
         "P8",
-        "D12",
+        "D11-P8-0",
+        "D11-P8-2",
+        "D13-P8-1",
+        "D19-P8-0",
+        "D19-P8-1",
+        "P9",
+        "D11-P9-1",
+        "D13-P9-2",
+        "D19-P9-2",
+        "D19-P9-3",
+        "D11",
         "D13",
+        "D19"
+      ]
+    },
+    {
+      "communityId": 133,
+      "members": 13,
+      "ids": [
+        "D20-P2-2",
+        "D12-P8-1",
+        "D12-P8-3",
+        "D20-P8-3",
+        "D12-P9-0",
+        "D20-P9-4",
         "P12",
-        "D17",
-        "D19",
+        "D20-P12-0",
+        "P13",
+        "D12-P13-2",
+        "D20-P13-1",
+        "D12",
         "D20"
       ]
     },
     {
-      "communityId": 2,
+      "communityId": 129,
+      "members": 10,
+      "ids": [
+        "D16-P1-8",
+        "D16-P3-0",
+        "D16-P5-2",
+        "D16-P6-1",
+        "D16-P7-3",
+        "D16-P8-5",
+        "D16-P9-4",
+        "D16-P10-7",
+        "D16-P13-6",
+        "D16"
+      ]
+    },
+    {
+      "communityId": 131,
+      "members": 10,
+      "ids": [
+        "D18-P1-0",
+        "D18-P2-1",
+        "D18-P3-2",
+        "D18-P5-3",
+        "D18-P6-4",
+        "D18-P8-8",
+        "D18-P9-7",
+        "D18-P10-5",
+        "D18-P12-6",
+        "D18"
+      ]
+    },
+    {
+      "communityId": 77,
       "members": 9,
       "ids": [
-        "D03",
-        "P1",
-        "P2",
-        "P4",
         "D04",
-        "P11",
-        "D05",
-        "D06",
+        "D04-P1-0",
+        "D04-P2-1",
+        "D04-P3-2",
+        "D04-P5-3",
+        "D04-P6-4",
+        "D04-P9-5",
+        "D04-P11-6",
+        "P11"
+      ]
+    },
+    {
+      "communityId": 128,
+      "members": 9,
+      "ids": [
+        "D15-P3-0",
+        "D15-P5-2",
+        "D15-P6-1",
+        "D15-P7-3",
+        "D15-P8-4",
+        "D15-P10-5",
+        "D15-P12-7",
+        "D15-P13-6",
+        "D15"
+      ]
+    },
+    {
+      "communityId": 127,
+      "members": 8,
+      "ids": [
+        "D14-P1-0",
+        "D14-P5-1",
+        "D14-P8-2",
+        "D14-P9-3",
+        "D14-P10-4",
+        "D14-P12-5",
+        "D14-P13-6",
         "D14"
+      ]
+    },
+    {
+      "communityId": 122,
+      "members": 8,
+      "ids": [
+        "D09-P3-0",
+        "D09-P5-1",
+        "D09-P6-2",
+        "D09-P7-3",
+        "P7",
+        "D09-P9-4",
+        "D09-P10-5",
+        "D09"
+      ]
+    },
+    {
+      "communityId": 121,
+      "members": 7,
+      "ids": [
+        "D08-P1-4",
+        "D08-P5-2",
+        "D08-P8-3",
+        "D08-P9-1",
+        "P10",
+        "D08-P10-0",
+        "D08"
+      ]
+    },
+    {
+      "communityId": 130,
+      "members": 6,
+      "ids": [
+        "P5",
+        "D17-P5-0",
+        "D17-P8-1",
+        "D17-P9-2",
+        "D17-P13-3",
+        "D17"
       ]
     }
   ],
   "communityMap": [
     {
-      "id": "D03",
-      "clusterId": 2
-    },
-    {
       "id": "D04",
-      "clusterId": 2
+      "clusterId": 77
     },
     {
-      "id": "D05",
-      "clusterId": 2
+      "id": "D04-P1-0",
+      "clusterId": 77
     },
     {
-      "id": "D06",
-      "clusterId": 2
+      "id": "D04-P11-6",
+      "clusterId": 77
     },
     {
-      "id": "D14",
-      "clusterId": 2
+      "id": "D04-P2-1",
+      "clusterId": 77
     },
     {
-      "id": "P1",
-      "clusterId": 2
+      "id": "D04-P3-2",
+      "clusterId": 77
+    },
+    {
+      "id": "D04-P5-3",
+      "clusterId": 77
+    },
+    {
+      "id": "D04-P6-4",
+      "clusterId": 77
+    },
+    {
+      "id": "D04-P9-5",
+      "clusterId": 77
     },
     {
       "id": "P11",
-      "clusterId": 2
+      "clusterId": 77
+    },
+    {
+      "id": "D03",
+      "clusterId": 118
+    },
+    {
+      "id": "D03-P1-0",
+      "clusterId": 118
+    },
+    {
+      "id": "D03-P12-6",
+      "clusterId": 118
+    },
+    {
+      "id": "D03-P13-7",
+      "clusterId": 118
+    },
+    {
+      "id": "D03-P2-1",
+      "clusterId": 118
+    },
+    {
+      "id": "D03-P3-2",
+      "clusterId": 118
+    },
+    {
+      "id": "D03-P4-3",
+      "clusterId": 118
+    },
+    {
+      "id": "D03-P6-4",
+      "clusterId": 118
+    },
+    {
+      "id": "D03-P9-5",
+      "clusterId": 118
+    },
+    {
+      "id": "D05",
+      "clusterId": 118
+    },
+    {
+      "id": "D05-P1-0",
+      "clusterId": 118
+    },
+    {
+      "id": "D05-P10-2",
+      "clusterId": 118
+    },
+    {
+      "id": "D05-P12-3",
+      "clusterId": 118
+    },
+    {
+      "id": "D05-P2-1",
+      "clusterId": 118
+    },
+    {
+      "id": "D06",
+      "clusterId": 118
+    },
+    {
+      "id": "D06-P1-0",
+      "clusterId": 118
+    },
+    {
+      "id": "D06-P2-1",
+      "clusterId": 118
+    },
+    {
+      "id": "D06-P3-2",
+      "clusterId": 118
+    },
+    {
+      "id": "D06-P6-3",
+      "clusterId": 118
+    },
+    {
+      "id": "P1",
+      "clusterId": 118
     },
     {
       "id": "P2",
-      "clusterId": 2
+      "clusterId": 118
     },
     {
       "id": "P4",
-      "clusterId": 2
-    },
-    {
-      "id": "D07",
-      "clusterId": 6
+      "clusterId": 118
     },
     {
       "id": "D08",
-      "clusterId": 6
+      "clusterId": 121
     },
     {
-      "id": "D09",
-      "clusterId": 6
+      "id": "D08-P1-4",
+      "clusterId": 121
     },
     {
-      "id": "D10",
-      "clusterId": 6
+      "id": "D08-P10-0",
+      "clusterId": 121
     },
     {
-      "id": "D15",
-      "clusterId": 6
+      "id": "D08-P5-2",
+      "clusterId": 121
     },
     {
-      "id": "D16",
-      "clusterId": 6
+      "id": "D08-P8-3",
+      "clusterId": 121
     },
     {
-      "id": "D18",
-      "clusterId": 6
+      "id": "D08-P9-1",
+      "clusterId": 121
     },
     {
       "id": "P10",
-      "clusterId": 6
+      "clusterId": 121
     },
     {
-      "id": "P3",
-      "clusterId": 6
+      "id": "D09",
+      "clusterId": 122
     },
     {
-      "id": "P5",
-      "clusterId": 6
+      "id": "D09-P10-5",
+      "clusterId": 122
     },
     {
-      "id": "P6",
-      "clusterId": 6
+      "id": "D09-P3-0",
+      "clusterId": 122
+    },
+    {
+      "id": "D09-P5-1",
+      "clusterId": 122
+    },
+    {
+      "id": "D09-P6-2",
+      "clusterId": 122
+    },
+    {
+      "id": "D09-P7-3",
+      "clusterId": 122
+    },
+    {
+      "id": "D09-P9-4",
+      "clusterId": 122
     },
     {
       "id": "P7",
-      "clusterId": 6
+      "clusterId": 122
     },
     {
-      "id": "D11",
-      "clusterId": 20
+      "id": "D07",
+      "clusterId": 123
     },
     {
-      "id": "D12",
-      "clusterId": 20
+      "id": "D07-P1-5",
+      "clusterId": 123
     },
     {
-      "id": "D13",
-      "clusterId": 20
+      "id": "D07-P10-4",
+      "clusterId": 123
+    },
+    {
+      "id": "D07-P2-6",
+      "clusterId": 123
+    },
+    {
+      "id": "D07-P3-3",
+      "clusterId": 123
+    },
+    {
+      "id": "D07-P5-2",
+      "clusterId": 123
+    },
+    {
+      "id": "D07-P6-0",
+      "clusterId": 123
+    },
+    {
+      "id": "D07-P6-1",
+      "clusterId": 123
+    },
+    {
+      "id": "D10",
+      "clusterId": 123
+    },
+    {
+      "id": "D10-P10-3",
+      "clusterId": 123
+    },
+    {
+      "id": "D10-P3-1",
+      "clusterId": 123
+    },
+    {
+      "id": "D10-P5-2",
+      "clusterId": 123
+    },
+    {
+      "id": "D10-P6-0",
+      "clusterId": 123
+    },
+    {
+      "id": "D10-P7-4",
+      "clusterId": 123
+    },
+    {
+      "id": "P3",
+      "clusterId": 123
+    },
+    {
+      "id": "P6",
+      "clusterId": 123
+    },
+    {
+      "id": "D14",
+      "clusterId": 127
+    },
+    {
+      "id": "D14-P1-0",
+      "clusterId": 127
+    },
+    {
+      "id": "D14-P10-4",
+      "clusterId": 127
+    },
+    {
+      "id": "D14-P12-5",
+      "clusterId": 127
+    },
+    {
+      "id": "D14-P13-6",
+      "clusterId": 127
+    },
+    {
+      "id": "D14-P5-1",
+      "clusterId": 127
+    },
+    {
+      "id": "D14-P8-2",
+      "clusterId": 127
+    },
+    {
+      "id": "D14-P9-3",
+      "clusterId": 127
+    },
+    {
+      "id": "D15",
+      "clusterId": 128
+    },
+    {
+      "id": "D15-P10-5",
+      "clusterId": 128
+    },
+    {
+      "id": "D15-P12-7",
+      "clusterId": 128
+    },
+    {
+      "id": "D15-P13-6",
+      "clusterId": 128
+    },
+    {
+      "id": "D15-P3-0",
+      "clusterId": 128
+    },
+    {
+      "id": "D15-P5-2",
+      "clusterId": 128
+    },
+    {
+      "id": "D15-P6-1",
+      "clusterId": 128
+    },
+    {
+      "id": "D15-P7-3",
+      "clusterId": 128
+    },
+    {
+      "id": "D15-P8-4",
+      "clusterId": 128
+    },
+    {
+      "id": "D16",
+      "clusterId": 129
+    },
+    {
+      "id": "D16-P1-8",
+      "clusterId": 129
+    },
+    {
+      "id": "D16-P10-7",
+      "clusterId": 129
+    },
+    {
+      "id": "D16-P13-6",
+      "clusterId": 129
+    },
+    {
+      "id": "D16-P3-0",
+      "clusterId": 129
+    },
+    {
+      "id": "D16-P5-2",
+      "clusterId": 129
+    },
+    {
+      "id": "D16-P6-1",
+      "clusterId": 129
+    },
+    {
+      "id": "D16-P7-3",
+      "clusterId": 129
+    },
+    {
+      "id": "D16-P8-5",
+      "clusterId": 129
+    },
+    {
+      "id": "D16-P9-4",
+      "clusterId": 129
     },
     {
       "id": "D17",
-      "clusterId": 20
+      "clusterId": 130
+    },
+    {
+      "id": "D17-P13-3",
+      "clusterId": 130
+    },
+    {
+      "id": "D17-P5-0",
+      "clusterId": 130
+    },
+    {
+      "id": "D17-P8-1",
+      "clusterId": 130
+    },
+    {
+      "id": "D17-P9-2",
+      "clusterId": 130
+    },
+    {
+      "id": "P5",
+      "clusterId": 130
+    },
+    {
+      "id": "D18",
+      "clusterId": 131
+    },
+    {
+      "id": "D18-P1-0",
+      "clusterId": 131
+    },
+    {
+      "id": "D18-P10-5",
+      "clusterId": 131
+    },
+    {
+      "id": "D18-P12-6",
+      "clusterId": 131
+    },
+    {
+      "id": "D18-P2-1",
+      "clusterId": 131
+    },
+    {
+      "id": "D18-P3-2",
+      "clusterId": 131
+    },
+    {
+      "id": "D18-P5-3",
+      "clusterId": 131
+    },
+    {
+      "id": "D18-P6-4",
+      "clusterId": 131
+    },
+    {
+      "id": "D18-P8-8",
+      "clusterId": 131
+    },
+    {
+      "id": "D18-P9-7",
+      "clusterId": 131
+    },
+    {
+      "id": "D11",
+      "clusterId": 132
+    },
+    {
+      "id": "D11-P8-0",
+      "clusterId": 132
+    },
+    {
+      "id": "D11-P8-2",
+      "clusterId": 132
+    },
+    {
+      "id": "D11-P9-1",
+      "clusterId": 132
+    },
+    {
+      "id": "D13",
+      "clusterId": 132
+    },
+    {
+      "id": "D13-P3-3",
+      "clusterId": 132
+    },
+    {
+      "id": "D13-P5-0",
+      "clusterId": 132
+    },
+    {
+      "id": "D13-P8-1",
+      "clusterId": 132
+    },
+    {
+      "id": "D13-P9-2",
+      "clusterId": 132
     },
     {
       "id": "D19",
-      "clusterId": 20
+      "clusterId": 132
     },
     {
-      "id": "D20",
-      "clusterId": 20
+      "id": "D19-P8-0",
+      "clusterId": 132
     },
     {
-      "id": "P12",
-      "clusterId": 20
+      "id": "D19-P8-1",
+      "clusterId": 132
     },
     {
-      "id": "P13",
-      "clusterId": 20
+      "id": "D19-P9-2",
+      "clusterId": 132
+    },
+    {
+      "id": "D19-P9-3",
+      "clusterId": 132
     },
     {
       "id": "P8",
-      "clusterId": 20
+      "clusterId": 132
     },
     {
       "id": "P9",
-      "clusterId": 20
+      "clusterId": 132
+    },
+    {
+      "id": "D12",
+      "clusterId": 133
+    },
+    {
+      "id": "D12-P13-2",
+      "clusterId": 133
+    },
+    {
+      "id": "D12-P8-1",
+      "clusterId": 133
+    },
+    {
+      "id": "D12-P8-3",
+      "clusterId": 133
+    },
+    {
+      "id": "D12-P9-0",
+      "clusterId": 133
+    },
+    {
+      "id": "D20",
+      "clusterId": 133
+    },
+    {
+      "id": "D20-P12-0",
+      "clusterId": 133
+    },
+    {
+      "id": "D20-P13-1",
+      "clusterId": 133
+    },
+    {
+      "id": "D20-P2-2",
+      "clusterId": 133
+    },
+    {
+      "id": "D20-P8-3",
+      "clusterId": 133
+    },
+    {
+      "id": "D20-P9-4",
+      "clusterId": 133
+    },
+    {
+      "id": "P12",
+      "clusterId": 133
+    },
+    {
+      "id": "P13",
+      "clusterId": 133
     }
   ],
-  "claimSimilarity": [
-    {
-      "claim1": "P3",
-      "claim2": "P6",
-      "similarity": 0.875
-    },
-    {
-      "claim1": "P8",
-      "claim2": "P9",
-      "similarity": 0.636
-    },
-    {
-      "claim1": "P1",
-      "claim2": "P2",
-      "similarity": 0.556
-    },
-    {
-      "claim1": "P1",
-      "claim2": "P10",
-      "similarity": 0.5
-    },
-    {
-      "claim1": "P13",
-      "claim2": "P8",
-      "similarity": 0.5
-    },
-    {
-      "claim1": "P6",
-      "claim2": "P7",
-      "similarity": 0.5
-    },
-    {
-      "claim1": "P5",
-      "claim2": "P6",
-      "similarity": 0.455
-    },
-    {
-      "claim1": "P13",
-      "claim2": "P9",
-      "similarity": 0.417
-    },
-    {
-      "claim1": "P10",
-      "claim2": "P3",
-      "similarity": 0.4
-    },
-    {
-      "claim1": "P5",
-      "claim2": "P9",
-      "similarity": 0.385
-    },
-    {
-      "claim1": "P10",
-      "claim2": "P12",
-      "similarity": 0.375
-    },
-    {
-      "claim1": "P3",
-      "claim2": "P7",
-      "similarity": 0.375
-    },
-    {
-      "claim1": "P12",
-      "claim2": "P13",
-      "similarity": 0.375
-    },
-    {
-      "claim1": "P1",
-      "claim2": "P3",
-      "similarity": 0.364
-    },
-    {
-      "claim1": "P2",
-      "claim2": "P3",
-      "similarity": 0.3
-    }
-  ],
+  "claimSimilarity": [],
   "missingEvidence": [
     {
       "claim": "P6",
@@ -581,7 +1486,7 @@
       "risk": 95,
       "nSupp": 0,
       "maxSupp": 0,
-      "nContra": 8,
+      "nContra": 9,
       "gapType": "NO_SUPPORT"
     },
     {
@@ -635,7 +1540,7 @@
       "risk": 90,
       "nSupp": 1,
       "maxSupp": 0.4,
-      "nContra": 7,
+      "nContra": 9,
       "gapType": "WEAK_SUPPORT"
     },
     {
@@ -658,107 +1563,7 @@
     "P8",
     "P10"
   ],
-  "gapWithSimilarPeers": [
-    {
-      "claim": "P6",
-      "status": "contradicted",
-      "risk": 95,
-      "nSupp": 0,
-      "maxSupp": 0,
-      "similarWellSupported": [
-        {
-          "peer": "P1",
-          "sim": 0.333
-        }
-      ]
-    },
-    {
-      "claim": "P3",
-      "status": "contradicted",
-      "risk": 85,
-      "nSupp": 0,
-      "maxSupp": 0,
-      "similarWellSupported": [
-        {
-          "peer": "P1",
-          "sim": 0.364
-        }
-      ]
-    },
-    {
-      "claim": "P4",
-      "status": "gap",
-      "risk": 72,
-      "nSupp": 0,
-      "maxSupp": 0,
-      "similarWellSupported": [
-        {
-          "peer": "P2",
-          "sim": 0.167
-        },
-        {
-          "peer": "P1",
-          "sim": 0.125
-        }
-      ]
-    },
-    {
-      "claim": "P11",
-      "status": "contradicted",
-      "risk": 68,
-      "nSupp": 0,
-      "maxSupp": 0,
-      "similarWellSupported": [
-        {
-          "peer": "P2",
-          "sim": 0.167
-        },
-        {
-          "peer": "P1",
-          "sim": 0.125
-        }
-      ]
-    },
-    {
-      "claim": "P13",
-      "status": "contradicted",
-      "risk": 92,
-      "nSupp": 1,
-      "maxSupp": 0.35,
-      "similarWellSupported": [
-        {
-          "peer": "P9",
-          "sim": 0.417
-        }
-      ]
-    },
-    {
-      "claim": "P8",
-      "status": "contradicted",
-      "risk": 90,
-      "nSupp": 1,
-      "maxSupp": 0.4,
-      "similarWellSupported": [
-        {
-          "peer": "P9",
-          "sim": 0.636
-        }
-      ]
-    },
-    {
-      "claim": "P10",
-      "status": "contradicted",
-      "risk": 82,
-      "nSupp": 1,
-      "maxSupp": 0.55,
-      "similarWellSupported": [
-        {
-          "peer": "P1",
-          "sim": 0.5
-        }
-      ]
-    }
-  ],
+  "gapWithSimilarPeers": [],
   "app": {
     "listClaims": [
       {
@@ -856,75 +1661,93 @@
     "claimEvidence_P6": [
       {
         "claim": "P6",
-        "relation": "CONTRADICTS",
+        "relation": "contradicts",
         "evidenceId": "D07",
         "title": "Change Order No.3 (loyalty)",
         "confidence": 0.97,
-        "quote": "At the Customer's request, the Supplier shall design, build and implement a customer loyalty module (\"the Loyalty Module\")... The Loyalty Module was not part of the original scope under SOW-01."
+        "quote": "At the Customer's request, the Supplier shall design, build and implement a customer loyalty module (\"the Loyalty Module\")... The Loyalty Module was not part of the original scope under SOW-01.",
+        "extractId": "D07-P6-0"
       },
       {
         "claim": "P6",
-        "relation": "CONTRADICTS",
+        "relation": "contradicts",
         "evidenceId": "D10",
         "title": "Email — loyalty change request",
         "confidence": 0.97,
-        "quote": "the board wants a customer loyalty capability included in the platform before we go live ... I appreciate this was not in the original SOW ... Can you scope this as a change"
+        "quote": "the board wants a customer loyalty capability included in the platform before we go live ... I appreciate this was not in the original SOW ... Can you scope this as a change",
+        "extractId": "D10-P6-0"
       },
       {
         "claim": "P6",
-        "relation": "CONTRADICTS",
+        "relation": "contradicts",
         "evidenceId": "D16",
         "title": "Witness — Helena Vance",
         "confidence": 0.97,
-        "quote": "I asked TechFlow to add a loyalty module. I accept this was not in the original Statement of Work. It was documented in Change Order No. 3, which my colleague Priya Nair signed on 2 September 2024"
+        "quote": "I asked TechFlow to add a loyalty module. I accept this was not in the original Statement of Work. It was documented in Change Order No. 3, which my colleague Priya Nair signed on 2 September 2024",
+        "extractId": "D16-P6-1"
       },
       {
         "claim": "P6",
-        "relation": "CONTRADICTS",
+        "relation": "contradicts",
+        "evidenceId": "D07",
+        "title": "Change Order No.3 (loyalty)",
+        "confidence": 0.95,
+        "quote": "Requested by: Helena Vance, Programme Director, Meridian Retail Group plc",
+        "extractId": "D07-P6-1"
+      },
+      {
+        "claim": "P6",
+        "relation": "contradicts",
         "evidenceId": "D18",
         "title": "Witness — Priya Nair",
         "confidence": 0.95,
-        "quote": "This added the customer loyalty module, which Helena Vance had asked TechFlow to provide and which was not in the original Statement of Work... I understood at the time that we were changing both the scope."
+        "quote": "This added the customer loyalty module, which Helena Vance had asked TechFlow to provide and which was not in the original Statement of Work... I understood at the time that we were changing both the scope.",
+        "extractId": "D18-P6-4"
       },
       {
         "claim": "P6",
-        "relation": "CONTRADICTS",
+        "relation": "contradicts",
         "evidenceId": "D09",
         "title": "Email — go-live decision",
         "confidence": 0.85,
-        "quote": "the loyalty module added under Change Order 3 is still being hardened and we have a handful of stock-sync issues we would like to close out under controlled conditions."
+        "quote": "the loyalty module added under Change Order 3 is still being hardened and we have a handful of stock-sync issues we would like to close out under controlled conditions.",
+        "extractId": "D09-P6-2"
       },
       {
         "claim": "P6",
-        "relation": "CONTRADICTS",
+        "relation": "contradicts",
         "evidenceId": "D15",
         "title": "Letter — TechFlow response",
         "confidence": 0.85,
-        "quote": "Change Order No. 3, signed by your client on 2 September 2024, which added a customer loyalty module that your client requested and which was not in the original scope. Your client's assertion that it requested no change to scope is wrong"
+        "quote": "Change Order No. 3, signed by your client on 2 September 2024, which added a customer loyalty module that your client requested and which was not in the original scope. Your client's assertion that it requested no change to scope is wrong",
+        "extractId": "D15-P6-1"
       },
       {
         "claim": "P6",
-        "relation": "CONTRADICTS",
+        "relation": "contradicts",
         "evidenceId": "D04",
         "title": "Statement of Work",
         "confidence": 0.75,
-        "quote": "The detailed implementation plan ... is subject to the change control procedure in clause 3 of the MSA ... subject to any variation agreed under the change control procedure."
+        "quote": "The detailed implementation plan ... is subject to the change control procedure in clause 3 of the MSA ... subject to any variation agreed under the change control procedure.",
+        "extractId": "D04-P6-4"
       },
       {
         "claim": "P6",
-        "relation": "CONTRADICTS",
+        "relation": "contradicts",
         "evidenceId": "D03",
         "title": "Master Services Agreement",
         "confidence": 0.7,
-        "quote": "Any change to the scope, deliverables or timetable shall be agreed in writing by both parties by means of a signed Change Order. A signed Change Order varies this Agreement to the extent stated in it."
+        "quote": "Any change to the scope, deliverables or timetable shall be agreed in writing by both parties by means of a signed Change Order. A signed Change Order varies this Agreement to the extent stated in it.",
+        "extractId": "D03-P6-4"
       },
       {
         "claim": "P6",
-        "relation": "NEUTRAL",
+        "relation": "neutral",
         "evidenceId": "D06",
         "title": "Deed of Variation No.1",
         "confidence": 0.6,
-        "quote": "The parties wish to vary the payment milestone profile to reflect cash-flow phasing. This Deed does not vary the scope of the works or the target go-live date."
+        "quote": "The parties wish to vary the payment milestone profile to reflect cash-flow phasing. This Deed does not vary the scope of the works or the target go-live date.",
+        "extractId": "D06-P6-3"
       }
     ],
     "statusCounts": [
@@ -950,6 +1773,53 @@
         "id": "RT-P6",
         "attackType": "cross_exam",
         "killshotQuote": "the board wants a customer loyalty capability included in the platform before we go live ... I appreciate this was not in the original SOW ... Can you scope this as a change"
+      }
+    ],
+    "caseGraphEdgeSample": [
+      {
+        "id": "D04-P1-0",
+        "claimId": "P1",
+        "documentId": "D04",
+        "relation": "supports",
+        "confidence": 0.85,
+        "quote": "The Supplier shall deliver the Platform in two phases: Phase 1 (core inventory and EPOS); Phase 2 (reporting and analytics).",
+        "rationale": "Confirms TechFlow's obligation to deliver a cloud inventory-management and ePOS platform under the 14 March 2024 MSA, consistent with the engagement pleaded in P1."
+      },
+      {
+        "id": "D03-P1-0",
+        "claimId": "P1",
+        "documentId": "D03",
+        "relation": "supports",
+        "confidence": 0.97,
+        "quote": "The Supplier shall design, build, configure, test and implement the cloud-based inventory management and EPOS platform (\"the Platform\") in accordance with the Statement of Work set out at Schedule 1",
+        "rationale": "Clause 1.1 expressly imposes on TechFlow the obligation to design, build, configure and implement the cloud inventory/EPOS platform, directly establishing the contractual obligation pleaded at P1."
+      },
+      {
+        "id": "D05-P1-0",
+        "claimId": "P1",
+        "documentId": "D05",
+        "relation": "supports",
+        "confidence": 0.85,
+        "quote": "Under: Master Services Agreement dated 14 March 2024 ... Platform licence & implementation (Phase 1 — core inventory & EPOS)",
+        "rationale": "The order form is expressly placed under the MSA dated 14 March 2024 and procures implementation of a core inventory and EPOS platform, corroborating the agreement pleaded in P1."
+      },
+      {
+        "id": "D06-P1-0",
+        "claimId": "P1",
+        "documentId": "D06",
+        "relation": "supports",
+        "confidence": 0.9,
+        "quote": "The parties entered into the Master Services Agreement dated 14 March 2024 (\"the MSA\").",
+        "rationale": "The recital confirms the existence and date of the MSA between Meridian and TechFlow as pleaded in P1."
+      },
+      {
+        "id": "D07-P1-5",
+        "claimId": "P1",
+        "documentId": "D07",
+        "relation": "supports",
+        "confidence": 0.6,
+        "quote": "under the change control procedure (clause 3, MSA dated 14 March 2024)",
+        "rationale": "The change order confirms the existence and operation of the MSA dated 14 March 2024 under which TechFlow was to design, build and implement the Platform."
       }
     ]
   }
