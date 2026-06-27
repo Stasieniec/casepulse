@@ -1,50 +1,38 @@
 import { cn } from '../lib/cn'
 
 /**
- * The Crucible wordmark: a serif logotype with a molten-gold crucible mark.
- * The dot of the 'i' becomes a drop of molten metal.
+ * The CasePulse wordmark: a serif logotype with a pulse/ECG-line glyph.
  */
 export function Wordmark({ className }: { className?: string }) {
   return (
     <div className={cn('flex items-center gap-2.5 select-none', className)}>
-      <CrucibleMark />
+      <PulseMark />
       <span className="font-serif text-[1.55rem] font-semibold leading-none tracking-tight text-parchment">
-        Cruc
-        <span className="text-gold">i</span>
-        ble
+        Case
+        <span className="text-gold">Pulse</span>
       </span>
     </div>
   )
 }
 
-/** A small crucible/heat glyph — a vessel with a rising ember. */
-function CrucibleMark() {
+/** A simple ECG/pulse-line glyph in gold. */
+function PulseMark() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden className="shrink-0">
       <defs>
-        <linearGradient id="cm-heat" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#E0A86A" />
-          <stop offset="100%" stopColor="#C8893F" />
+        <linearGradient id="cp-pulse" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#C8893F" />
+          <stop offset="100%" stopColor="#E0A86A" />
         </linearGradient>
       </defs>
-      {/* the vessel */}
-      <path
-        d="M5 9 H19 L17 18.5 A2 2 0 0 1 15 20 H9 A2 2 0 0 1 7 18.5 Z"
-        stroke="url(#cm-heat)"
-        strokeWidth="1.5"
+      {/* ECG / pulse-line */}
+      <polyline
+        points="2,12 6,12 8,6 10,18 12,10 14,14 16,12 22,12"
+        stroke="url(#cp-pulse)"
+        strokeWidth="1.6"
+        strokeLinecap="round"
         strokeLinejoin="round"
       />
-      {/* lip */}
-      <path d="M4 9 H20" stroke="url(#cm-heat)" strokeWidth="1.5" strokeLinecap="round" />
-      {/* rising ember */}
-      <path
-        d="M12 7.5 C12 6 13 5.5 12.6 4 C13.8 4.7 14 6 13.2 7"
-        stroke="#E0A86A"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-        fill="none"
-      />
-      <circle cx="12" cy="14" r="1.2" fill="url(#cm-heat)" />
     </svg>
   )
 }

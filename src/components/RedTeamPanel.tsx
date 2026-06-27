@@ -21,7 +21,7 @@ const GOLD = '#E0A86A'
 /**
  * The red-team panel: opposing counsel's adversarial attack lines against
  * Meridian's own case, sorted by risk. Each card is an adversarial memo —
- * attack text, kill-shot quote, and Crucible's remediation advice.
+ * attack text, kill-shot quote, and CasePulse's remediation advice.
  */
 export function RedTeamPanel({ caseId, analysisId }: { caseId: string; analysisId?: string }) {
   const { data: attacks, isLoading: loadingAttacks } = useRedTeam(caseId, analysisId)
@@ -200,7 +200,7 @@ function AttackCard({
             className="mb-2 font-sans text-[10px] font-semibold uppercase tracking-[0.14em]"
             style={{ color: GOLD }}
           >
-            Crucible's advice — fix before trial
+            CasePulse's advice — fix before trial
           </div>
           <p className="font-sans text-[13px] leading-[1.75] text-parchment-body">
             {item.fixSuggestion}

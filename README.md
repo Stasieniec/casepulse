@@ -1,16 +1,16 @@
-# Crucible — AI Case-Theory Stress-Test
+# CasePulse — AI Case-Theory Stress-Test
 
 > Paste a pleading. Before opposing counsel does it for you, see exactly where your own evidence bundle breaks your case — allegation by allegation, sourced to the line, then watch the tool play opposing counsel.
 
 Built for **Hack The Law 2026** (Cambridge), Challenge 5 *"Pleading-to-Proof"* (CMS × Harvey).
 
-Most legal-AI surfaces documents *related* to your case. Crucible tells you whether your pleaded case can actually be **proved on the evidence** — and it's auditable to the verbatim line.
+Most legal-AI surfaces documents *related* to your case. CasePulse tells you whether your pleaded case can actually be **proved on the evidence** — and it's auditable to the verbatim line.
 
 ---
 
 ## What it does
 
-Given a litigation bundle (pleading + evidence), Crucible:
+Given a litigation bundle (pleading + evidence), CasePulse:
 
 1. **Extracts** every pleaded proposition from the pleading.
 2. **Maps** each to the evidence as **supported / contradicted / evidence-gap / unaddressed** — via a two-stage pipeline (high-recall retrieval → LLM-judge **with abstention**), every edge carrying a **verbatim quote** you can click to verify in the source.
@@ -60,4 +60,4 @@ The default demo runs on the materialized real analysis (instant, offline). `GRA
 
 ---
 
-*Crucible — a crucible is where you put something under heat to see if it survives. So is a courtroom.*
+*CasePulse — a stress test for your case theory: it shows where the case is strong, where it's weak, and where it flatlines, before the courtroom does.*

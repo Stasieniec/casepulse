@@ -74,10 +74,12 @@ export default function Home() {
               A £2.4m cloud platform build gone wrong. Meridian sues for late
               delivery, defects and lost profit; TechFlow says the timetable
               slipped because Meridian itself demanded an out-of-scope loyalty
-              module and overruled written advice to defer go-live. Crucible
-              reads the Particulars of Claim, judges every pleaded allegation
-              against the {evidenceCount}-document bundle, and surfaces where
-              the case is built on the client&rsquo;s <Em c={STATUS_HEX.contradicted}>own contradicting evidence</Em>.
+              module and overruled written advice to defer go-live. CasePulse
+              maps every allegation against the {evidenceCount}-document bundle
+              — marking each supported, contradicted, or an evidence gap —
+              scores trial-readiness, and plays opposing counsel against your
+              own file before the other side does. It surfaces where the case
+              is built on the client&rsquo;s <Em c={STATUS_HEX.contradicted}>own contradicting evidence</Em>.
             </p>
           </div>
 
@@ -116,9 +118,9 @@ export default function Home() {
           <div className="lg:sticky lg:top-12">
             {/* Hero line */}
             <h2 className="font-serif text-[2.6rem] font-semibold leading-[1.04] text-parchment xl:text-[3rem]">
-              Put this pleading
+              Does your case
               <br />
-              <span className="italic text-gold">to the fire.</span>
+              <span className="italic text-gold">have a pulse?</span>
             </h2>
             <p className="mt-4 max-w-sm text-[14px] leading-relaxed text-parchment-muted">
               Watch a source document become claims, evidence links and verdicts
