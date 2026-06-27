@@ -20,8 +20,10 @@ import { EvidenceViewer, type EvidenceTarget } from './EvidenceViewer'
 import { cn } from '../lib/cn'
 
 const PARCHMENT = '#C7CCD6'
-const DOC_FILL = '#1B2230'
-const NEUTRAL_EXTRACT = STATUS_HEX.unaddressed
+const DOC_FILL = '#34425C' // lifted slate-blue so documents read clearly on the dark canvas
+const DOC_RING = '#EFE9DB' // bright parchment ring for definition + glow
+const CONTAINS_EDGE = '#5A6478' // lighter slate so document→extract links are visible (still subordinate)
+const NEUTRAL_EXTRACT = '#8A93A3' // lifted from the dim slate so neutral findings are visible
 
 const RELATION_LABEL: Record<Relation, string> = {
   supports: 'Supports',
@@ -226,7 +228,14 @@ export function GraphView({ caseId, analysisId }: { caseId: string; analysisId?:
             ← Clear focus · {focusDoc}
           </button>
         )}
-        <div ref={wrapRef} className="relative h-[clamp(440px,68vh,780px)] w-full">
+        <div
+          ref={wrapRef}
+          className="relative h-[clamp(440px,68vh,780px)] w-full"
+          style={{
+            background:
+              'radial-gradient(115% 85% at 50% 44%, rgba(224,168,106,0.05), rgba(20,26,38,0.18) 38%, rgba(11,14,20,0) 66%)',
+          }}
+        >
           {isLoading || nodeCount === 0 ? (
             <div className="flex h-full items-center justify-center">
               <div className="h-10 w-10 animate-spin rounded-full border-2 border-ink-line border-t-gold" />
@@ -332,10 +341,10 @@ function linkColor(
   focusDoc: string | null,
 ): string {
   const [s, t] = linkEndIds(l)
-  const base = l.role === 'contains' ? '#2A3344' : relationFill(l.relation)
-  // Faint at rest so the colored extract DOTS carry the signal, not the lines;
-  // they snap to full strength on hover / focus.
-  const baseAlpha = l.role === 'contains' ? '3a' : '5e'
+  const base = l.role === 'contains' ? CONTAINS_EDGE : relationFill(l.relation)
+  // Visible at rest (the colored rivers should read clearly on the dark canvas),
+  // snapping to full strength on hover / focus. `contains` stays subordinate.
+  const baseAlpha = l.role === 'contains' ? '70' : '9e'
 
   if (focusDoc) {
     const inFocus =
@@ -379,16 +388,16 @@ function drawNode(
   ctx.save()
   ctx.globalAlpha = dimmed ? 0.16 : 1
 
-  // ── Extracts: tiny relation-colored dots, subordinate ──────────────────────
+  // ── Extracts: small relation-colored dots with a soft glow so the colored
+  //    "rivers" of findings read clearly on the dark canvas ────────────────────
   if (node.kind === 'extract') {
-    const fill = relationFill(node.relation)
+    const isNeutral = node.relation === 'neutral'
+    const fill = isNeutral ? NEUTRAL_EXTRACT : relationFill(node.relation)
     ctx.beginPath()
     ctx.arc(x, y, isHovered ? r + 1.4 : r, 0, 2 * Math.PI)
-    ctx.fillStyle = node.relation === 'neutral' ? `${NEUTRAL_EXTRACT}cc` : fill
-    if (isHovered) {
-      ctx.shadowColor = fill
-      ctx.shadowBlur = 12
-    }
+    ctx.fillStyle = fill
+    ctx.shadowColor = fill
+    ctx.shadowBlur = isHovered ? 13 : 4 // subtle glow lifts the dots off the ink
     ctx.fill()
     ctx.shadowBlur = 0
     if (isHovered) {
@@ -412,10 +421,10 @@ function drawNode(
     ctx.stroke()
   }
 
-  if (isHovered) {
-    ctx.shadowColor = color
-    ctx.shadowBlur = 18
-  }
+  // Always-on soft glow so the prominent nodes lift off the dark canvas.
+  const glowColor = node.kind === 'claim' ? color : DOC_RING
+  ctx.shadowColor = glowColor
+  ctx.shadowBlur = isHovered ? 20 : 8
 
   if (node.kind === 'claim') {
     const s = r * 1.7
@@ -426,12 +435,13 @@ function drawNode(
     ctx.strokeStyle = '#0B0E14'
     ctx.stroke()
   } else {
+    // Document: lifted slate fill + a bright parchment ring that glows.
     ctx.beginPath()
     ctx.arc(x, y, r, 0, 2 * Math.PI)
     ctx.fillStyle = DOC_FILL
     ctx.fill()
-    ctx.lineWidth = 1.6 / globalScale
-    ctx.strokeStyle = color
+    ctx.lineWidth = 2 / globalScale
+    ctx.strokeStyle = DOC_RING
     ctx.stroke()
   }
   ctx.shadowBlur = 0
@@ -467,8 +477,11 @@ function drawNode(
     ctx.fillText(node.label, x, y)
   } else {
     const ly = y + r + fontSize
-    ctx.fillStyle = PARCHMENT
+    ctx.shadowColor = '#0B0E14'
+    ctx.shadowBlur = 4
+    ctx.fillStyle = '#E6E0D2'
     ctx.fillText(node.label, x, ly)
+    ctx.shadowBlur = 0
   }
 
   ctx.restore()
@@ -717,7 +730,7 @@ function Legend({ expanded }: { expanded: boolean }) {
           <span className="font-sans text-[11px] text-parchment-muted">Claim</span>
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="h-2.5 w-2.5 rounded-full border" style={{ borderColor: PARCHMENT, backgroundColor: DOC_FILL }} />
+          <span className="h-2.5 w-2.5 rounded-full border-2" style={{ borderColor: DOC_RING, backgroundColor: DOC_FILL }} />
           <span className="font-sans text-[11px] text-parchment-muted">Document</span>
         </span>
         {expanded && (
@@ -770,7 +783,7 @@ function Legend({ expanded }: { expanded: boolean }) {
       <LegendGroup title="Edges">
         <EdgeKey color={STATUS_HEX.contradicted} label="Contradicts" />
         <EdgeKey color={STATUS_HEX.well_supported} label="Supports" />
-        {expanded && <EdgeKey color="#2A3344" label="Contains" thin />}
+        {expanded && <EdgeKey color={CONTAINS_EDGE} label="Contains" thin />}
       </LegendGroup>
     </div>
   )
