@@ -27,4 +27,16 @@ describe('MockGraphProvider', () => {
     expect(d.contradicting.length).toBeGreaterThan(0)
     expect(d.supporting.length).toBe(0)
   })
+
+  it('getRedTeam returns 10 items for meridian', async () => {
+    const items = await g.getRedTeam('meridian')
+    expect(items).toHaveLength(10)
+  })
+
+  it('P6 red-team item has non-empty attackText', async () => {
+    const items = await g.getRedTeam('meridian')
+    const p6 = items.find(x => x.claimId === 'P6')
+    expect(p6).toBeDefined()
+    expect(p6!.attackText.length).toBeGreaterThan(0)
+  })
 })

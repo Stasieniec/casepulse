@@ -1,6 +1,7 @@
 import type { CaseSummary, Stats, GdsOverlays, Evidence, RedTeamItem } from '../../shared/types'
 import { buildSeed } from './seed-transform'
 import matrixJson from '../../seed/meridian.matrix.json'
+import redteamJson from '../../seed/redteam.seed.json'
 import { MERIDIAN_PLEADING_RAW } from './pleading-data'
 
 // docId → human-readable document title
@@ -101,7 +102,7 @@ export function loadSeed(): SeedData {
     claims,
     evidence,
     edges,
-    redteam: [],
+    redteam: redteamJson as RedTeamItem[],
     stats,
     gds,
     normalizedPleading,
