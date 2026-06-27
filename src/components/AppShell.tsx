@@ -133,9 +133,21 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
           <div className="hairline mb-3" />
           <p className="font-mono text-[10px] leading-relaxed text-parchment-muted/70">
-            Two-stage retrieval + LLM-judge with abstention. Validated against{' '}
+            Two-stage retrieval + LLM-judge with abstention (threshold 0.55). Judge agrees with{' '}
+            <span className="text-parchment-muted">13/15 hand-labeled relations</span>; abstains
+            below 0.55 confidence. Validated against{' '}
             <span className="text-parchment-muted">Bates v Post Office</span>.
           </p>
+
+          <div className="hairline mt-4 mb-3" />
+          <div className="eyebrow mb-1.5 text-parchment-muted/50">Powered by</div>
+          <ul className="space-y-1 font-mono text-[9px] leading-relaxed text-parchment-muted/50">
+            <li>Neo4j Aura · Graph Data Science</li>
+            <li>Google Gemini</li>
+            <li>Cloudflare · Workers / D1</li>
+            <li>Anthropic Claude Code</li>
+            {/* Nvidia: not yet wired — enable once API key is live */}
+          </ul>
         </div>
       </aside>
 
