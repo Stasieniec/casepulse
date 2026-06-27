@@ -96,6 +96,10 @@ const STATUS_WEIGHT: Record<ClaimStatus, number> = {
 
 export interface ClaimLike {
   status: ClaimStatus
+  /** Optional headline for verdict/vulnerability generation (live analyses only). */
+  headline?: string
+  /** Optional label (e.g. "P6") for display in vulnerabilities list. */
+  label?: string
 }
 
 export function computeStats(claims: ClaimLike[], _opts?: unknown): Stats {
@@ -132,6 +136,36 @@ export function computeStats(claims: ClaimLike[], _opts?: unknown): Stats {
   const totalPoints = claims.reduce((sum, c) => sum + STATUS_WEIGHT[c.status], 0)
   const overallScore = Math.round(totalPoints / claims.length)
 
+  // Template-based verdict + vulnerabilities (no LLM call).
+  // Built from claim counts and the highest-risk contradicted/gap/contested headlines.
+  const riskyClaims = claims.filter(
+    c => c.status === 'contradicted' || c.status === 'gap' || c.status === 'contested',
+  )
+
+  const biggestVulnerabilities: string[] = riskyClaims
+    .slice(0, 6)
+    .map(c => {
+      const prefix = c.label ? `[${c.label}]` : `[${c.status}]`
+      const hl = c.headline ?? '(no headline)'
+      return `${prefix} ${hl}`
+    })
+
+  let verdict = ''
+  if (riskyClaims.length === 0) {
+    verdict = `Case analysis shows strong evidential support across all ${claims.length} propositions. Overall trial-readiness score: ${overallScore}/100.`
+  } else {
+    const topRiskHeadlines = riskyClaims
+      .slice(0, 3)
+      .map(c => c.headline ?? c.label ?? 'unknown')
+      .join('; ')
+    verdict =
+      `Of ${claims.length} propositions analysed, ${wellSupported} are well-supported, ` +
+      `${contradicted} contradicted, ${gaps} gap${gaps !== 1 ? 's' : ''}, ` +
+      `${contested} contested, and ${unaddressed} unaddressed. ` +
+      `Overall trial-readiness score: ${overallScore}/100. ` +
+      `Highest-risk areas: ${topRiskHeadlines}.`
+  }
+
   return {
     wellSupported,
     contested,
@@ -139,7 +173,7 @@ export function computeStats(claims: ClaimLike[], _opts?: unknown): Stats {
     gaps,
     unaddressed,
     overallScore,
-    verdict: '',
-    biggestVulnerabilities: [],
+    verdict,
+    biggestVulnerabilities,
   }
 }

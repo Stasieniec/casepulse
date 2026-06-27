@@ -75,12 +75,15 @@ export async function runAnalysis(env: Env, input: RunAnalysisInput): Promise<Ru
   await retriever.index(caseId, allChunks)
 
   // 4–6. Per claim: span → retrieve → judge → aggregate → red-team
-  const claims: Claim[] = []
-  const allEdges: Edge[] = []
-  const redTeamItems: RedTeamItem[] = []
+  // Process claims in parallel batches of ~5 to reduce wall-clock time ~3-4×.
+  // Per-claim internal order (topK → judge each candidate → aggregate → redTeam) is preserved.
+  const BATCH_SIZE = 5
 
-  for (let i = 0; i < extractedClaims.length; i++) {
-    const ec = extractedClaims[i]
+  async function processClaim(ec: (typeof extractedClaims)[number], i: number): Promise<{
+    claim: Claim
+    judgedEdges: Edge[]
+    redTeamItem: RedTeamItem | null
+  }> {
     const claimId = `${pleadingId}-C${i}`
 
     // Map the LLM-extracted claim text back to its character offsets in the pleading
@@ -89,7 +92,7 @@ export async function runAnalysis(env: Env, input: RunAnalysisInput): Promise<Ru
     // Retrieve top-6 evidence chunks most similar to this claim
     const topChunks = await retriever.topK(caseId, ec.text, 6)
 
-    // Judge each retrieved chunk for supports/contradicts/neutral
+    // Judge each retrieved chunk for supports/contradicts/neutral (sequential within a claim)
     const judgedEdges: Edge[] = []
     for (let j = 0; j < topChunks.length; j++) {
       const chunk = topChunks[j]
@@ -120,18 +123,33 @@ export async function runAnalysis(env: Env, input: RunAnalysisInput): Promise<Ru
       riskScore,
       headline: ec.text.slice(0, 80),
     }
-    claims.push(claim)
-    allEdges.push(...judgedEdges)
 
     // Red-team claims that are weak (contradicted, gap, or contested)
+    let redTeamItem: RedTeamItem | null = null
     if (status === 'contradicted' || status === 'gap' || status === 'contested') {
       const killEdges = judgedEdges.filter(e => e.relation === 'contradicts')
       const rt = await llm.redTeam(claim, killEdges)
-      redTeamItems.push({
-        id: `${claimId}-RT`,
-        claimId,
-        ...rt,
-      })
+      redTeamItem = { id: `${claimId}-RT`, claimId, ...rt }
+    }
+
+    return { claim, judgedEdges, redTeamItem }
+  }
+
+  const claims: Claim[] = []
+  const allEdges: Edge[] = []
+  const redTeamItems: RedTeamItem[] = []
+
+  // Process in batches to parallelize across claims while preserving result order
+  for (let batchStart = 0; batchStart < extractedClaims.length; batchStart += BATCH_SIZE) {
+    const batchEnd = Math.min(batchStart + BATCH_SIZE, extractedClaims.length)
+    const batchIndices = Array.from({ length: batchEnd - batchStart }, (_, k) => batchStart + k)
+    const batchResults = await Promise.all(
+      batchIndices.map(i => processClaim(extractedClaims[i], i)),
+    )
+    for (const { claim, judgedEdges, redTeamItem } of batchResults) {
+      claims.push(claim)
+      allEdges.push(...judgedEdges)
+      if (redTeamItem) redTeamItems.push(redTeamItem)
     }
   }
 
