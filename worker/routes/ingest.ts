@@ -23,8 +23,8 @@ export const ingest = new Hono<{ Bindings: Env }>()
  * Returns 503 when GCP credentials are not configured — no fake fallback.
  */
 ingest.post('/', async (c) => {
-  // Guard: both env vars must be set — return 503 if not (no fake fallback)
-  if (!c.env.GCP_SA_KEY || !c.env.GCP_DOCAI_PROCESSOR) {
+  // Guard: a processor + some credential must be set — 503 if not (no fake fallback)
+  if (!c.env.GCP_DOCAI_PROCESSOR || (!c.env.GCP_ACCESS_TOKEN && !c.env.GCP_SA_KEY)) {
     return c.json({ error: 'Document AI not configured' }, 503)
   }
 

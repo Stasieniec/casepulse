@@ -147,10 +147,13 @@ export async function getGoogleAccessToken(saKeyJson: string): Promise<string> {
  * The LOCATION is derived from the resource name (the segment after "locations/").
  */
 export async function extractTextFromPdf(
-  env: { GCP_SA_KEY?: string; GCP_DOCAI_PROCESSOR?: string },
+  env: { GCP_SA_KEY?: string; GCP_ACCESS_TOKEN?: string; GCP_DOCAI_PROCESSOR?: string },
   pdfBase64: string,
 ): Promise<string> {
-  if (!env.GCP_SA_KEY || !env.GCP_DOCAI_PROCESSOR) {
+  // Two auth modes: a short-lived access token (GCP_ACCESS_TOKEN, used on this
+  // lab account where SA-key creation is org-policy-blocked) takes precedence;
+  // otherwise mint a token from a service-account key (GCP_SA_KEY).
+  if (!env.GCP_DOCAI_PROCESSOR || (!env.GCP_ACCESS_TOKEN && !env.GCP_SA_KEY)) {
     throw new Error('Document AI not configured')
   }
 
@@ -164,7 +167,9 @@ export async function extractTextFromPdf(
   }
   const location = locationMatch[1]
 
-  const accessToken = await getGoogleAccessToken(env.GCP_SA_KEY)
+  const accessToken = env.GCP_ACCESS_TOKEN
+    ? env.GCP_ACCESS_TOKEN
+    : await getGoogleAccessToken(env.GCP_SA_KEY!)
 
   const endpoint = `https://${location}-documentai.googleapis.com/v1/${env.GCP_DOCAI_PROCESSOR}:process`
 

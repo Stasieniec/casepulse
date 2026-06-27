@@ -16,6 +16,7 @@ export type Env = {
   //                         projects/{project_number}/locations/{location}/processors/{id}
   // GCP_PROJECT           — GCP project id or number (informational; used by scripts)
   GCP_SA_KEY?: string
+  GCP_ACCESS_TOKEN?: string // short-lived OAuth token (used where SA-key creation is org-policy-blocked)
   GCP_DOCAI_PROCESSOR?: string
   GCP_PROJECT?: string
 }
