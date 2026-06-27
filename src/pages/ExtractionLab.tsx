@@ -44,6 +44,7 @@ export default function ExtractionLab() {
   // Live mode state. Default = replay (no network).
   const [live, setLive] = useState(false)
   const [liveId, setLiveId] = useState<string | null>(null)
+  const [liveScore, setLiveScore] = useState<number | null>(null)
   const [liveError, setLiveError] = useState<string | null>(null)
 
   // The choreography ALWAYS animates over the seed graph/stats — instant,
@@ -80,7 +81,10 @@ export default function ExtractionLab() {
       }
       livePleadingText.current = text
       const result = await analyze(caseId, text)
-      if (gen === runGen.current) setLiveId(result.analysisId)
+      if (gen === runGen.current) {
+        setLiveId(result.analysisId)
+        setLiveScore(result.stats.overallScore)
+      }
     } catch (err) {
       if (gen === runGen.current) setLiveError(err instanceof Error ? err.message : String(err))
       // Fall back to replay: do not set liveId, choreography proceeds on seed.
@@ -111,6 +115,7 @@ export default function ExtractionLab() {
     if (toLive === live) return
     runGen.current++ // invalidate any in-flight live run
     setLiveId(null)
+    setLiveScore(null)
     setLiveError(null)
     setLive(toLive)
     choreo.reset()
@@ -150,7 +155,7 @@ export default function ExtractionLab() {
         <StageHeader mode={mode} choreo={choreo} sourceId={sourceParam} live={live} liveId={liveId} />
 
         {mode === 'pleading' ? (
-          <PleadingStage caseId={caseId} graph={graph} stats={stats} choreo={choreo} liveId={liveId} />
+          <PleadingStage caseId={caseId} graph={graph} stats={stats} choreo={choreo} liveId={liveId} liveScore={liveScore} />
         ) : (
           <EvidenceStage
             caseId={caseId}
@@ -159,6 +164,7 @@ export default function ExtractionLab() {
             choreo={choreo}
             sourceId={sourceParam!}
             liveId={liveId}
+            liveScore={liveScore}
           />
         )}
 
@@ -388,12 +394,14 @@ function PleadingStage({
   stats,
   choreo,
   liveId,
+  liveScore,
 }: {
   caseId: string
   graph: CaseGraph | undefined
   stats: { overallScore: number; contradicted: number; wellSupported: number; gaps: number } | undefined
   choreo: ReturnType<typeof useLabChoreography>
   liveId: string | null
+  liveScore: number | null
 }) {
   const [evidenceTarget, setEvidenceTarget] = useState<EvidenceTarget | null>(null)
 
@@ -468,7 +476,7 @@ function PleadingStage({
             {(crossexam || searching) && <AbstentionBeat active={crossexam} />}
           </>
         ) : (
-          <BuildingPanel stats={stats} />
+          <BuildingPanel stats={stats} liveScore={liveScore} />
         )}
       </aside>
 
@@ -684,13 +692,17 @@ function AbstentionBeat({ active }: { active: boolean }) {
 /** Final building panel: the readiness gauge sweeps + counts tally. */
 function BuildingPanel({
   stats,
+  liveScore,
 }: {
   stats: { overallScore: number; contradicted: number; wellSupported: number; gaps: number } | undefined
+  liveScore?: number | null
 }) {
+  // In live mode, use the real score returned by analyze(); fall back to seed.
+  const gaugeScore = liveScore ?? stats?.overallScore ?? 28
   return (
     <div className="rounded-panel border border-ink-line bg-ink-panel/70 px-4 py-6 animate-fade-rise">
       <div className="eyebrow mb-3 text-center text-gold/70">Trial-readiness</div>
-      <ReadinessGauge score={stats?.overallScore ?? 28} />
+      <ReadinessGauge score={gaugeScore} />
       <div className="mt-4 grid grid-cols-3 gap-2 border-t border-ink-line pt-4">
         <Tally value={stats?.contradicted ?? 8} label="Contradicted" color={STATUS_HEX.contradicted} />
         <Tally value={stats?.gaps ?? 1} label="Gaps" color={STATUS_HEX.gap} />
@@ -719,6 +731,7 @@ function EvidenceStage({
   choreo,
   sourceId,
   liveId,
+  liveScore,
 }: {
   caseId: string
   graph: CaseGraph | undefined
@@ -726,6 +739,7 @@ function EvidenceStage({
   choreo: ReturnType<typeof useLabChoreography>
   sourceId: string
   liveId: string | null
+  liveScore: number | null
 }) {
   const [evidenceTarget, setEvidenceTarget] = useState<EvidenceTarget | null>(null)
   const doc = graph?.evidence.find((e) => e.id === sourceId)
@@ -810,7 +824,7 @@ function EvidenceStage({
           </button>
         </div>
 
-        {building && <div className="mt-4"><BuildingPanel stats={stats} /></div>}
+        {building && <div className="mt-4"><BuildingPanel stats={stats} liveScore={liveScore} /></div>}
       </section>
 
       {/* Edges forming to the claims it judges */}
