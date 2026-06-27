@@ -34,6 +34,7 @@ export interface GdsOverlays {
 }
 export interface CaseSummary { id: string; name: string; parties: string; court: string; claimNo: string }
 export interface Pleading { caseId: string; title: string; fullText: string }
+export interface DocumentText { docId: string; title: string; text: string }
 
 export interface GraphProvider {
   listCases(): Promise<CaseSummary[]>
@@ -44,6 +45,7 @@ export interface GraphProvider {
   getGdsOverlays(caseId: string): Promise<GdsOverlays>
   getRedTeam(caseId: string): Promise<RedTeamItem[]>
   getPleading(caseId: string): Promise<Pleading>
+  getDocument(caseId: string, docId: string): Promise<DocumentText>
 }
 
 export interface ExtractedClaim { label: string; paragraphRef: string; text: string; spanStart: number; spanEnd: number }

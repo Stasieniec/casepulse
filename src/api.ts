@@ -7,9 +7,10 @@ import type {
   RedTeamItem,
   GdsOverlays,
   Pleading,
+  DocumentText,
 } from '../shared/types'
 
-export type { Pleading } from '../shared/types'
+export type { Pleading, DocumentText } from '../shared/types'
 
 /** Result of an analysis run (currently a stub; see analyze()). */
 export interface AnalyzeResult {
@@ -40,6 +41,9 @@ export const getRedTeam = (caseId: string) => get<RedTeamItem[]>(`/api/cases/${c
 export const getGds = (caseId: string) => get<GdsOverlays>(`/api/cases/${caseId}/gds`)
 
 export const getPleading = (caseId: string) => get<Pleading>(`/api/cases/${caseId}/pleading`)
+
+export const getDocument = (caseId: string, docId: string) =>
+  get<DocumentText>(`/api/cases/${caseId}/documents/${docId}`)
 
 /**
  * Stub: kick off live analysis of a pleading.

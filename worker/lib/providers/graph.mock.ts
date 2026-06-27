@@ -8,8 +8,10 @@ import type {
   GdsOverlays,
   RedTeamItem,
   Pleading,
+  DocumentText,
 } from '../../../shared/types'
 import { loadSeed } from '../seed-loader'
+import { DOC_TEXTS } from '../docs-data'
 
 export class MockGraphProvider implements GraphProvider {
   private s = loadSeed()
@@ -68,6 +70,16 @@ export class MockGraphProvider implements GraphProvider {
       caseId,
       title: 'Particulars of Claim',
       fullText: this.s.normalizedPleading,
+    }
+  }
+
+  async getDocument(_caseId: string, docId: string): Promise<DocumentText> {
+    const text = DOC_TEXTS[docId]
+    if (text === undefined) throw new Error(`Document ${docId} not found`)
+    return {
+      docId,
+      title: this.s.titleOf(docId),
+      text,
     }
   }
 }

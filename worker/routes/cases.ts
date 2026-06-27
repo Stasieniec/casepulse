@@ -10,3 +10,11 @@ cases.get('/:id/graph', async (c) => c.json(await getGraphProvider(c.env).getCas
 cases.get('/:id/redteam', async (c) => c.json(await getGraphProvider(c.env).getRedTeam(c.req.param('id'))))
 cases.get('/:id/gds', async (c) => c.json(await getGraphProvider(c.env).getGdsOverlays(c.req.param('id'))))
 cases.get('/:id/pleading', async (c) => c.json(await getGraphProvider(c.env).getPleading(c.req.param('id'))))
+cases.get('/:id/documents/:docId', async (c) => {
+  try {
+    const doc = await getGraphProvider(c.env).getDocument(c.req.param('id'), c.req.param('docId'))
+    return c.json(doc)
+  } catch {
+    return c.json({ error: 'Document not found' }, 404)
+  }
+})

@@ -11,6 +11,7 @@ export const qk = {
   redteam: (caseId: string) => ['redteam', caseId] as const,
   gds: (caseId: string) => ['gds', caseId] as const,
   pleading: (caseId: string) => ['pleading', caseId] as const,
+  document: (caseId: string, docId: string) => ['document', caseId, docId] as const,
 }
 
 export const useCases = () => useQuery({ queryKey: qk.cases, queryFn: api.listCases })
@@ -46,4 +47,12 @@ export const usePleading = (caseId: string) =>
     queryKey: qk.pleading(caseId),
     queryFn: () => api.getPleading(caseId),
     enabled: !!caseId,
+  })
+
+export const useDocument = (caseId: string, docId: string | null | undefined) =>
+  useQuery({
+    queryKey: qk.document(caseId, docId ?? ''),
+    queryFn: () => api.getDocument(caseId, docId as string),
+    enabled: !!caseId && !!docId,
+    staleTime: Infinity, // document text never changes
   })
