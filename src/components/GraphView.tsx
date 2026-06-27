@@ -18,12 +18,23 @@ import { Panel } from './ui/Panel'
 import { SectionHeader } from './ui/SectionHeader'
 import { EvidenceViewer, type EvidenceTarget } from './EvidenceViewer'
 import { cn } from '../lib/cn'
+import { DOC_META } from '../lib/docMeta'
 
 const PARCHMENT = '#C7CCD6'
 const DOC_FILL = '#34425C' // lifted slate-blue so documents read clearly on the dark canvas
 const DOC_RING = '#EFE9DB' // bright parchment ring for definition + glow
 const CONTAINS_EDGE = '#5A6478' // lighter slate so document→extract links are visible (still subordinate)
 const NEUTRAL_EXTRACT = '#8A93A3' // lifted from the dim slate so neutral findings are visible
+const ADMISSION_GOLD = '#E0A86A' // claimant's own evidence that contradicts its own pleading
+
+/**
+ * True for document nodes that are the claimant's own evidence yet contradict
+ * its pleading -- an admission against interest (flagged in docMeta, confirmed
+ * by the symbolic FrameNet/deontic analysis). These render with a gold ring.
+ */
+function isAdmissionDoc(node: GraphNode): boolean {
+  return node.kind === 'document' && DOC_META[node.id]?.admissionAgainstInterest === true
+}
 
 const RELATION_LABEL: Record<Relation, string> = {
   supports: 'Supports',
@@ -422,9 +433,11 @@ function drawNode(
   }
 
   // Always-on soft glow so the prominent nodes lift off the dark canvas.
-  const glowColor = node.kind === 'claim' ? color : DOC_RING
+  // The claimant's own adverse exhibits glow gold so the case-killers read hot.
+  const admission = isAdmissionDoc(node)
+  const glowColor = node.kind === 'claim' ? color : admission ? ADMISSION_GOLD : DOC_RING
   ctx.shadowColor = glowColor
-  ctx.shadowBlur = isHovered ? 20 : 8
+  ctx.shadowBlur = isHovered ? 20 : admission ? 13 : 8
 
   if (node.kind === 'claim') {
     const s = r * 1.7
@@ -435,16 +448,35 @@ function drawNode(
     ctx.strokeStyle = '#0B0E14'
     ctx.stroke()
   } else {
-    // Document: lifted slate fill + a bright parchment ring that glows.
+    // Document: lifted slate fill + a ring that glows. Claimant's own adverse
+    // exhibits get a gold ring (admission against interest); others parchment.
     ctx.beginPath()
     ctx.arc(x, y, r, 0, 2 * Math.PI)
     ctx.fillStyle = DOC_FILL
     ctx.fill()
-    ctx.lineWidth = 2 / globalScale
-    ctx.strokeStyle = DOC_RING
+    ctx.lineWidth = (admission ? 2.6 : 2) / globalScale
+    ctx.strokeStyle = admission ? ADMISSION_GOLD : DOC_RING
     ctx.stroke()
   }
   ctx.shadowBlur = 0
+
+  // Admission-against-interest pip: a small gold marker on the claimant's own
+  // adverse exhibits so the case-killers are spottable even when zoomed out.
+  if (admission) {
+    const ax = x - r * 0.95
+    const ay = y - r * 0.95
+    const ar = Math.max(2.2, 3.6 / globalScale)
+    ctx.beginPath()
+    ctx.arc(ax, ay, ar, 0, 2 * Math.PI)
+    ctx.fillStyle = ADMISSION_GOLD
+    ctx.shadowColor = ADMISSION_GOLD
+    ctx.shadowBlur = 6
+    ctx.fill()
+    ctx.shadowBlur = 0
+    ctx.lineWidth = 1 / globalScale
+    ctx.strokeStyle = '#0B0E14'
+    ctx.stroke()
+  }
 
   // GDS missing-evidence marker on flagged claims.
   if (node.isGap) {
@@ -525,13 +557,17 @@ function nodeTooltip(n: GraphNode): string {
   const gap = n.isGap
     ? `<div style="color:${STATUS_HEX.gap};margin-top:3px;font-weight:600">⚠ Flagged: no / weak support</div>`
     : ''
+  const admission =
+    n.kind === 'document' && DOC_META[n.id]?.admissionAgainstInterest === true
+      ? `<div style="color:${ADMISSION_GOLD};margin-top:5px;font-weight:600;font-size:11px;border-top:1px solid #1E2533;padding-top:5px">Claimant's own evidence - admission against interest</div>`
+      : ''
   const kindLabel = n.kind === 'claim' ? 'Allegation' : 'Document'
   const action =
     n.kind === 'document' ? 'Click to focus its extracts' : 'Click to inspect the key finding'
   return `<div style="font-family:Inter,sans-serif;font-size:12px;max-width:280px;color:#ECE7DA;background:#11151F;border:1px solid #1E2533;border-radius:5px;padding:9px 11px;box-shadow:0 6px 24px rgba(0,0,0,.5)">
     <div style="color:#8A93A3;font-size:9.5px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px">${kindLabel}</div>
     <b>${escapeHtml(n.label)}</b> — ${escapeHtml(n.title)}
-    <div style="color:#8A93A3;margin-top:4px;font-family:'IBM Plex Mono',monospace;font-size:10.5px">centrality ${n.centrality.toFixed(2)} · ${comm}</div>${gap}
+    <div style="color:#8A93A3;margin-top:4px;font-family:'IBM Plex Mono',monospace;font-size:10.5px">centrality ${n.centrality.toFixed(2)} · ${comm}</div>${gap}${admission}
     <div style="color:#8A93A3;margin-top:5px;font-size:10px">${action}</div>
   </div>`
 }
@@ -629,6 +665,7 @@ interface Insight {
   communityCount: number
   gapCount: number
   extractCount: number
+  aaiCount: number
 }
 
 function buildInsight(graph: CaseGraph | undefined, gds: GdsOverlays | undefined): Insight | null {
@@ -649,6 +686,13 @@ function buildInsight(graph: CaseGraph | undefined, gds: GdsOverlays | undefined
 
   const clusters = new Set(Object.values(gds.communities ?? {}))
 
+  // Claimant's own exhibits that nonetheless contradict its own pleading.
+  const aaiCount = graph.evidence.filter(
+    (e) =>
+      DOC_META[e.id]?.admissionAgainstInterest === true &&
+      graph.edges.some((edge) => edge.documentId === e.id && edge.relation === 'contradicts'),
+  ).length
+
   return {
     pivotalLabel: pivotalId,
     pivotalTitle: ev?.title ?? '',
@@ -656,6 +700,7 @@ function buildInsight(graph: CaseGraph | undefined, gds: GdsOverlays | undefined
     communityCount: clusters.size,
     gapCount: (gds.missingEvidence ?? []).length,
     extractCount: graph.edges.length,
+    aaiCount,
   }
 }
 
@@ -667,6 +712,13 @@ function InsightBar({ insight }: { insight: Insight }) {
         value={insight.pivotalLabel}
         sub={truncate(insight.pivotalTitle, 56)}
         valueColor="#E0A86A"
+      />
+      <span className="hidden h-7 w-px bg-ink-line sm:block" aria-hidden />
+      <InsightStat
+        label="Admissions against interest"
+        value={String(insight.aaiCount)}
+        sub="claimant's own exhibits vs its case"
+        valueColor={ADMISSION_GOLD}
       />
       <span className="hidden h-7 w-px bg-ink-line sm:block" aria-hidden />
       <InsightStat
@@ -743,6 +795,21 @@ function Legend({ expanded }: { expanded: boolean }) {
             <span className="font-sans text-[11px] text-parchment-muted">Extract</span>
           </span>
         )}
+      </LegendGroup>
+
+      <span className="hidden h-6 w-px bg-ink-line lg:block" aria-hidden />
+
+      <LegendGroup title="Adverse">
+        <span
+          className="flex items-center gap-1.5"
+          title="Claimant's own evidence that contradicts its own pleading - an admission against interest"
+        >
+          <span
+            className="h-2.5 w-2.5 rounded-full border-2"
+            style={{ borderColor: ADMISSION_GOLD, backgroundColor: DOC_FILL }}
+          />
+          <span className="font-sans text-[11px] text-parchment-muted">Claimant's own evidence</span>
+        </span>
       </LegendGroup>
 
       <span className="hidden h-6 w-px bg-ink-line lg:block" aria-hidden />

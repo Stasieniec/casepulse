@@ -34,6 +34,14 @@ export interface DocMeta {
   supersededNote?: string
   /** The instructing / disclosing solicitor or firm. */
   custodian: string
+  /**
+   * True where Meridian (the claimant) authored, signed or accepted this
+   * document yet it contradicts Meridian's own pleading -- an admission
+   * against interest, the strongest category of adverse evidence. Surfaced by
+   * the symbolic FrameNet/deontic analysis (epistemic status =
+   * admitted-against-interest) and confirmed against the bundle.
+   */
+  admissionAgainstInterest?: boolean
 }
 
 export const DOC_META: Record<string, DocMeta> = {
@@ -81,6 +89,7 @@ export const DOC_META: Record<string, DocMeta> = {
     uploadedAt: '2025-07-18T09:48:00Z',
     version: 'v1',
     custodian: 'Caldwell Pryce LLP',
+    admissionAgainstInterest: true, // requested by Helena Vance (Meridian)
   },
   D08: {
     id: 'D08',
@@ -90,6 +99,7 @@ export const DOC_META: Record<string, DocMeta> = {
     uploadedAt: '2025-07-18T10:00:00Z',
     version: 'v1',
     custodian: 'Caldwell Pryce LLP',
+    admissionAgainstInterest: true, // Meridian confirms Phase 1 passed UAT
   },
   D09: {
     id: 'D09',
@@ -99,6 +109,7 @@ export const DOC_META: Record<string, DocMeta> = {
     uploadedAt: '2025-07-18T10:12:00Z',
     version: 'v1',
     custodian: 'Caldwell Pryce LLP',
+    admissionAgainstInterest: true, // Vance (Meridian) authorises go-live, accepts risk
   },
   D10: {
     id: 'D10',
@@ -163,6 +174,7 @@ export const DOC_META: Record<string, DocMeta> = {
     version: 'v2',
     supersededNote: 'v2 — amended 13 Mar → 20 Mar 2026; supersedes v1',
     custodian: 'Caldwell Pryce LLP',
+    admissionAgainstInterest: true, // Meridian's own Programme Director concedes adverse facts
   },
   D17: {
     id: 'D17',
@@ -181,6 +193,7 @@ export const DOC_META: Record<string, DocMeta> = {
     uploadedAt: '2026-03-13T10:00:00Z',
     version: 'v1',
     custodian: 'Caldwell Pryce LLP',
+    admissionAgainstInterest: true, // Meridian's Head of Procurement signed Change Order No. 3
   },
   D19: {
     id: 'D19',
