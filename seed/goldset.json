@@ -1,0 +1,20 @@
+{
+  "_note": "Hand-curated gold set of UNAMBIGUOUS claim<->evidence relations from the Meridian v TechFlow bundle, for calibrating the two-stage LLM judge. Truth assigned by a human (controller) reading the documents, NOT by the LLM that produced the seed matrix — so this is an independent check, not circular. Each item: the pleaded claim text, the source doc, and the expected relation.",
+  "pairs": [
+    { "claim": "The Platform was unavailable for more than 40% of trading hours during November and December 2024", "docId": "D19", "expected": "contradicts", "why": "Whitfield expert puts platform-attributable downtime at ~6.2% and finds no support for 40%" },
+    { "claim": "Meridian did not at any time request any change to the agreed scope of the works", "docId": "D07", "expected": "contradicts", "why": "Change Order No.3 is expressly 'at the Customer's request' for the loyalty module" },
+    { "claim": "Meridian repeatedly warned TechFlow the Platform was not ready and requested that go-live be deferred; TechFlow ignored those warnings", "docId": "D09", "expected": "contradicts", "why": "TechFlow recommended deferral; Meridian's Vance overruled and proceeded" },
+    { "claim": "Meridian did not accept the Platform and no acceptance or sign-off was given at any time", "docId": "D08", "expected": "contradicts", "why": "Signed Phase-1 UAT Acceptance Certificate" },
+    { "claim": "The go-live date was fixed at 1 October 2024 and time was of the essence", "docId": "D04", "expected": "contradicts", "why": "SOW calls 1 October a 'target date' subject to change control" },
+    { "claim": "Meridian suffered loss of profit of 4,200,000 pounds during peak trading Nov-Dec 2024", "docId": "D20", "expected": "contradicts", "why": "Greenhalgh quantum expert: substantially overstated, ~1.3m supportable, clause 14 may exclude loss of profit" },
+    { "claim": "The Platform contained critical Severity 1 defects in the stock-synchronisation module", "docId": "D19", "expected": "supports", "why": "Whitfield confirms genuine serious Severity-1 stock-sync defects below standard" },
+    { "claim": "The Platform contained critical Severity 1 defects in the stock-synchronisation module", "docId": "D13", "expected": "supports", "why": "Defect log records D-001/D-002 Sev 1 stock-sync platform defects" },
+    { "claim": "The total charges payable under the MSA were 2,400,000 pounds excluding VAT", "docId": "D03", "expected": "supports", "why": "MSA states total charges 2,400,000 ex VAT" },
+    { "claim": "Wasted expenditure being sums paid to TechFlow under the MSA was 1,800,000 pounds", "docId": "D20", "expected": "supports", "why": "Greenhalgh: 1.8m consistent with records, no reason to challenge" },
+    { "claim": "TechFlow agreed to design, build, configure and implement a cloud inventory and EPOS platform", "docId": "D03", "expected": "supports", "why": "MSA clause 1.1 imposes exactly this obligation" },
+    { "claim": "TechFlow failed to provide adequate training to Meridian's staff", "docId": "D20", "expected": "neutral", "why": "Quantum accounting report does not address training" },
+    { "claim": "TechFlow orally represented the Platform would support at least 10,000 concurrent transactions", "docId": "D08", "expected": "neutral", "why": "UAT certificate does not address any pre-contractual representation" },
+    { "claim": "The total charges payable under the MSA were 2,400,000 pounds excluding VAT", "docId": "D11", "expected": "neutral", "why": "The 25 Nov outage email does not address the contract price" },
+    { "claim": "The Platform was unavailable for more than 40% of trading hours", "docId": "D05", "expected": "neutral", "why": "The Order Form does not address post-go-live availability" }
+  ]
+}
