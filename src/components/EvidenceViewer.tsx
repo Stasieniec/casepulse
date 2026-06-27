@@ -20,6 +20,7 @@ export interface EvidenceTarget {
 
 interface EvidenceViewerProps {
   caseId: string
+  analysisId?: string
   target: EvidenceTarget | null
   onClose: () => void
 }
@@ -35,9 +36,9 @@ const RELATION_VERB: Record<Relation, string> = {
  * full text of the cited document with the verbatim quote highlighted in
  * context. This is the evidence the judges came to see.
  */
-export function EvidenceViewer({ caseId, target, onClose }: EvidenceViewerProps) {
+export function EvidenceViewer({ caseId, analysisId, target, onClose }: EvidenceViewerProps) {
   const open = target !== null
-  const { data: doc, isLoading, isError } = useDocument(caseId, target?.docId)
+  const { data: doc, isLoading, isError } = useDocument(caseId, target?.docId, analysisId)
   const quoteRef = useRef<HTMLSpanElement | null>(null)
 
   // Close on Escape.

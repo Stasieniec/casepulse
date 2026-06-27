@@ -13,8 +13,8 @@ import { DrilldownModal } from './DrilldownModal'
  * hero), the four status counters, and the risk register — an editorial,
  * asymmetric composition.
  */
-export function Dashboard({ caseId }: { caseId: string }) {
-  const { data: stats, isLoading, isError } = useStats(caseId)
+export function Dashboard({ caseId, analysisId }: { caseId: string; analysisId?: string }) {
+  const { data: stats, isLoading, isError } = useStats(caseId, analysisId)
   const [drill, setDrill] = useState<ClaimStatus | null>(null)
 
   if (isLoading) return <DashboardSkeleton />
@@ -54,7 +54,7 @@ export function Dashboard({ caseId }: { caseId: string }) {
       {/* Risk register */}
       <VulnerabilityFeed items={stats.biggestVulnerabilities} />
 
-      <DrilldownModal caseId={caseId} status={drill} onClose={() => setDrill(null)} />
+      <DrilldownModal caseId={caseId} analysisId={analysisId} status={drill} onClose={() => setDrill(null)} />
     </div>
   )
 }

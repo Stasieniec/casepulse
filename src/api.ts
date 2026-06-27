@@ -12,9 +12,19 @@ import type {
 
 export type { Pleading, DocumentText } from '../shared/types'
 
-/** Result of an analysis run (currently a stub; see analyze()). */
+/** Result returned by POST /api/analyze. */
 export interface AnalyzeResult {
-  caseId: string
+  analysisId: string
+  stats: {
+    wellSupported: number
+    contested: number
+    contradicted: number
+    gaps: number
+    unaddressed: number
+    overallScore: number
+  }
+  claimCount: number
+  edgeCount: number
 }
 
 async function get<T>(path: string): Promise<T> {
@@ -25,33 +35,51 @@ async function get<T>(path: string): Promise<T> {
   return (await res.json()) as T
 }
 
-export const listCases = () => get<CaseSummary[]>('/api/cases')
+/** Append ?analysis=<id> to a path when an analysisId is provided. */
+function withAnalysis(path: string, analysisId?: string | null): string {
+  return analysisId ? `${path}?analysis=${encodeURIComponent(analysisId)}` : path
+}
 
-export const getStats = (caseId: string) => get<Stats>(`/api/cases/${caseId}/stats`)
+export const listCases = (analysisId?: string | null) =>
+  get<CaseSummary[]>(withAnalysis('/api/cases', analysisId))
 
-export const getCaseGraph = (caseId: string) => get<CaseGraph>(`/api/cases/${caseId}/graph`)
+export const getStats = (caseId: string, analysisId?: string | null) =>
+  get<Stats>(withAnalysis(`/api/cases/${caseId}/stats`, analysisId))
 
-export const getClaim = (claimId: string) => get<ClaimDetail>(`/api/claims/${claimId}`)
+export const getCaseGraph = (caseId: string, analysisId?: string | null) =>
+  get<CaseGraph>(withAnalysis(`/api/cases/${caseId}/graph`, analysisId))
 
-export const getEvidence = (claimId: string) =>
-  get<EvidenceLink[]>(`/api/claims/${claimId}/evidence`)
+export const getClaim = (claimId: string, analysisId?: string | null) =>
+  get<ClaimDetail>(withAnalysis(`/api/claims/${claimId}`, analysisId))
 
-export const getRedTeam = (caseId: string) => get<RedTeamItem[]>(`/api/cases/${caseId}/redteam`)
+export const getEvidence = (claimId: string, analysisId?: string | null) =>
+  get<EvidenceLink[]>(withAnalysis(`/api/claims/${claimId}/evidence`, analysisId))
 
-export const getGds = (caseId: string) => get<GdsOverlays>(`/api/cases/${caseId}/gds`)
+export const getRedTeam = (caseId: string, analysisId?: string | null) =>
+  get<RedTeamItem[]>(withAnalysis(`/api/cases/${caseId}/redteam`, analysisId))
 
-export const getPleading = (caseId: string) => get<Pleading>(`/api/cases/${caseId}/pleading`)
+export const getGds = (caseId: string, analysisId?: string | null) =>
+  get<GdsOverlays>(withAnalysis(`/api/cases/${caseId}/gds`, analysisId))
 
-export const getDocument = (caseId: string, docId: string) =>
-  get<DocumentText>(`/api/cases/${caseId}/documents/${docId}`)
+export const getPleading = (caseId: string, analysisId?: string | null) =>
+  get<Pleading>(withAnalysis(`/api/cases/${caseId}/pleading`, analysisId))
+
+export const getDocument = (caseId: string, docId: string, analysisId?: string | null) =>
+  get<DocumentText>(withAnalysis(`/api/cases/${caseId}/documents/${docId}`, analysisId))
 
 /**
- * Stub: kick off live analysis of a pleading.
- *
- * TODO(Task 2.10): wire to `POST /api/analyze {caseId, pleadingText}` which runs
- * the extract → retrieve → judge → aggregate pipeline and returns an analysisId.
- * For now we resolve immediately so the UI can navigate to the seeded CaseView.
+ * POST /api/analyze — runs the real Gemini pipeline and returns an analysisId.
+ * Expects ~20-60s for a full pleading.
  */
-export async function analyze(caseId: string, _pleadingText: string): Promise<AnalyzeResult> {
-  return { caseId }
+export async function analyze(caseId: string, pleadingText: string): Promise<AnalyzeResult> {
+  const res = await fetch('/api/analyze', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', accept: 'application/json' },
+    body: JSON.stringify({ caseId, pleadingText }),
+  })
+  if (!res.ok) {
+    const err = await res.text()
+    throw new Error(`POST /api/analyze failed: ${res.status} — ${err.slice(0, 300)}`)
+  }
+  return (await res.json()) as AnalyzeResult
 }

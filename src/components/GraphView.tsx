@@ -37,9 +37,9 @@ const EVIDENCE_FILL = '#1B2230'
  * cluster around the weakest claims (P6/P7/P8). Node size tracks graph
  * centrality. The canvas fills the panel and never causes page scroll.
  */
-export function GraphView({ caseId }: { caseId: string }) {
-  const { data: graph, isLoading, isError } = useGraph(caseId)
-  const { data: gds } = useGds(caseId)
+export function GraphView({ caseId, analysisId }: { caseId: string; analysisId?: string }) {
+  const { data: graph, isLoading, isError } = useGraph(caseId, analysisId)
+  const { data: gds } = useGds(caseId, analysisId)
 
   const wrapRef = useRef<HTMLDivElement | null>(null)
   const fgRef = useRef<ForceGraphMethods<GraphNode, GraphLink> | undefined>(undefined)
@@ -142,7 +142,7 @@ export function GraphView({ caseId }: { caseId: string }) {
           )}
         </div>
       </Panel>
-      <EvidenceViewer caseId={caseId} target={evidence} onClose={() => setEvidence(null)} />
+      <EvidenceViewer caseId={caseId} analysisId={analysisId} target={evidence} onClose={() => setEvidence(null)} />
     </div>
   )
 }

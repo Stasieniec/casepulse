@@ -23,9 +23,9 @@ const GOLD = '#E0A86A'
  * Meridian's own case, sorted by risk. Each card is an adversarial memo —
  * attack text, kill-shot quote, and Crucible's remediation advice.
  */
-export function RedTeamPanel({ caseId }: { caseId: string }) {
-  const { data: attacks, isLoading: loadingAttacks } = useRedTeam(caseId)
-  const { data: graph, isLoading: loadingGraph } = useGraph(caseId)
+export function RedTeamPanel({ caseId, analysisId }: { caseId: string; analysisId?: string }) {
+  const { data: attacks, isLoading: loadingAttacks } = useRedTeam(caseId, analysisId)
+  const { data: graph, isLoading: loadingGraph } = useGraph(caseId, analysisId)
   const [searchParams] = useSearchParams()
   const [evidenceTarget, setEvidenceTarget] = useState<EvidenceTarget | null>(null)
 
@@ -76,6 +76,7 @@ export function RedTeamPanel({ caseId }: { caseId: string }) {
               claimLabel={claim?.label ?? item.claimId}
               paragraphRef={claim?.paragraphRef}
               caseId={caseId}
+              analysisId={analysisId}
               index={i}
               deepLinked={deepLinkedClaim === item.claimId}
               onOpenEvidence={setEvidenceTarget}
@@ -87,6 +88,7 @@ export function RedTeamPanel({ caseId }: { caseId: string }) {
       {/* Evidence drawer (shared) */}
       <EvidenceViewer
         caseId={caseId}
+        analysisId={analysisId}
         target={evidenceTarget}
         onClose={() => setEvidenceTarget(null)}
       />
@@ -102,6 +104,7 @@ interface AttackCardProps {
   claimLabel: string
   paragraphRef: string | undefined
   caseId: string
+  analysisId?: string
   index: number
   deepLinked: boolean
   onOpenEvidence: (t: EvidenceTarget) => void
@@ -113,6 +116,7 @@ function AttackCard({
   claimLabel,
   paragraphRef,
   caseId,
+  analysisId,
   deepLinked,
   onOpenEvidence,
 }: AttackCardProps) {
@@ -180,6 +184,7 @@ function AttackCard({
           claimId={item.claimId}
           killshotQuote={item.killshotQuote}
           caseId={caseId}
+          analysisId={analysisId}
           onOpenEvidence={onOpenEvidence}
         />
 
@@ -212,11 +217,12 @@ interface KillshotBlockProps {
   claimId: string
   killshotQuote: string
   caseId: string
+  analysisId?: string
   onOpenEvidence: (t: EvidenceTarget) => void
 }
 
-function KillshotBlock({ claimId, killshotQuote, onOpenEvidence }: KillshotBlockProps) {
-  const { data: claim } = useClaim(claimId)
+function KillshotBlock({ claimId, killshotQuote, analysisId, onOpenEvidence }: KillshotBlockProps) {
+  const { data: claim } = useClaim(claimId, analysisId)
 
   function handleClick() {
     if (!claim) return

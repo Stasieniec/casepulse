@@ -14,6 +14,7 @@ export interface PopoverAnchor {
 
 interface ClaimPopoverProps {
   caseId: string
+  analysisId?: string
   anchor: PopoverAnchor
   /** Open the evidence drawer for a specific edge. */
   onJumpToSource: (target: EvidenceTarget) => void
@@ -33,13 +34,14 @@ const WIDTH = 380
  */
 export function ClaimPopover({
   caseId,
+  analysisId,
   anchor,
   onJumpToSource,
   onMouseEnter,
   onMouseLeave,
 }: ClaimPopoverProps) {
   const navigate = useNavigate()
-  const { data: claim, isLoading } = useClaim(anchor.claimId)
+  const { data: claim, isLoading } = useClaim(anchor.claimId, analysisId)
   const ref = useRef<HTMLDivElement | null>(null)
   const [pos, setPos] = useState<{ top: number; left: number; placement: 'top' | 'bottom' }>(() =>
     initialPos(anchor.rect),
@@ -82,9 +84,8 @@ export function ClaimPopover({
   }
 
   function seeAttack() {
-    // TODO(Task 3.1 / Red-Team batch): deep-link to the specific attack for this
-    // claim. Red-Team content lands in a later batch; for now route to the section.
-    navigate(`/case/${caseId}/redteam?claim=${anchor.claimId}`)
+    const base = `/case/${caseId}/redteam?claim=${anchor.claimId}`
+    navigate(analysisId ? `${base}&analysis=${encodeURIComponent(analysisId)}` : base)
   }
 
   return (

@@ -8,6 +8,7 @@ import { cn } from '../lib/cn'
 
 interface DrilldownModalProps {
   caseId: string
+  analysisId?: string
   status: ClaimStatus | null
   onClose: () => void
 }
@@ -16,9 +17,9 @@ interface DrilldownModalProps {
  * Modal opened from a status counter: lists the claims of that status and deep-
  * links each into the Pleading section.
  */
-export function DrilldownModal({ caseId, status, onClose }: DrilldownModalProps) {
+export function DrilldownModal({ caseId, analysisId, status, onClose }: DrilldownModalProps) {
   const navigate = useNavigate()
-  const { data: graph } = useGraph(caseId)
+  const { data: graph } = useGraph(caseId, analysisId)
 
   // Close on Escape.
   useEffect(() => {
@@ -37,9 +38,9 @@ export function DrilldownModal({ caseId, status, onClose }: DrilldownModalProps)
   const color = STATUS_HEX[status]
 
   function openClaim(claim: Claim) {
-    // TODO(Task 1.5): deep-scroll the Pleading view to the target span. For now
-    // we pass the claim id as a query param the Pleading view will consume.
-    navigate(`/case/${caseId}/pleading?claim=${claim.id}`)
+    // Pass the analysisId so the pleading view also reads the live analysis.
+    const base = `/case/${caseId}/pleading?claim=${claim.id}`
+    navigate(analysisId ? `${base}&analysis=${encodeURIComponent(analysisId)}` : base)
     onClose()
   }
 

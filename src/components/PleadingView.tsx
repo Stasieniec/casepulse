@@ -28,9 +28,9 @@ const LEGEND_ORDER: ClaimStatus[] = [
  * (EvidenceViewer). Claims "resolve in" on mount; a deep-linked claim is
  * scrolled to and briefly pulsed.
  */
-export function PleadingView({ caseId }: { caseId: string }) {
-  const { data: pleading, isLoading: loadingPleading, isError: pleadingError } = usePleading(caseId)
-  const { data: graph, isLoading: loadingGraph } = useGraph(caseId)
+export function PleadingView({ caseId, analysisId }: { caseId: string; analysisId?: string }) {
+  const { data: pleading, isLoading: loadingPleading, isError: pleadingError } = usePleading(caseId, analysisId)
+  const { data: graph, isLoading: loadingGraph } = useGraph(caseId, analysisId)
   const [params] = useSearchParams()
   const deepLinkClaim = params.get('claim')
 
@@ -186,6 +186,7 @@ export function PleadingView({ caseId }: { caseId: string }) {
       {anchor && (
         <ClaimPopover
           caseId={caseId}
+          analysisId={analysisId}
           anchor={anchor}
           onJumpToSource={(t) => {
             setAnchor(null)
@@ -196,7 +197,7 @@ export function PleadingView({ caseId }: { caseId: string }) {
         />
       )}
 
-      <EvidenceViewer caseId={caseId} target={evidence} onClose={() => setEvidence(null)} />
+      <EvidenceViewer caseId={caseId} analysisId={analysisId} target={evidence} onClose={() => setEvidence(null)} />
     </div>
   )
 }

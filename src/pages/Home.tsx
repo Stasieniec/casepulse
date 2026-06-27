@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useCases, usePleading } from '../hooks/queries'
 import { analyze } from '../api'
 import { CaseSelector } from '../components/CaseSelector'
+import { Processing } from '../components/Processing'
 import { cn } from '../lib/cn'
 
 const DEFAULT_CASE = 'meridian'
@@ -18,21 +19,51 @@ export default function Home() {
   const { data: pleading } = usePleading(example)
   const [text, setText] = useState('')
   const [edited, setEdited] = useState(false)
+  const [processing, setProcessing] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   // Prefill the editor from the selected example pleading until the user edits.
   useEffect(() => {
     if (pleading?.fullText && !edited) setText(pleading.fullText)
   }, [pleading?.fullText, edited])
 
-  async function onStressTest() {
-    // TODO(Task 2.10): run live analysis via analyze(caseId, text) →
-    // POST /api/analyze, show processing animation, then route to live results.
-    // For now we navigate straight to the seeded dashboard.
-    await analyze(caseId, text)
+  /** "Use seed (instant)" — navigate directly to the seeded dashboard. */
+  function onSeed() {
     navigate(`/case/${caseId}/dashboard`)
   }
 
+  /** "Run live" — POST to the real pipeline, show processing animation, then navigate with analysisId. */
+  async function onRunLive() {
+    if (!text.trim()) return
+    setError(null)
+    setProcessing(true)
+    try {
+      const result = await analyze(caseId, text)
+      navigate(`/case/${caseId}/dashboard?analysis=${encodeURIComponent(result.analysisId)}`)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err))
+      setProcessing(false)
+    }
+  }
+
   const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0
+
+  // Processing screen — shown while the live API call is in-flight
+  if (processing) {
+    return (
+      <div className="min-h-screen px-10 py-12 lg:px-16 xl:px-24">
+        <header className="mb-8 max-w-3xl">
+          <div className="eyebrow mb-4 text-gold/80">The crucible · live analysis running</div>
+          <h1 className="font-serif text-[2rem] font-semibold leading-[1.1] text-parchment">
+            Putting your pleading
+            <br />
+            <span className="italic text-gold">to the fire…</span>
+          </h1>
+        </header>
+        <Processing onCancel={() => setProcessing(false)} />
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen px-10 py-12 lg:px-16 xl:px-24">
@@ -112,7 +143,13 @@ export default function Home() {
                 fill="none"
                 aria-hidden
               >
-                <path d="M2.5 4.5 L6 8 L9.5 4.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M2.5 4.5 L6 8 L9.5 4.5"
+                  stroke="currentColor"
+                  strokeWidth="1.3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </div>
             <p className="mt-2 text-[12px] leading-relaxed text-parchment-muted">
@@ -120,30 +157,65 @@ export default function Home() {
             </p>
           </div>
 
-          <button
-            onClick={onStressTest}
-            disabled={!text.trim()}
-            className={cn(
-              'group relative mt-1 w-full overflow-hidden rounded-panel px-5 py-3.5 font-sans text-[14px] font-semibold tracking-wide text-ink transition-all duration-200',
-              'bg-gradient-to-b from-gold to-gold-deep',
-              'hover:shadow-[0_8px_30px_-8px_rgba(224,168,106,0.55)] hover:brightness-105',
-              'disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none',
-            )}
-          >
-            <span className="relative z-10 flex items-center justify-center gap-2">
-              Stress-test the case
-              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
-                <path d="M3 8 H12 M9 5 L12 8 L9 11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </span>
-          </button>
+          {/* Error display */}
+          {error && (
+            <div className="rounded-panel border border-red-500/30 bg-red-500/10 px-4 py-3 text-[12px] text-red-300">
+              {error}
+            </div>
+          )}
+
+          {/* Two-path action buttons */}
+          <div className="mt-1 flex flex-col gap-3">
+            <button
+              onClick={onRunLive}
+              disabled={!text.trim()}
+              className={cn(
+                'group relative w-full overflow-hidden rounded-panel px-5 py-3.5 font-sans text-[14px] font-semibold tracking-wide text-ink transition-all duration-200',
+                'bg-gradient-to-b from-gold to-gold-deep',
+                'hover:shadow-[0_8px_30px_-8px_rgba(224,168,106,0.55)] hover:brightness-105',
+                'disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none',
+              )}
+            >
+              <span className="relative z-10 flex items-center justify-center gap-2">
+                Run live
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
+                  <path
+                    d="M3 8 H12 M9 5 L12 8 L9 11"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+            </button>
+
+            <button
+              onClick={onSeed}
+              className="w-full rounded-panel border border-ink-line px-5 py-3 font-sans text-[13px] font-medium text-parchment-muted transition-colors hover:border-gold-dim/50 hover:text-parchment-body"
+            >
+              Use seed (instant)
+            </button>
+          </div>
 
           <div className="hairline" />
 
           <div className="space-y-3">
-            <Bullet n="01" label="Extract" body="Every pleaded proposition is isolated and mapped to its paragraph." />
-            <Bullet n="02" label="Retrieve & judge" body="High-recall search over the bundle, then an LLM-judge with abstention." />
-            <Bullet n="03" label="Score & attack" body="Trial-readiness, the risk register, and an opposing-counsel memo." />
+            <Bullet
+              n="01"
+              label="Extract"
+              body="Every pleaded proposition is isolated and mapped to its paragraph."
+            />
+            <Bullet
+              n="02"
+              label="Retrieve & judge"
+              body="High-recall search over the bundle, then an LLM-judge with abstention."
+            />
+            <Bullet
+              n="03"
+              label="Score & attack"
+              body="Trial-readiness, the risk register, and an opposing-counsel memo."
+            />
           </div>
         </aside>
       </div>
