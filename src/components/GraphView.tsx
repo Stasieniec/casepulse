@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import ForceGraph2D, { type ForceGraphMethods } from 'react-force-graph-2d'
-import type { CaseGraph, ClaimStatus, Relation } from '../../shared/types'
+import type { CaseGraph, ClaimStatus, GdsOverlays, Relation } from '../../shared/types'
 import { useGraph, useGds } from '../hooks/queries'
 import { STATUS_HEX, STATUS_LABEL, statusColor, relationColor } from '../lib/status'
 import { Panel } from './ui/Panel'
@@ -15,7 +15,10 @@ interface GraphNode {
   label: string // short label drawn on/near the node (P6 / D19)
   title: string // full title (claim headline / doc title) for tooltip
   status?: ClaimStatus
-  val: number // size driver (centrality)
+  val: number // size driver (centrality / PageRank)
+  centrality: number // raw GDS centrality (for tooltip)
+  community: number | null // Louvain cluster id
+  isGap: boolean // flagged by GDS missingEvidence (no/weak support)
   // react-force-graph mutates these:
   x?: number
   y?: number
@@ -29,6 +32,27 @@ interface GraphLink {
 
 const PARCHMENT = '#C7CCD6'
 const EVIDENCE_FILL = '#1B2230'
+
+/**
+ * Louvain community → ring color + human label. Communities are cool/neutral so
+ * they read as a SECOND channel that never collides with the warm status colors
+ * on the claim squares. The cluster ids come straight from Neo4j GDS (Louvain).
+ */
+const COMMUNITY_COLOR: Record<number, string> = {
+  2: '#7FA8C9', // structural (contract / price / formation)
+  6: '#B79BD8', // liability (scope, time, performance)
+  20: '#5FB6B0', // quantum (loss, defects, expert)
+}
+const COMMUNITY_LABEL: Record<number, string> = {
+  2: 'Structural',
+  6: 'Liability',
+  20: 'Quantum',
+}
+const COMMUNITY_FALLBACK = '#5B6675'
+function communityColor(id: number | null): string {
+  if (id == null) return COMMUNITY_FALLBACK
+  return COMMUNITY_COLOR[id] ?? COMMUNITY_FALLBACK
+}
 
 /**
  * Force-directed claim–evidence graph. Claims are squares colored by
@@ -59,7 +83,8 @@ export function GraphView({ caseId, analysisId }: { caseId: string; analysisId?:
     return () => ro.disconnect()
   }, [])
 
-  const data = useMemo(() => buildGraphData(graph, gds?.centrality), [graph, gds])
+  const data = useMemo(() => buildGraphData(graph, gds), [graph, gds])
+  const insight = useMemo(() => buildInsight(graph, gds), [graph, gds])
 
   // Tune the forces once the graph is mounted for a calm, legible layout.
   useEffect(() => {
@@ -102,9 +127,13 @@ export function GraphView({ caseId, analysisId }: { caseId: string; analysisId?:
       <SectionHeader
         eyebrow="Claim–evidence graph"
         title="The case, mapped"
-        sub="Allegations linked to the exhibits that prove or break them. Crimson edges are contradictions; node size tracks centrality. Click a node to open its source."
-        action={<Legend />}
+        sub="Allegations linked to the exhibits that prove or break them. Crimson edges are contradictions; node size tracks PageRank centrality; rings group Louvain communities. Click a node to open its source."
+        action={<NeoBadge />}
       />
+
+      {insight && <InsightBar insight={insight} />}
+
+      <Legend />
 
       <Panel flush className="relative overflow-hidden">
         <div ref={wrapRef} className="relative h-[clamp(440px,68vh,760px)] w-full">
@@ -122,8 +151,14 @@ export function GraphView({ caseId, analysisId }: { caseId: string; analysisId?:
               cooldownTicks={120}
               nodeRelSize={5}
               nodeVal={(n) => n.val}
-              nodeLabel={(n) => `<div style="font-family:Inter,sans-serif;font-size:12px;max-width:240px;color:#ECE7DA">
-                <b>${n.label}</b> — ${escapeHtml(n.title)}</div>`}
+              nodeLabel={(n) => {
+                const comm = n.community != null ? COMMUNITY_LABEL[n.community] ?? `Cluster ${n.community}` : '—'
+                const gap = n.isGap ? `<div style="color:${STATUS_HEX.gap};margin-top:3px;font-weight:600">⚠ Flagged: no / weak support</div>` : ''
+                return `<div style="font-family:Inter,sans-serif;font-size:12px;max-width:260px;color:#ECE7DA;background:#11151F;border:1px solid #1E2533;border-radius:4px;padding:8px 10px">
+                  <b>${n.label}</b> — ${escapeHtml(n.title)}
+                  <div style="color:#8A93A3;margin-top:4px;font-family:'IBM Plex Mono',monospace;font-size:10.5px">
+                    centrality ${n.centrality.toFixed(2)} · ${comm}</div>${gap}</div>`
+              }}
               linkColor={(l) => `${relationColor(l.relation)}99`}
               linkWidth={(l) => 0.8 + l.confidence * 2.2}
               linkDirectionalParticles={(l) => (l.relation === 'contradicts' ? 2 : 0)}
@@ -156,11 +191,22 @@ function drawNode(
 ) {
   const x = node.x ?? 0
   const y = node.y ?? 0
-  // Radius from val (centrality), gently compressed so big nodes don't dominate.
-  const r = (4 + Math.sqrt(node.val) * 2.6) * 1
+  // Radius from centrality (PageRank), gently compressed so big nodes don't dominate.
+  const r = 4 + Math.sqrt(node.val) * 3.4
   const color = node.kind === 'claim' && node.status ? statusColor(node.status) : PARCHMENT
+  const comm = communityColor(node.community)
 
   ctx.save()
+
+  // GDS community ring: a colored halo around every node, keyed to its Louvain
+  // cluster — the second analytic channel beneath the status fill.
+  if (node.community != null) {
+    ctx.beginPath()
+    ctx.arc(x, y, r + 3.5, 0, 2 * Math.PI)
+    ctx.lineWidth = 2 / globalScale
+    ctx.strokeStyle = `${comm}cc`
+    ctx.stroke()
+  }
 
   if (isHovered) {
     ctx.shadowColor = color
@@ -187,6 +233,29 @@ function drawNode(
     ctx.stroke()
   }
   ctx.shadowBlur = 0
+
+  // GDS missing-evidence marker: a small burnt-orange warning pip on claims the
+  // graph flags as having no / weak support — the structural evidence gaps.
+  if (node.isGap) {
+    const gx = x + r * 0.95
+    const gy = y - r * 0.95
+    const gr = Math.max(2.4, 4 / globalScale)
+    ctx.beginPath()
+    ctx.arc(gx, gy, gr, 0, 2 * Math.PI)
+    ctx.fillStyle = STATUS_HEX.gap
+    ctx.fill()
+    ctx.lineWidth = 1 / globalScale
+    ctx.strokeStyle = '#0B0E14'
+    ctx.stroke()
+    // a tiny "!" for legibility when zoomed in
+    if (globalScale > 1.3) {
+      ctx.fillStyle = '#0B0E14'
+      ctx.font = `700 ${gr * 1.6}px 'IBM Plex Mono', monospace`
+      ctx.textAlign = 'center'
+      ctx.textBaseline = 'middle'
+      ctx.fillText('!', gx, gy + 0.3)
+    }
+  }
 
   // Labels: always for claims; for evidence only when zoomed in enough or hovered.
   const showLabel = node.kind === 'claim' || isHovered || globalScale > 1.6
@@ -231,13 +300,17 @@ function roundRect(
 // ── Data shaping ────────────────────────────────────────────────────────────
 function buildGraphData(
   graph: CaseGraph | undefined,
-  centrality: Record<string, number> | undefined,
+  gds: GdsOverlays | undefined,
 ): { nodes: GraphNode[]; links: GraphLink[] } {
   if (!graph) return { nodes: [], links: [] }
 
-  const val = (id: string) => {
+  const centrality = gds?.centrality
+  const communities = gds?.communities
+  const gapSet = new Set(gds?.missingEvidence ?? [])
+
+  const raw = (id: string) => {
     const c = centrality?.[id]
-    return c && c > 0 ? c : 1
+    return c && c > 0 ? c : 0.4
   }
 
   const nodes: GraphNode[] = [
@@ -248,7 +321,10 @@ function buildGraphData(
         label: c.label,
         title: c.headline,
         status: c.status,
-        val: val(c.id),
+        val: raw(c.id),
+        centrality: raw(c.id),
+        community: communities?.[c.id] ?? null,
+        isGap: gapSet.has(c.id),
       }),
     ),
     ...graph.evidence.map(
@@ -257,7 +333,10 @@ function buildGraphData(
         kind: 'evidence',
         label: e.id,
         title: e.title,
-        val: val(e.id),
+        val: raw(e.id),
+        centrality: raw(e.id),
+        community: communities?.[e.id] ?? null,
+        isGap: false,
       }),
     ),
   ]
@@ -280,30 +359,182 @@ function escapeHtml(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 }
 
+// ── Neo4j Aura credit badge ──────────────────────────────────────────────────
+function NeoBadge() {
+  return (
+    <span className="inline-flex items-center gap-2 rounded-full border border-ink-line bg-ink-panel/70 px-3 py-1.5">
+      <span
+        className="inline-block h-2 w-2 rounded-full"
+        style={{ background: 'radial-gradient(circle at 30% 30%, #4fd1c5, #0e7490)' }}
+        aria-hidden
+      />
+      <span className="font-sans text-[11px] font-medium text-parchment-body">
+        Graph + Graph Data Science computed in{' '}
+        <span className="text-parchment">Neo4j Aura</span>
+      </span>
+      <span className="font-mono text-[9.5px] text-parchment-muted/70">PageRank · Louvain · node-similarity</span>
+    </span>
+  )
+}
+
+// ── One-line GDS insight ─────────────────────────────────────────────────────
+interface Insight {
+  pivotalLabel: string
+  pivotalTitle: string
+  communityCount: number
+  communityNames: string[]
+  gapCount: number
+}
+
+function buildInsight(graph: CaseGraph | undefined, gds: GdsOverlays | undefined): Insight | null {
+  if (!graph || !gds) return null
+  // Most pivotal node by centrality.
+  let pivotalId = ''
+  let max = -Infinity
+  for (const [id, score] of Object.entries(gds.centrality ?? {})) {
+    if (score > max) {
+      max = score
+      pivotalId = id
+    }
+  }
+  const claim = graph.claims.find((c) => c.id === pivotalId)
+  const ev = graph.evidence.find((e) => e.id === pivotalId)
+  const pivotalTitle = claim?.headline ?? ev?.title ?? ''
+
+  const clusters = new Set(Object.values(gds.communities ?? {}))
+  const communityNames = [...clusters]
+    .map((id) => COMMUNITY_LABEL[id])
+    .filter(Boolean) as string[]
+
+  return {
+    pivotalLabel: pivotalId,
+    pivotalTitle,
+    communityCount: clusters.size,
+    communityNames,
+    gapCount: (gds.missingEvidence ?? []).length,
+  }
+}
+
+function InsightBar({ insight }: { insight: Insight }) {
+  return (
+    <Panel className="flex flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3">
+      <InsightStat
+        label="Most pivotal"
+        value={insight.pivotalLabel}
+        sub={truncate(insight.pivotalTitle, 64)}
+      />
+      <span className="hidden h-7 w-px bg-ink-line sm:block" aria-hidden />
+      <InsightStat
+        label="Communities"
+        value={String(insight.communityCount)}
+        sub={insight.communityNames.join(' · ') || 'Louvain clusters'}
+      />
+      <span className="hidden h-7 w-px bg-ink-line sm:block" aria-hidden />
+      <InsightStat
+        label="Evidence gaps"
+        value={String(insight.gapCount)}
+        sub="claims with no / weak support"
+        valueColor={STATUS_HEX.gap}
+      />
+    </Panel>
+  )
+}
+
+function InsightStat({
+  label,
+  value,
+  sub,
+  valueColor,
+}: {
+  label: string
+  value: string
+  sub: string
+  valueColor?: string
+}) {
+  return (
+    <div className="min-w-0">
+      <div className="eyebrow text-[10px]">{label}</div>
+      <div className="mt-0.5 flex items-baseline gap-2">
+        <span
+          className="font-serif text-[1.15rem] font-semibold leading-none tabular-nums"
+          style={{ color: valueColor ?? '#ECE7DA' }}
+        >
+          {value}
+        </span>
+        <span className="truncate font-sans text-[11.5px] text-parchment-muted">{sub}</span>
+      </div>
+    </div>
+  )
+}
+
+function truncate(s: string, n: number): string {
+  return s.length > n ? `${s.slice(0, n - 1).trimEnd()}…` : s
+}
+
 // ── Legend ──────────────────────────────────────────────────────────────────
 const STATUS_LEGEND: ClaimStatus[] = ['contradicted', 'gap', 'contested', 'well_supported']
+const COMMUNITY_LEGEND: number[] = [2, 6, 20]
 
 function Legend() {
   return (
-    <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-      <div className="flex items-center gap-3">
+    <div className="flex flex-wrap items-center gap-x-5 gap-y-2 rounded-panel border border-ink-line bg-ink-panel/50 px-4 py-2.5">
+      {/* Status (claim fill) */}
+      <LegendGroup title="Claim status">
         {STATUS_LEGEND.map((s) => (
           <span key={s} className="flex items-center gap-1.5">
             <span className="h-2.5 w-2.5 rounded-[2px]" style={{ backgroundColor: STATUS_HEX[s] }} />
             <span className="font-sans text-[11px] text-parchment-muted">{STATUS_LABEL[s]}</span>
           </span>
         ))}
-      </div>
-      <span className="h-3 w-px bg-ink-line" aria-hidden />
-      <span className="flex items-center gap-1.5">
-        <span className="h-2.5 w-2.5 rounded-full border" style={{ borderColor: PARCHMENT, backgroundColor: EVIDENCE_FILL }} />
-        <span className="font-sans text-[11px] text-parchment-muted">Evidence</span>
-      </span>
-      <span className="h-3 w-px bg-ink-line" aria-hidden />
-      <span className="flex items-center gap-3">
+        <span className="flex items-center gap-1.5">
+          <span className="h-2.5 w-2.5 rounded-full border" style={{ borderColor: PARCHMENT, backgroundColor: EVIDENCE_FILL }} />
+          <span className="font-sans text-[11px] text-parchment-muted">Evidence</span>
+        </span>
+      </LegendGroup>
+
+      <span className="hidden h-6 w-px bg-ink-line lg:block" aria-hidden />
+
+      {/* GDS overlays */}
+      <LegendGroup title="Neo4j GDS overlays">
+        <span className="flex items-center gap-1.5" title="Node size ∝ PageRank centrality">
+          <span className="flex items-end gap-0.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-parchment-muted" />
+            <span className="h-2.5 w-2.5 rounded-full bg-parchment-muted" />
+          </span>
+          <span className="font-sans text-[11px] text-parchment-muted">Size = centrality</span>
+        </span>
+        {COMMUNITY_LEGEND.map((id) => (
+          <span key={id} className="flex items-center gap-1.5">
+            <span
+              className="h-2.5 w-2.5 rounded-full border-2 bg-transparent"
+              style={{ borderColor: communityColor(id) }}
+            />
+            <span className="font-sans text-[11px] text-parchment-muted">{COMMUNITY_LABEL[id]}</span>
+          </span>
+        ))}
+        <span className="flex items-center gap-1.5" title="GDS: no / weak support">
+          <span className="flex h-3 w-3 items-center justify-center rounded-full" style={{ backgroundColor: STATUS_HEX.gap }}>
+            <span className="font-mono text-[8px] font-bold leading-none text-ink">!</span>
+          </span>
+          <span className="font-sans text-[11px] text-parchment-muted">Evidence gap</span>
+        </span>
+      </LegendGroup>
+
+      <span className="hidden h-6 w-px bg-ink-line lg:block" aria-hidden />
+
+      <LegendGroup title="Edges">
         <EdgeKey relation="contradicts" label="Contradicts" />
         <EdgeKey relation="supports" label="Supports" />
-      </span>
+      </LegendGroup>
+    </div>
+  )
+}
+
+function LegendGroup({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div className="flex items-center gap-3">
+      <span className="font-mono text-[9.5px] uppercase tracking-wide text-parchment-muted/60">{title}</span>
+      {children}
     </div>
   )
 }
