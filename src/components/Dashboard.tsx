@@ -35,7 +35,7 @@ export function Dashboard({ caseId }: { caseId: string }) {
           {/* faint gold rule down the left, like a margin line on a brief */}
           <span className="absolute inset-y-6 left-0 w-px bg-gradient-to-b from-gold/40 via-gold/10 to-transparent" />
           <SectionHeader eyebrow="The verdict" title="Counsel’s assessment" />
-          <p className="max-h-[260px] overflow-y-auto pr-2 font-serif text-[15px] leading-[1.8] text-parchment-body first-letter:float-left first-letter:mr-2 first-letter:font-serif first-letter:text-[3.1rem] first-letter:font-semibold first-letter:leading-[0.82] first-letter:text-gold">
+          <p className="pr-2 font-serif text-[15px] leading-[1.8] text-parchment-body first-letter:float-left first-letter:mr-2 first-letter:font-serif first-letter:text-[3.1rem] first-letter:font-semibold first-letter:leading-[0.82] first-letter:text-gold">
             {stats.verdict}
           </p>
         </Panel>
