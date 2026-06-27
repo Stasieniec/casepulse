@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { segment, type HighlightSpan } from '../src/lib/highlight'
+import { segment, findQuoteRange, type HighlightSpan } from '../src/lib/highlight'
 
 describe('segment', () => {
   it('returns a single plain segment when there are no spans', () => {
@@ -128,5 +128,55 @@ describe('segment', () => {
     expect(segment('abcdef', spans)).toEqual([
       { text: 'abcdef', claimId: null, status: null },
     ])
+  })
+})
+
+describe('findQuoteRange', () => {
+  it('finds an exact substring', () => {
+    const doc = 'Alpha bravo charlie delta.'
+    const r = findQuoteRange(doc, 'bravo charlie')!
+    expect(doc.slice(r.start, r.end)).toBe('bravo charlie')
+  })
+
+  it('matches across line-wrapped whitespace in the document', () => {
+    const doc = 'the total Platform unavailability attributable to the Platform itself\nwas approximately 6.2% of trading hours over the period.'
+    const quote = 'attributable to the Platform itself was approximately 6.2%'
+    const r = findQuoteRange(doc, quote)
+    expect(r).not.toBeNull()
+    // The located text, whitespace-collapsed, equals the quote.
+    expect(doc.slice(r!.start, r!.end).replace(/\s+/g, ' ')).toBe(quote)
+  })
+
+  it('matches despite curly-quote / apostrophe differences', () => {
+    const doc = 'Training of the Customer’s store and head-office staff is the Customer’s responsibility.'
+    const quote = "Training of the Customer's store and head-office staff"
+    const r = findQuoteRange(doc, quote)
+    expect(r).not.toBeNull()
+    expect(doc.slice(r!.start, r!.end)).toBe('Training of the Customer’s store and head-office staff')
+  })
+
+  it('anchors on the lead phrase for an ellipsised quote', () => {
+    const doc = 'The detailed implementation plan is a planning estimate and is subject to the change control procedure.'
+    const quote = 'The detailed implementation plan ... is subject to the change control'
+    const r = findQuoteRange(doc, quote)
+    expect(r).not.toBeNull()
+    expect(doc.slice(r!.start, r!.end)).toBe('The detailed implementation plan')
+  })
+
+  it('falls back to the first sentence when the quote crosses an interleaved paragraph number', () => {
+    // The doc numbers its paragraphs ("3."), but the matrix quote runs the two
+    // paragraphs together and omits the number, so the whole quote never matches.
+    const doc =
+      'my opinion is that the total unavailability was approximately 6.2% of trading hours over the period.\n\n3. That figure is materially lower than the pleaded figure.'
+    const quote =
+      'the total unavailability was approximately 6.2% of trading hours over the period. That figure is materially lower than the pleaded figure.'
+    const r = findQuoteRange(doc, quote)
+    expect(r).not.toBeNull()
+    expect(doc.slice(r!.start, r!.end)).toContain('6.2%')
+  })
+
+  it('returns null for an empty quote or a quote not present', () => {
+    expect(findQuoteRange('hello world', '')).toBeNull()
+    expect(findQuoteRange('hello world', 'goodbye moon')).toBeNull()
   })
 })

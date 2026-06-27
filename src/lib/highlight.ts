@@ -98,14 +98,44 @@ export function segment(text: string, spans: HighlightSpan[]): Segment[] {
 }
 
 /**
+ * Fold typographic variants to a canonical ASCII form so a quote captured with
+ * straight quotes/hyphens still matches a source that uses curly quotes / en-
+ * dashes (and vice-versa). Length is preserved (one char in → one char out) so
+ * index maps stay aligned.
+ */
+function canon(ch: string): string {
+  switch (ch) {
+    case '‘': // ‘
+    case '’': // ’
+    case '‛':
+    case 'ʼ':
+      return "'"
+    case '“': // “
+    case '”': // ”
+      return '"'
+    case '–': // –
+    case '—': // —
+    case '−': // −
+      return '-'
+    case ' ': // nbsp
+      return ' '
+    default:
+      return ch
+  }
+}
+
+/**
  * Find the character range of `quote` inside `docText`, tolerant of differing
- * whitespace (newlines, runs of spaces). Returns `null` if not locatable.
+ * whitespace (newlines, runs of spaces), typographic quote/dash variants, and
+ * elided quotes containing "..." / "…". Returns `null` if not locatable.
  *
- * The cited verbatim quotes in the matrix are whitespace-collapsed, while the
- * source documents are line-wrapped — so an exact `indexOf` usually fails. We
- * first try the exact substring; failing that, we collapse whitespace on both
- * sides, locate the quote in the collapsed doc, then map that collapsed range
- * back to offsets in the original doc text.
+ * The cited quotes in the matrix are whitespace-collapsed and occasionally
+ * elide a middle section with an ellipsis, while the source documents are
+ * line-wrapped with curly punctuation — so a naive `indexOf` usually fails. We
+ * build a whitespace-collapsed, punctuation-canonicalised view of the doc
+ * (remembering the original index of each kept char) and locate the canonical
+ * quote in it. For ellipsised quotes we anchor on the lead phrase (the text
+ * before the first ellipsis), which is the most reliable signal.
  */
 export function findQuoteRange(
   docText: string,
@@ -113,16 +143,18 @@ export function findQuoteRange(
 ): { start: number; end: number } | null {
   if (!quote) return null
 
+  // 1) Cheap exact hit on the raw text.
   const exact = docText.indexOf(quote)
   if (exact >= 0) return { start: exact, end: exact + quote.length }
 
-  // Build a whitespace-collapsed view of docText, remembering the original
-  // index each collapsed character came from.
+  // 2) Collapsed + canonicalised view of the doc with an index map back to the
+  //    original string.
   const collapsed: string[] = []
   const map: number[] = [] // collapsed index -> original index
   let prevWasSpace = false
   for (let i = 0; i < docText.length; i++) {
-    const ch = docText[i]
+    const raw = docText[i]
+    const ch = canon(raw)
     if (/\s/.test(ch)) {
       if (!prevWasSpace) {
         collapsed.push(' ')
@@ -136,16 +168,40 @@ export function findQuoteRange(
     }
   }
   const collapsedDoc = collapsed.join('')
-  const normQuote = quote.replace(/\s+/g, ' ').trim()
+
+  // Canonicalise the quote the same way.
+  const normQuote = Array.from(quote, canon).join('').replace(/\s+/g, ' ').trim()
   if (!normQuote) return null
 
-  const ci = collapsedDoc.indexOf(normQuote)
-  if (ci < 0) return null
+  // 3) Whole-quote match.
+  const whole = collapsedDoc.indexOf(normQuote)
+  if (whole >= 0) {
+    return {
+      start: map[whole],
+      end: map[whole + normQuote.length - 1] + 1,
+    }
+  }
 
-  const start = map[ci]
-  // End maps from the last collapsed char of the match; +1 to make it half-open
-  // against the original text.
-  const lastCollapsed = ci + normQuote.length - 1
-  const end = map[lastCollapsed] + 1
-  return { start, end }
+  // 4) Anchor on the lead phrase: the text before the first "..."/"…", or — for
+  //    a quote that spans a paragraph boundary the doc interleaves (e.g. a "3."
+  //    numbered heading the quote omits) — its first sentence. This highlights
+  //    the meaningful start of the cited passage rather than nothing.
+  const beforeEllipsis = normQuote.split(/\s*(?:\.{3,}|…)\s*/)[0].trim()
+  const firstSentence = (beforeEllipsis.match(/^.*?[.;:](?=\s|$)/)?.[0] ?? beforeEllipsis).trim()
+  for (const anchor of dedupe([beforeEllipsis, firstSentence])) {
+    if (anchor.length < 8) continue
+    const ai = collapsedDoc.indexOf(anchor)
+    if (ai >= 0) {
+      return {
+        start: map[ai],
+        end: map[ai + anchor.length - 1] + 1,
+      }
+    }
+  }
+
+  return null
+}
+
+function dedupe<T>(xs: T[]): T[] {
+  return [...new Set(xs)]
 }

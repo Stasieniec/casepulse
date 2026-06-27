@@ -68,6 +68,22 @@
   .hairline {
     @apply border-t border-ink-line;
   }
+
+  /* Deep-linked claim emphasis: pulse the status ring a few times. The pleading
+     view sets data-pulse imperatively after scrolling the claim into view. */
+  [data-claim-id][data-pulse='true'] {
+    animation: claim-pulse 0.9s ease-out 3;
+  }
+}
+
+@keyframes claim-pulse {
+  0%,
+  100% {
+    box-shadow: var(--claim-underline), 0 0 0 0 transparent;
+  }
+  35% {
+    box-shadow: var(--claim-underline), 0 0 0 4px var(--pulse-color);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

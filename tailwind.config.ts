@@ -59,11 +59,23 @@ export default {
           '0%': { opacity: '0', transform: 'scale(0.97) translateY(6px)' },
           '100%': { opacity: '1', transform: 'scale(1) translateY(0)' },
         },
+        // A claim "resolving" as it's adjudicated: the status tint settles in.
+        'claim-resolve': {
+          '0%': { backgroundColor: 'transparent', boxShadow: 'inset 0 -2px 0 transparent' },
+          '100%': { backgroundColor: 'var(--claim-bg)', boxShadow: 'var(--claim-underline)' },
+        },
+        // Deep-linked claim emphasis: a brief ring pulse.
+        'claim-pulse': {
+          '0%, 100%': { boxShadow: 'var(--claim-underline), 0 0 0 0 transparent' },
+          '35%': { boxShadow: 'var(--claim-underline), 0 0 0 4px var(--pulse-color)' },
+        },
       },
       animation: {
         'fade-rise': 'fade-rise 0.4s cubic-bezier(0.16,1,0.3,1) both',
         'fade-in': 'fade-in 0.3s ease-out both',
         'pop-in': 'pop-in 0.18s cubic-bezier(0.16,1,0.3,1) both',
+        'claim-resolve': 'claim-resolve 0.55s cubic-bezier(0.16,1,0.3,1) both',
+        'claim-pulse': 'claim-pulse 0.9s ease-out 3',
       },
     },
   },

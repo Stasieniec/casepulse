@@ -3,20 +3,12 @@ import { useCases } from '../hooks/queries'
 import { CaseHeader } from '../components/CaseHeader'
 import { SECTIONS, type SectionKey } from '../components/AppShell'
 import { Dashboard } from '../components/Dashboard'
+import { PleadingView } from '../components/PleadingView'
+import { GraphView } from '../components/GraphView'
 import { ComingUp } from '../components/ComingUp'
 import { cn } from '../lib/cn'
 
-const COMING_UP: Record<Exclude<SectionKey, 'dashboard'>, { title: string; blurb: string }> = {
-  pleading: {
-    title: 'The pleading, adjudicated',
-    blurb:
-      'The full statement of case with every allegation highlighted by proof-status. Hover a contradicted span to surface the kill-shot quote from the claimant’s own bundle.',
-  },
-  graph: {
-    title: 'Claim–evidence graph',
-    blurb:
-      'A force-directed map of allegations and exhibits. Crimson contradiction edges cluster around the weakest claims; node size tracks centrality.',
-  },
+const COMING_UP: Record<'redteam', { title: string; blurb: string }> = {
   redteam: {
     title: 'Opposing counsel',
     blurb:
@@ -55,8 +47,8 @@ export default function CaseView() {
 
       <div key={active} className="mt-8 animate-fade-in">
         {active === 'dashboard' && <Dashboard caseId={caseId} />}
-        {active === 'pleading' && <ComingUp {...COMING_UP.pleading} />}
-        {active === 'graph' && <ComingUp {...COMING_UP.graph} />}
+        {active === 'pleading' && <PleadingView caseId={caseId} />}
+        {active === 'graph' && <GraphView caseId={caseId} />}
         {active === 'redteam' && <ComingUp {...COMING_UP.redteam} />}
       </div>
     </div>
