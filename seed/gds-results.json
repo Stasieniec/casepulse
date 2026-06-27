@@ -1,0 +1,956 @@
+{
+  "generatedAt": "2026-06-27T12:19:11.610Z",
+  "graph": "crucible",
+  "sessionId": "31e59ba9-9d6ba106",
+  "counts": {
+    "claims": 13,
+    "evidence": 18,
+    "supports": 31,
+    "contradicts": 48,
+    "neutral": 20,
+    "redteam": 10
+  },
+  "pageRankEvidence": [
+    {
+      "id": "D03",
+      "title": "Master Services Agreement",
+      "pageRank": 1.4639
+    },
+    {
+      "id": "D18",
+      "title": "Witness — Priya Nair",
+      "pageRank": 1.3023
+    },
+    {
+      "id": "D16",
+      "title": "Witness — Helena Vance",
+      "pageRank": 1.2716
+    },
+    {
+      "id": "D15",
+      "title": "Letter — TechFlow response",
+      "pageRank": 1.1827
+    },
+    {
+      "id": "D04",
+      "title": "Statement of Work",
+      "pageRank": 1.0726
+    },
+    {
+      "id": "D14",
+      "title": "Letter — Notice of Termination",
+      "pageRank": 0.9706
+    },
+    {
+      "id": "D07",
+      "title": "Change Order No.3 (loyalty)",
+      "pageRank": 0.9571
+    },
+    {
+      "id": "D10",
+      "title": "Email — loyalty change request",
+      "pageRank": 0.8699
+    },
+    {
+      "id": "D17",
+      "title": "Witness — Raymond Okafor",
+      "pageRank": 0.8512
+    },
+    {
+      "id": "D09",
+      "title": "Email — go-live decision",
+      "pageRank": 0.7281
+    },
+    {
+      "id": "D20",
+      "title": "Expert — Fiona Greenhalgh FCA (quantum)",
+      "pageRank": 0.662
+    },
+    {
+      "id": "D05",
+      "title": "Order Form (Phase 1)",
+      "pageRank": 0.5931
+    },
+    {
+      "id": "D08",
+      "title": "Phase-1 UAT Acceptance Certificate",
+      "pageRank": 0.5916
+    },
+    {
+      "id": "D13",
+      "title": "Defect/issue log",
+      "pageRank": 0.556
+    },
+    {
+      "id": "D19",
+      "title": "Expert — Dr Whitfield (IT)",
+      "pageRank": 0.5552
+    },
+    {
+      "id": "D12",
+      "title": "Email — internal Q4 trading",
+      "pageRank": 0.5504
+    },
+    {
+      "id": "D06",
+      "title": "Deed of Variation No.1",
+      "pageRank": 0.4887
+    },
+    {
+      "id": "D11",
+      "title": "Email — 25 Nov outage root cause",
+      "pageRank": 0.4267
+    }
+  ],
+  "centralityMap": [
+    {
+      "id": "P9",
+      "score": 1.7169
+    },
+    {
+      "id": "P6",
+      "score": 1.5675
+    },
+    {
+      "id": "P1",
+      "score": 1.5257
+    },
+    {
+      "id": "D03",
+      "score": 1.4639
+    },
+    {
+      "id": "P5",
+      "score": 1.4257
+    },
+    {
+      "id": "P8",
+      "score": 1.3699
+    },
+    {
+      "id": "P3",
+      "score": 1.3518
+    },
+    {
+      "id": "D18",
+      "score": 1.3023
+    },
+    {
+      "id": "P13",
+      "score": 1.2877
+    },
+    {
+      "id": "D16",
+      "score": 1.2716
+    },
+    {
+      "id": "D15",
+      "score": 1.1827
+    },
+    {
+      "id": "P2",
+      "score": 1.1794
+    },
+    {
+      "id": "P10",
+      "score": 1.1558
+    },
+    {
+      "id": "D04",
+      "score": 1.0726
+    },
+    {
+      "id": "D14",
+      "score": 0.9706
+    },
+    {
+      "id": "D07",
+      "score": 0.9571
+    },
+    {
+      "id": "D10",
+      "score": 0.8699
+    },
+    {
+      "id": "D17",
+      "score": 0.8512
+    },
+    {
+      "id": "P7",
+      "score": 0.7823
+    },
+    {
+      "id": "D09",
+      "score": 0.7281
+    },
+    {
+      "id": "D20",
+      "score": 0.662
+    },
+    {
+      "id": "P12",
+      "score": 0.6552
+    },
+    {
+      "id": "D05",
+      "score": 0.5931
+    },
+    {
+      "id": "D08",
+      "score": 0.5916
+    },
+    {
+      "id": "D13",
+      "score": 0.556
+    },
+    {
+      "id": "D19",
+      "score": 0.5552
+    },
+    {
+      "id": "D12",
+      "score": 0.5504
+    },
+    {
+      "id": "D06",
+      "score": 0.4887
+    },
+    {
+      "id": "D11",
+      "score": 0.4267
+    },
+    {
+      "id": "P11",
+      "score": 0.353
+    },
+    {
+      "id": "P4",
+      "score": 0.3335
+    }
+  ],
+  "degreeEvidence": [
+    {
+      "id": "D03",
+      "title": "Master Services Agreement",
+      "weightedDegree": 5.93
+    },
+    {
+      "id": "D18",
+      "title": "Witness — Priya Nair",
+      "weightedDegree": 5.65
+    },
+    {
+      "id": "D16",
+      "title": "Witness — Helena Vance",
+      "weightedDegree": 5.57
+    },
+    {
+      "id": "D15",
+      "title": "Letter — TechFlow response",
+      "weightedDegree": 5.05
+    },
+    {
+      "id": "D07",
+      "title": "Change Order No.3 (loyalty)",
+      "weightedDegree": 4.14
+    },
+    {
+      "id": "D04",
+      "title": "Statement of Work",
+      "weightedDegree": 4.02
+    },
+    {
+      "id": "D14",
+      "title": "Letter — Notice of Termination",
+      "weightedDegree": 3.95
+    },
+    {
+      "id": "D10",
+      "title": "Email — loyalty change request",
+      "weightedDegree": 3.7
+    },
+    {
+      "id": "D17",
+      "title": "Witness — Raymond Okafor",
+      "weightedDegree": 3.4
+    },
+    {
+      "id": "D09",
+      "title": "Email — go-live decision",
+      "weightedDegree": 2.9
+    },
+    {
+      "id": "D20",
+      "title": "Expert — Fiona Greenhalgh FCA (quantum)",
+      "weightedDegree": 2.32
+    },
+    {
+      "id": "D08",
+      "title": "Phase-1 UAT Acceptance Certificate",
+      "weightedDegree": 2.15
+    },
+    {
+      "id": "D05",
+      "title": "Order Form (Phase 1)",
+      "weightedDegree": 2.1
+    },
+    {
+      "id": "D13",
+      "title": "Defect/issue log",
+      "weightedDegree": 1.95
+    },
+    {
+      "id": "D12",
+      "title": "Email — internal Q4 trading",
+      "weightedDegree": 1.9
+    },
+    {
+      "id": "D19",
+      "title": "Expert — Dr Whitfield (IT)",
+      "weightedDegree": 1.9
+    },
+    {
+      "id": "D06",
+      "title": "Deed of Variation No.1",
+      "weightedDegree": 1.6
+    },
+    {
+      "id": "D11",
+      "title": "Email — 25 Nov outage root cause",
+      "weightedDegree": 1.3
+    }
+  ],
+  "communities": [
+    {
+      "communityId": 6,
+      "members": 12,
+      "ids": [
+        "P3",
+        "P6",
+        "P10",
+        "D07",
+        "P5",
+        "D08",
+        "D09",
+        "P7",
+        "D10",
+        "D15",
+        "D16",
+        "D18"
+      ]
+    },
+    {
+      "communityId": 20,
+      "members": 10,
+      "ids": [
+        "P9",
+        "P13",
+        "D11",
+        "P8",
+        "D12",
+        "D13",
+        "P12",
+        "D17",
+        "D19",
+        "D20"
+      ]
+    },
+    {
+      "communityId": 2,
+      "members": 9,
+      "ids": [
+        "D03",
+        "P1",
+        "P2",
+        "P4",
+        "D04",
+        "P11",
+        "D05",
+        "D06",
+        "D14"
+      ]
+    }
+  ],
+  "communityMap": [
+    {
+      "id": "D03",
+      "clusterId": 2
+    },
+    {
+      "id": "D04",
+      "clusterId": 2
+    },
+    {
+      "id": "D05",
+      "clusterId": 2
+    },
+    {
+      "id": "D06",
+      "clusterId": 2
+    },
+    {
+      "id": "D14",
+      "clusterId": 2
+    },
+    {
+      "id": "P1",
+      "clusterId": 2
+    },
+    {
+      "id": "P11",
+      "clusterId": 2
+    },
+    {
+      "id": "P2",
+      "clusterId": 2
+    },
+    {
+      "id": "P4",
+      "clusterId": 2
+    },
+    {
+      "id": "D07",
+      "clusterId": 6
+    },
+    {
+      "id": "D08",
+      "clusterId": 6
+    },
+    {
+      "id": "D09",
+      "clusterId": 6
+    },
+    {
+      "id": "D10",
+      "clusterId": 6
+    },
+    {
+      "id": "D15",
+      "clusterId": 6
+    },
+    {
+      "id": "D16",
+      "clusterId": 6
+    },
+    {
+      "id": "D18",
+      "clusterId": 6
+    },
+    {
+      "id": "P10",
+      "clusterId": 6
+    },
+    {
+      "id": "P3",
+      "clusterId": 6
+    },
+    {
+      "id": "P5",
+      "clusterId": 6
+    },
+    {
+      "id": "P6",
+      "clusterId": 6
+    },
+    {
+      "id": "P7",
+      "clusterId": 6
+    },
+    {
+      "id": "D11",
+      "clusterId": 20
+    },
+    {
+      "id": "D12",
+      "clusterId": 20
+    },
+    {
+      "id": "D13",
+      "clusterId": 20
+    },
+    {
+      "id": "D17",
+      "clusterId": 20
+    },
+    {
+      "id": "D19",
+      "clusterId": 20
+    },
+    {
+      "id": "D20",
+      "clusterId": 20
+    },
+    {
+      "id": "P12",
+      "clusterId": 20
+    },
+    {
+      "id": "P13",
+      "clusterId": 20
+    },
+    {
+      "id": "P8",
+      "clusterId": 20
+    },
+    {
+      "id": "P9",
+      "clusterId": 20
+    }
+  ],
+  "claimSimilarity": [
+    {
+      "claim1": "P3",
+      "claim2": "P6",
+      "similarity": 0.875
+    },
+    {
+      "claim1": "P8",
+      "claim2": "P9",
+      "similarity": 0.636
+    },
+    {
+      "claim1": "P1",
+      "claim2": "P2",
+      "similarity": 0.556
+    },
+    {
+      "claim1": "P1",
+      "claim2": "P10",
+      "similarity": 0.5
+    },
+    {
+      "claim1": "P13",
+      "claim2": "P8",
+      "similarity": 0.5
+    },
+    {
+      "claim1": "P6",
+      "claim2": "P7",
+      "similarity": 0.5
+    },
+    {
+      "claim1": "P5",
+      "claim2": "P6",
+      "similarity": 0.455
+    },
+    {
+      "claim1": "P13",
+      "claim2": "P9",
+      "similarity": 0.417
+    },
+    {
+      "claim1": "P10",
+      "claim2": "P3",
+      "similarity": 0.4
+    },
+    {
+      "claim1": "P5",
+      "claim2": "P9",
+      "similarity": 0.385
+    },
+    {
+      "claim1": "P10",
+      "claim2": "P12",
+      "similarity": 0.375
+    },
+    {
+      "claim1": "P3",
+      "claim2": "P7",
+      "similarity": 0.375
+    },
+    {
+      "claim1": "P12",
+      "claim2": "P13",
+      "similarity": 0.375
+    },
+    {
+      "claim1": "P1",
+      "claim2": "P3",
+      "similarity": 0.364
+    },
+    {
+      "claim1": "P2",
+      "claim2": "P3",
+      "similarity": 0.3
+    }
+  ],
+  "missingEvidence": [
+    {
+      "claim": "P6",
+      "status": "contradicted",
+      "risk": 95,
+      "nSupp": 0,
+      "maxSupp": 0,
+      "nContra": 8,
+      "gapType": "NO_SUPPORT"
+    },
+    {
+      "claim": "P7",
+      "status": "contradicted",
+      "risk": 93,
+      "nSupp": 0,
+      "maxSupp": 0,
+      "nContra": 4,
+      "gapType": "NO_SUPPORT"
+    },
+    {
+      "claim": "P3",
+      "status": "contradicted",
+      "risk": 85,
+      "nSupp": 0,
+      "maxSupp": 0,
+      "nContra": 7,
+      "gapType": "NO_SUPPORT"
+    },
+    {
+      "claim": "P4",
+      "status": "gap",
+      "risk": 72,
+      "nSupp": 0,
+      "maxSupp": 0,
+      "nContra": 1,
+      "gapType": "NO_SUPPORT"
+    },
+    {
+      "claim": "P11",
+      "status": "contradicted",
+      "risk": 68,
+      "nSupp": 0,
+      "maxSupp": 0,
+      "nContra": 1,
+      "gapType": "NO_SUPPORT"
+    },
+    {
+      "claim": "P13",
+      "status": "contradicted",
+      "risk": 92,
+      "nSupp": 1,
+      "maxSupp": 0.35,
+      "nContra": 6,
+      "gapType": "WEAK_SUPPORT"
+    },
+    {
+      "claim": "P8",
+      "status": "contradicted",
+      "risk": 90,
+      "nSupp": 1,
+      "maxSupp": 0.4,
+      "nContra": 7,
+      "gapType": "WEAK_SUPPORT"
+    },
+    {
+      "claim": "P10",
+      "status": "contradicted",
+      "risk": 82,
+      "nSupp": 1,
+      "maxSupp": 0.55,
+      "nContra": 6,
+      "gapType": "WEAK_SUPPORT"
+    }
+  ],
+  "missingEvidenceIds": [
+    "P6",
+    "P7",
+    "P3",
+    "P4",
+    "P11",
+    "P13",
+    "P8",
+    "P10"
+  ],
+  "gapWithSimilarPeers": [
+    {
+      "claim": "P6",
+      "status": "contradicted",
+      "risk": 95,
+      "nSupp": 0,
+      "maxSupp": 0,
+      "similarWellSupported": [
+        {
+          "peer": "P1",
+          "sim": 0.333
+        }
+      ]
+    },
+    {
+      "claim": "P3",
+      "status": "contradicted",
+      "risk": 85,
+      "nSupp": 0,
+      "maxSupp": 0,
+      "similarWellSupported": [
+        {
+          "peer": "P1",
+          "sim": 0.364
+        }
+      ]
+    },
+    {
+      "claim": "P4",
+      "status": "gap",
+      "risk": 72,
+      "nSupp": 0,
+      "maxSupp": 0,
+      "similarWellSupported": [
+        {
+          "peer": "P2",
+          "sim": 0.167
+        },
+        {
+          "peer": "P1",
+          "sim": 0.125
+        }
+      ]
+    },
+    {
+      "claim": "P11",
+      "status": "contradicted",
+      "risk": 68,
+      "nSupp": 0,
+      "maxSupp": 0,
+      "similarWellSupported": [
+        {
+          "peer": "P2",
+          "sim": 0.167
+        },
+        {
+          "peer": "P1",
+          "sim": 0.125
+        }
+      ]
+    },
+    {
+      "claim": "P13",
+      "status": "contradicted",
+      "risk": 92,
+      "nSupp": 1,
+      "maxSupp": 0.35,
+      "similarWellSupported": [
+        {
+          "peer": "P9",
+          "sim": 0.417
+        }
+      ]
+    },
+    {
+      "claim": "P8",
+      "status": "contradicted",
+      "risk": 90,
+      "nSupp": 1,
+      "maxSupp": 0.4,
+      "similarWellSupported": [
+        {
+          "peer": "P9",
+          "sim": 0.636
+        }
+      ]
+    },
+    {
+      "claim": "P10",
+      "status": "contradicted",
+      "risk": 82,
+      "nSupp": 1,
+      "maxSupp": 0.55,
+      "similarWellSupported": [
+        {
+          "peer": "P1",
+          "sim": 0.5
+        }
+      ]
+    }
+  ],
+  "app": {
+    "listClaims": [
+      {
+        "id": "P1",
+        "label": "P1",
+        "status": "well_supported",
+        "riskScore": 5,
+        "headline": "The MSA obligation is rock solid — every document confirms TechFlow agreed to design, build and implement the platform; nobody disputes it."
+      },
+      {
+        "id": "P10",
+        "label": "P10",
+        "status": "contradicted",
+        "riskScore": 82,
+        "headline": "The absolute 'no sign-off ever' plea is broken by a signed Phase 1 Acceptance Certificate — Meridian's own Head of Procurement confirms she signed it on 12 November."
+      },
+      {
+        "id": "P11",
+        "label": "P11",
+        "status": "contradicted",
+        "riskScore": 68,
+        "headline": "Training was Meridian's job, not TechFlow's — the SOW puts end-user training on Meridian and limits TechFlow to a train-the-trainer session and user guides."
+      },
+      {
+        "id": "P12",
+        "label": "P12",
+        "status": "contested",
+        "riskScore": 58,
+        "headline": "The £1.8m paid is verified by the defendant's own accountant — but recoverability as 'wasted' is squeezed by the clause 14 cap, Phase 1 acceptance and the £600k Meridian chose to withhold."
+      },
+      {
+        "id": "P13",
+        "label": "P13",
+        "status": "contradicted",
+        "riskScore": 92,
+        "headline": "The £4.2m loss-of-profit claim is both overstated ~3x and contractually excluded — clause 14.1 bars it, the expert allows only ~£1.3m, and a DC flood and market downturn caused most of the shortfall."
+      },
+      {
+        "id": "P2",
+        "label": "P2",
+        "status": "well_supported",
+        "riskScore": 8,
+        "headline": "The £2.4m milestone price is documented to the penny — even the defendant's quantum expert confirms the figure."
+      },
+      {
+        "id": "P3",
+        "label": "P3",
+        "status": "contradicted",
+        "riskScore": 85,
+        "headline": "There is no 'time of the essence' — the contract itself calls 1 October a 'target' and 'planning estimate', and the date was lawfully moved by signed change order."
+      },
+      {
+        "id": "P4",
+        "label": "P4",
+        "status": "gap",
+        "riskScore": 72,
+        "headline": "The 10,000-transaction representation is a ghost — no witness, no note, no proof it was made or that it was false, and the non-reliance clause bars it absent fraud."
+      },
+      {
+        "id": "P5",
+        "label": "P5",
+        "status": "contradicted",
+        "riskScore": 80,
+        "headline": "The 18 November go-live wasn't late — it was the contractually agreed date under Change Order No. 3, and Meridian's own director insisted on it over TechFlow's deferral advice."
+      },
+      {
+        "id": "P6",
+        "label": "P6",
+        "status": "contradicted",
+        "riskScore": 95,
+        "headline": "This plea is demonstrably false — Meridian requested the out-of-scope loyalty module, signed Change Order No. 3 for it, and its own three witnesses admit it."
+      },
+      {
+        "id": "P7",
+        "label": "P7",
+        "status": "contradicted",
+        "riskScore": 93,
+        "headline": "The deferral narrative is inverted — it was TechFlow that warned in writing and urged delay to January; Meridian overruled it and 'took the risk on Meridian's side'."
+      },
+      {
+        "id": "P8",
+        "label": "P8",
+        "status": "contradicted",
+        "riskScore": 90,
+        "headline": "The 40% unavailability figure is fiction — Meridian's own IT expert puts platform-attributable downtime at ~6.2% and blames the biggest outage on Meridian's own network."
+      },
+      {
+        "id": "P9",
+        "label": "P9",
+        "status": "well_supported",
+        "riskScore": 22,
+        "headline": "Meridian's strongest card: genuine, serious Severity-1 stock-sync defects persisting ~6 weeks, below the standard of a competent supplier — confirmed by the IT expert and admitted by TechFlow."
+      }
+    ],
+    "claimEvidence_P6": [
+      {
+        "claim": "P6",
+        "relation": "CONTRADICTS",
+        "evidenceId": "D07",
+        "title": "Change Order No.3 (loyalty)",
+        "confidence": 0.97,
+        "quote": "At the Customer's request, the Supplier shall design, build and implement a customer loyalty module (\"the Loyalty Module\")... The Loyalty Module was not part of the original scope under SOW-01."
+      },
+      {
+        "claim": "P6",
+        "relation": "CONTRADICTS",
+        "evidenceId": "D10",
+        "title": "Email — loyalty change request",
+        "confidence": 0.97,
+        "quote": "the board wants a customer loyalty capability included in the platform before we go live ... I appreciate this was not in the original SOW ... Can you scope this as a change"
+      },
+      {
+        "claim": "P6",
+        "relation": "CONTRADICTS",
+        "evidenceId": "D16",
+        "title": "Witness — Helena Vance",
+        "confidence": 0.97,
+        "quote": "I asked TechFlow to add a loyalty module. I accept this was not in the original Statement of Work. It was documented in Change Order No. 3, which my colleague Priya Nair signed on 2 September 2024"
+      },
+      {
+        "claim": "P6",
+        "relation": "CONTRADICTS",
+        "evidenceId": "D18",
+        "title": "Witness — Priya Nair",
+        "confidence": 0.95,
+        "quote": "This added the customer loyalty module, which Helena Vance had asked TechFlow to provide and which was not in the original Statement of Work... I understood at the time that we were changing both the scope."
+      },
+      {
+        "claim": "P6",
+        "relation": "CONTRADICTS",
+        "evidenceId": "D09",
+        "title": "Email — go-live decision",
+        "confidence": 0.85,
+        "quote": "the loyalty module added under Change Order 3 is still being hardened and we have a handful of stock-sync issues we would like to close out under controlled conditions."
+      },
+      {
+        "claim": "P6",
+        "relation": "CONTRADICTS",
+        "evidenceId": "D15",
+        "title": "Letter — TechFlow response",
+        "confidence": 0.85,
+        "quote": "Change Order No. 3, signed by your client on 2 September 2024, which added a customer loyalty module that your client requested and which was not in the original scope. Your client's assertion that it requested no change to scope is wrong"
+      },
+      {
+        "claim": "P6",
+        "relation": "CONTRADICTS",
+        "evidenceId": "D04",
+        "title": "Statement of Work",
+        "confidence": 0.75,
+        "quote": "The detailed implementation plan ... is subject to the change control procedure in clause 3 of the MSA ... subject to any variation agreed under the change control procedure."
+      },
+      {
+        "claim": "P6",
+        "relation": "CONTRADICTS",
+        "evidenceId": "D03",
+        "title": "Master Services Agreement",
+        "confidence": 0.7,
+        "quote": "Any change to the scope, deliverables or timetable shall be agreed in writing by both parties by means of a signed Change Order. A signed Change Order varies this Agreement to the extent stated in it."
+      },
+      {
+        "claim": "P6",
+        "relation": "NEUTRAL",
+        "evidenceId": "D06",
+        "title": "Deed of Variation No.1",
+        "confidence": 0.6,
+        "quote": "The parties wish to vary the payment milestone profile to reflect cash-flow phasing. This Deed does not vary the scope of the works or the target go-live date."
+      }
+    ],
+    "statusCounts": [
+      {
+        "status": "contradicted",
+        "n": 8
+      },
+      {
+        "status": "well_supported",
+        "n": 3
+      },
+      {
+        "status": "gap",
+        "n": 1
+      },
+      {
+        "status": "contested",
+        "n": 1
+      }
+    ],
+    "redteam_P6": [
+      {
+        "id": "RT-P6",
+        "attackType": "cross_exam",
+        "killshotQuote": "the board wants a customer loyalty capability included in the platform before we go live ... I appreciate this was not in the original SOW ... Can you scope this as a change"
+      }
+    ]
+  }
+}
