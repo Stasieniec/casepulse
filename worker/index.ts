@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import { cases } from './routes/cases'
 import { claims } from './routes/graph'
+import { analyze } from './routes/analyze'
 
 export type Env = {
   ASSETS: Fetcher; DB: D1Database; UPLOADS: R2Bucket; VECTORIZE: VectorizeIndex
@@ -14,6 +15,7 @@ const app = new Hono<{ Bindings: Env }>()
 app.get('/api/health', (c) => c.json({ ok: true }))
 app.route('/api/cases', cases)
 app.route('/api/claims', claims)
+app.route('/api/analyze', analyze)
 app.get('*', (c) => c.env.ASSETS.fetch(c.req.raw))
 
 export default app
