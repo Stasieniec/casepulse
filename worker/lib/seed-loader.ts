@@ -2,6 +2,7 @@ import type { CaseSummary, Stats, GdsOverlays, Evidence, RedTeamItem } from '../
 import { buildSeed } from './seed-transform'
 import matrixJson from '../../seed/meridian.matrix.json'
 import redteamJson from '../../seed/redteam.seed.json'
+import gdsResultsJson from '../../seed/gds-results.json'
 import { MERIDIAN_PLEADING_RAW } from './pleading-data'
 
 // docId → human-readable document title
@@ -75,25 +76,26 @@ export function loadSeed(): SeedData {
     biggestVulnerabilities: m.biggestVulnerabilities,
   }
 
-  // Minimal GDS overlays — degree-based centrality.
-  // `communities` is an intentional stub (all nodes in cluster 0) until real
-  // Louvain/community detection lands in Task 3.3.
-  const centrality: Record<string, number> = {}
-  const communities: Record<string, number> = {}
-  const missingEvidence: string[] = claims
-    .filter(c => c.status === 'gap' || c.status === 'unaddressed')
-    .map(c => c.id)
+  // Real GDS overlays — computed by Neo4j Aura Graph Analytics (gds.pageRank,
+  // gds.louvain, gds.nodeSimilarity) on the live Meridian graph, then materialized
+  // here for instant reads without a GDS session at request time.
+  const gdsData = gdsResultsJson as {
+    centralityMap: { id: string; score: number }[]
+    communityMap: { id: string; clusterId: number }[]
+    missingEvidenceIds: string[]
+  }
 
-  for (const c of claims) {
-    const degree = edges.filter(e => e.claimId === c.id).length
-    centrality[c.id] = degree
-    communities[c.id] = 0
+  const centrality: Record<string, number> = {}
+  for (const entry of gdsData.centralityMap) {
+    centrality[entry.id] = entry.score
   }
-  for (const e of evidence) {
-    const degree = edges.filter(edge => edge.documentId === e.id).length
-    centrality[e.id] = degree
-    communities[e.id] = 0
+
+  const communities: Record<string, number> = {}
+  for (const entry of gdsData.communityMap) {
+    communities[entry.id] = entry.clusterId
   }
+
+  const missingEvidence: string[] = gdsData.missingEvidenceIds
 
   const gds: GdsOverlays = { centrality, communities, missingEvidence }
 
