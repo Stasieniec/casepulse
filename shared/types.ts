@@ -33,6 +33,7 @@ export interface GdsOverlays {
   missingEvidence: string[]            // claim ids flagged as gaps by graph
 }
 export interface CaseSummary { id: string; name: string; parties: string; court: string; claimNo: string }
+export interface Pleading { caseId: string; title: string; fullText: string }
 
 export interface GraphProvider {
   listCases(): Promise<CaseSummary[]>
@@ -42,6 +43,7 @@ export interface GraphProvider {
   getStats(caseId: string): Promise<Stats>
   getGdsOverlays(caseId: string): Promise<GdsOverlays>
   getRedTeam(caseId: string): Promise<RedTeamItem[]>
+  getPleading(caseId: string): Promise<Pleading>
 }
 
 export interface ExtractedClaim { label: string; paragraphRef: string; text: string; spanStart: number; spanEnd: number }

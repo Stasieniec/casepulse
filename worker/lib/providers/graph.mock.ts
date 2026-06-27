@@ -7,6 +7,7 @@ import type {
   Stats,
   GdsOverlays,
   RedTeamItem,
+  Pleading,
 } from '../../../shared/types'
 import { loadSeed } from '../seed-loader'
 
@@ -60,5 +61,13 @@ export class MockGraphProvider implements GraphProvider {
 
   async getRedTeam(_caseId: string): Promise<RedTeamItem[]> {
     return this.s.redteam
+  }
+
+  async getPleading(caseId: string): Promise<Pleading> {
+    return {
+      caseId,
+      title: 'Particulars of Claim',
+      fullText: this.s.normalizedPleading,
+    }
   }
 }

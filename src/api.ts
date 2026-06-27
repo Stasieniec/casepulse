@@ -6,14 +6,10 @@ import type {
   EvidenceLink,
   RedTeamItem,
   GdsOverlays,
+  Pleading,
 } from '../shared/types'
 
-/** Pleading payload — backed by GET /api/cases/:id/pleading. */
-export interface Pleading {
-  caseId: string
-  title: string
-  fullText: string
-}
+export type { Pleading } from '../shared/types'
 
 /** Result of an analysis run (currently a stub; see analyze()). */
 export interface AnalyzeResult {
