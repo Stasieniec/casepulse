@@ -3,14 +3,13 @@
  *
  * Selects the right provider based on context:
  *  - analysisId provided → LiveGraphProvider (reads D1 for that analysis)
- *  - no analysisId       → MockGraphProvider (seed data, instant)
- *
- * Extension point (Task 3.2):
- *  - GRAPH_PROVIDER=neo4j in env → Neo4jGraphProvider via Aura HTTP Query API
+ *  - env.GRAPH_PROVIDER==='neo4j' and Neo4j creds present → Neo4jGraphProvider (Aura HTTP Query API)
+ *  - otherwise → MockGraphProvider (seed data, instant; default for demo)
  */
 export type { GraphProvider } from '../../../shared/types'
 import { MockGraphProvider } from './graph.mock'
 import { LiveGraphProvider } from './graph.d1'
+import { Neo4jGraphProvider } from './graph.neo4j'
 import type { Env } from '../../index'
 
 export function getGraphProvider(
@@ -20,6 +19,8 @@ export function getGraphProvider(
   if (analysisId && env?.DB) {
     return new LiveGraphProvider(env.DB, analysisId)
   }
-  // TODO Task 3.2: if env?.GRAPH_PROVIDER === 'neo4j' && env?.NEO4J_QUERY_URL → Neo4jGraphProvider
+  if (env?.GRAPH_PROVIDER === 'neo4j' && env?.NEO4J_QUERY_URL && env?.NEO4J_USER && env?.NEO4J_PASSWORD) {
+    return new Neo4jGraphProvider(env)
+  }
   return new MockGraphProvider()
 }
