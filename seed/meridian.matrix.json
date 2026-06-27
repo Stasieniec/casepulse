@@ -1,0 +1,1103 @@
+{
+  "propositionCount": 13,
+  "evidenceAnalyzed": 18,
+  "analyses": [
+    {
+      "docId": "D03",
+      "docType": "contract",
+      "party": "Neutral",
+      "summary": "The Master Services Agreement dated 14 March 2024 between Meridian Retail Group PLC (Customer) and TechFlow Solutions Limited (Supplier) for the design, build, configuration and implementation of a cloud-based inventory management and EPOS platform for \u00a32,400,000 ex VAT, payable against SOW milestones. It is the foundational contract: it confirms several of Meridian's structural propositions (the obligation, the price) but its express terms cut strongly against Meridian on time being of the essence, the requirement for written Change Orders, the entire-agreement/non-reliance clause defeating the oral representation, and the exclusion of loss of profit.",
+      "findings": [
+        {
+          "propositionId": "P1",
+          "relation": "SUPPORTS",
+          "confidence": 0.97,
+          "quote": "The Supplier shall design, build, configure, test and implement the cloud-based inventory management and EPOS platform (\"the Platform\") in accordance with the Statement of Work set out at Schedule 1",
+          "rationale": "Clause 1.1 expressly imposes on TechFlow the obligation to design, build, configure and implement the cloud inventory/EPOS platform, directly establishing the contractual obligation pleaded at P1."
+        },
+        {
+          "propositionId": "P2",
+          "relation": "SUPPORTS",
+          "confidence": 0.96,
+          "quote": "The total charges for the Services are \u00a32,400,000 (excluding VAT), payable against the milestones set out in the SOW and as may be varied by agreement in writing.",
+          "rationale": "Clause 2.1 confirms the total charge of \u00a32,400,000 ex VAT payable against milestones, matching P2 exactly."
+        },
+        {
+          "propositionId": "P3",
+          "relation": "CONTRADICTS",
+          "confidence": 0.9,
+          "quote": "The Supplier shall use reasonable endeavours to achieve the target go-live date stated in the SOW. The parties acknowledge that the implementation timetable is a planning estimate and may be adjusted through the change control procedure.",
+          "rationale": "Clause 3.1 frames go-live as a reasonable-endeavours \"target\" and a \"planning estimate\" that may be adjusted, directly undermining Meridian's plea that the date was fixed and time was of the essence."
+        },
+        {
+          "propositionId": "P4",
+          "relation": "CONTRADICTS",
+          "confidence": 0.88,
+          "quote": "Each party acknowledges that it has not relied on, and shall have no remedy in respect of, any representation or statement not expressly set out in this Agreement (save in the case of fraud).",
+          "rationale": "The non-reliance/entire-agreement clause (22.2, with 22.1 superseding prior oral representations) cuts against Meridian's reliance on Frost's oral 10,000-transaction representation unless Meridian can prove fraud."
+        },
+        {
+          "propositionId": "P6",
+          "relation": "CONTRADICTS",
+          "confidence": 0.7,
+          "quote": "Any change to the scope, deliverables or timetable shall be agreed in writing by both parties by means of a signed Change Order. A signed Change Order varies this Agreement to the extent stated in it.",
+          "rationale": "Clause 3.2 establishes a formal written Change Order regime, providing the documentary framework against which any Meridian-initiated scope change would appear and against which P6's assertion that Meridian never requested any scope change can be tested."
+        },
+        {
+          "propositionId": "P9",
+          "relation": "SUPPORTS",
+          "confidence": 0.62,
+          "quote": "The Supplier shall perform the Services with reasonable skill and care and in accordance with good industry practice.",
+          "rationale": "Clause 1.2 imposes a reasonable skill and care / good industry practice standard, the contractual benchmark against which the alleged Severity-1 defects and unfitness for purpose under P9 are measured."
+        },
+        {
+          "propositionId": "P12",
+          "relation": "NEUTRAL",
+          "confidence": 0.6,
+          "quote": "the Supplier\u2019s total aggregate liability arising under or in connection with this Agreement shall not exceed the total charges actually paid by the Customer under this Agreement in the twelve months preceding the event giving rise to the claim.",
+          "rationale": "Clause 14.2 caps aggregate liability at sums actually paid by Meridian, which bears on (and may limit) recovery of the \u00a31.8m wasted expenditure but is context/quantum rather than proof of the sum paid."
+        },
+        {
+          "propositionId": "P13",
+          "relation": "CONTRADICTS",
+          "confidence": 0.9,
+          "quote": "the Supplier shall not be liable to the Customer, whether in contract, tort (including negligence) or otherwise, for any loss of profit, loss of revenue, loss of anticipated savings, or any indirect or consequential loss.",
+          "rationale": "Clause 14.1 expressly excludes liability for loss of profit, directly undermining Meridian's \u00a34.2m loss-of-profit claim unless the exclusion is unenforceable or fraud is established."
+        }
+      ]
+    },
+    {
+      "docId": "D04",
+      "docType": "contract",
+      "party": "TechFlow",
+      "summary": "Schedule 1 (SOW-01) to the MSA dated 14 March 2024, defining the Platform scope (two phases: core inventory/EPOS and reporting/analytics, excluding a loyalty module), an implementation timetable with milestones M1-M4, customer responsibilities, and payment milestones. It expressly characterises the 1 October 2024 go-live as a \"target date\" subject to change control, places staff training on the Customer, and makes charges payable 25% per milestone subject to variation. On balance the document favours TechFlow on the time-of-the-essence, scope-change, and training issues.",
+      "findings": [
+        {
+          "propositionId": "P1",
+          "relation": "SUPPORTS",
+          "confidence": 0.85,
+          "quote": "The Supplier shall deliver the Platform in two phases: Phase 1 (core inventory and EPOS); Phase 2 (reporting and analytics).",
+          "rationale": "Confirms TechFlow's obligation to deliver a cloud inventory-management and ePOS platform under the 14 March 2024 MSA, consistent with the engagement pleaded in P1."
+        },
+        {
+          "propositionId": "P2",
+          "relation": "SUPPORTS",
+          "confidence": 0.6,
+          "quote": "Charges are payable 25% on each of M1, M2, M3 and M4, subject to any variation agreed under the change control procedure.",
+          "rationale": "Confirms charges were payable against milestones as pleaded, though the SOW does not itself state the total of GBP 2,400,000 ex VAT."
+        },
+        {
+          "propositionId": "P3",
+          "relation": "CONTRADICTS",
+          "confidence": 0.92,
+          "quote": "The go-live date of 1 October 2024 is a target date. The detailed implementation plan is a planning estimate and is subject to the change control procedure in clause 3 of the MSA.",
+          "rationale": "Directly undermines P3's assertion that go-live was 'fixed' and time was of the essence, expressly designating 1 October 2024 a target/planning estimate subject to change control."
+        },
+        {
+          "propositionId": "P5",
+          "relation": "NEUTRAL",
+          "confidence": 0.7,
+          "quote": "M4          Go-live (target date)      1 October 2024",
+          "rationale": "Establishes the 1 October 2024 reference date against which lateness is measured, but as a target rather than confirming any breach by late delivery."
+        },
+        {
+          "propositionId": "P6",
+          "relation": "CONTRADICTS",
+          "confidence": 0.75,
+          "quote": "The detailed implementation plan ... is subject to the change control procedure in clause 3 of the MSA ... subject to any variation agreed under the change control procedure.",
+          "rationale": "By building in a change control / variation mechanism, the SOW provides the contractual route for scope changes that TechFlow may rely on to rebut P6's claim that no scope change was ever requested and all delay was its fault."
+        },
+        {
+          "propositionId": "P9",
+          "relation": "NEUTRAL",
+          "confidence": 0.55,
+          "quote": "The agreed scope does not include a customer loyalty module.",
+          "rationale": "Defines the boundaries of the agreed scope, which is context for assessing fitness for purpose but does not itself address the alleged stock-synchronisation defects."
+        },
+        {
+          "propositionId": "P11",
+          "relation": "CONTRADICTS",
+          "confidence": 0.9,
+          "quote": "Training of the Customer's store and head-office staff in the use of the Platform is the responsibility of the Customer. The Supplier shall provide a train-the-trainer session and written user guides only.",
+          "rationale": "Contractually allocates end-user training to Meridian and limits TechFlow's training duty to a train-the-trainer session and user guides, undermining P11's allegation that TechFlow failed to provide adequate training."
+        }
+      ]
+    },
+    {
+      "docId": "D05",
+      "docType": "contract",
+      "party": "Neutral",
+      "summary": "Order Form (Ref MRG-TF-OF-001) dated 20 March 2024 placed under the MSA dated 14 March 2024, between Meridian Retail Group plc (Customer) and TechFlow Solutions Limited (Supplier). It itemises a Phase 1 platform licence & implementation for core inventory & EPOS, EPOS terminal configuration for 180 stores, and Phase 2 reporting/analytics, totalling GBP 2,400,000 ex VAT payable 25% on each milestone M1-M4. It was authorised on Meridian's side by Priya Nair, Head of Procurement.",
+      "findings": [
+        {
+          "propositionId": "P1",
+          "relation": "SUPPORTS",
+          "confidence": 0.85,
+          "quote": "Under: Master Services Agreement dated 14 March 2024 ... Platform licence & implementation (Phase 1 \u2014 core inventory & EPOS)",
+          "rationale": "The order form is expressly placed under the MSA dated 14 March 2024 and procures implementation of a core inventory and EPOS platform, corroborating the agreement pleaded in P1."
+        },
+        {
+          "propositionId": "P2",
+          "relation": "SUPPORTS",
+          "confidence": 0.95,
+          "quote": "Total (excl. VAT) 2,400,000 ... Payment terms: 25% on each milestone M1\u2013M4 per the SOW.",
+          "rationale": "The form records total charges of GBP 2,400,000 excluding VAT payable in milestone instalments, matching the charges and milestone-payment structure pleaded in P2."
+        },
+        {
+          "propositionId": "P10",
+          "relation": "CONTRADICTS",
+          "confidence": 0.3,
+          "quote": "Authorised by Priya Nair (Head of Procurement, Meridian) and Gregory Manton (Commercial Director, TechFlow).",
+          "rationale": "Meridian authorised/signed this order form, which is contractual sign-off of the order rather than acceptance of the delivered Platform, mildly cutting against the absolute assertion that no sign-off was ever given (though it does not evidence acceptance of the completed Platform)."
+        },
+        {
+          "propositionId": "P12",
+          "relation": "NEUTRAL",
+          "confidence": 0.4,
+          "quote": "Payment terms: 25% on each milestone M1\u2013M4 per the SOW.",
+          "rationale": "The order establishes the contract value and milestone payment schedule that frames the wasted-expenditure claim, but does not itself evidence what sums were actually paid to TechFlow."
+        }
+      ]
+    },
+    {
+      "docId": "D06",
+      "docType": "amendment",
+      "party": "Neutral",
+      "summary": "Deed of Variation No. 1 dated 28 June 2024, signed as a deed by both Meridian (Priya Nair, Head of Procurement) and TechFlow (Gregory Manton, Commercial Director). It re-profiles the payment milestone split to 20%/20%/30%/30% across M1-M4 for cash-flow phasing, and expressly states it does not vary the scope of works or the target go-live date, with the MSA otherwise remaining in full force.",
+      "findings": [
+        {
+          "propositionId": "P1",
+          "relation": "SUPPORTS",
+          "confidence": 0.9,
+          "quote": "The parties entered into the Master Services Agreement dated 14 March 2024 (\"the MSA\").",
+          "rationale": "The recital confirms the existence and date of the MSA between Meridian and TechFlow as pleaded in P1."
+        },
+        {
+          "propositionId": "P2",
+          "relation": "SUPPORTS",
+          "confidence": 0.7,
+          "quote": "clause 4.1 of the SOW is varied so that the charges are payable: 20% on M1, 20% on M2, 30% on M3 and 30% on M4.",
+          "rationale": "This confirms the charges under the MSA were payable against milestones (M1-M4), supporting the milestone-payment structure in P2, though it is silent on the GBP 2,400,000 total."
+        },
+        {
+          "propositionId": "P3",
+          "relation": "NEUTRAL",
+          "confidence": 0.55,
+          "quote": "This Deed does not vary the scope of the works or the target go-live date.",
+          "rationale": "The deed confirms a go-live date exists and is unchanged by this variation, but calls it a \"target\" date rather than a fixed date, which is neutral and arguably weakens P3's \"time of the essence\" characterisation."
+        },
+        {
+          "propositionId": "P6",
+          "relation": "NEUTRAL",
+          "confidence": 0.6,
+          "quote": "The parties wish to vary the payment milestone profile to reflect cash-flow phasing. This Deed does not vary the scope of the works or the target go-live date.",
+          "rationale": "This mutually agreed change to payment phasing expressly does not alter scope, so it is consistent with P6's denial of any Meridian scope-change request rather than evidence undermining it."
+        }
+      ]
+    },
+    {
+      "docId": "D07",
+      "docType": "amendment",
+      "party": "TechFlow",
+      "summary": "Change Order No. 3 (ref MRG-TF-CO-003), dated 2 September 2024, is a signed amendment to the MSA under the contractual change control procedure (clause 3). At Meridian's request, it adds a customer loyalty module (outside the original SOW-01 scope) for an additional GBP 180,000, and the parties jointly agree to revise the go-live date for the whole Platform from 1 October 2024 to 18 November 2024. It is signed by both parties: Priya Nair (Head of Procurement) for Meridian and Marcus Reilly (Project Director) for TechFlow.",
+      "findings": [
+        {
+          "propositionId": "P6",
+          "relation": "CONTRADICTS",
+          "confidence": 0.97,
+          "quote": "At the Customer's request, the Supplier shall design, build and implement a customer loyalty module (\"the Loyalty Module\")... The Loyalty Module was not part of the original scope under SOW-01.",
+          "rationale": "Meridian itself requested an out-of-scope addition to the works, directly contradicting its plea that it never at any time requested any change to the agreed scope."
+        },
+        {
+          "propositionId": "P6",
+          "relation": "CONTRADICTS",
+          "confidence": 0.95,
+          "quote": "Requested by: Helena Vance, Programme Director, Meridian Retail Group plc",
+          "rationale": "The change order records Meridian's own Programme Director as the requestor of the scope change, undermining the plea that all delay was caused solely by TechFlow's resourcing failures."
+        },
+        {
+          "propositionId": "P5",
+          "relation": "CONTRADICTS",
+          "confidence": 0.9,
+          "quote": "to accommodate the additional works, the go-live date is revised from 1 October 2024 to 18 November 2024. The revised date applies to the Platform as a whole.",
+          "rationale": "The 18 November go-live Meridian characterises as ~7 weeks' late delivery was in fact a contractually agreed revised date, so the platform went live on the agreed date rather than late."
+        },
+        {
+          "propositionId": "P3",
+          "relation": "CONTRADICTS",
+          "confidence": 0.92,
+          "quote": "the go-live date is revised from 1 October 2024 to 18 November 2024. The revised date applies to the Platform as a whole.",
+          "rationale": "The parties jointly superseded the 1 October 2024 go-live date, so it was no longer the fixed/time-of-the-essence date Meridian pleads."
+        },
+        {
+          "propositionId": "P10",
+          "relation": "CONTRADICTS",
+          "confidence": 0.75,
+          "quote": "Agreed and signed by the parties: ... For the Customer ... Name: Priya Nair ... Title: Head of Procurement ... Date: 2 September 2024",
+          "rationale": "Meridian's signature agreeing the revised go-live and additional charge payable on go-live is conduct cutting against its plea that it never gave any sign-off or acceptance of any kind."
+        },
+        {
+          "propositionId": "P1",
+          "relation": "SUPPORTS",
+          "confidence": 0.6,
+          "quote": "under the change control procedure (clause 3, MSA dated 14 March 2024)",
+          "rationale": "The change order confirms the existence and operation of the MSA dated 14 March 2024 under which TechFlow was to design, build and implement the Platform."
+        },
+        {
+          "propositionId": "P2",
+          "relation": "NEUTRAL",
+          "confidence": 0.55,
+          "quote": "The additional charge for the Loyalty Module is \u00a3180,000, payable on go-live.",
+          "rationale": "This adds GBP 180,000 of out-of-scope charges on top of the pleaded GBP 2.4m base price, providing context relevant to the total contract value and the wasted-expenditure figure."
+        }
+      ]
+    },
+    {
+      "docId": "D08",
+      "docType": "record",
+      "party": "TechFlow",
+      "summary": "A Phase 1 UAT Acceptance Certificate dated 12 November 2024, signed by Meridian's Head of Procurement (Priya Nair) and TechFlow's Project Director (Marcus Reilly). It states that Phase 1 of the Platform (core inventory and EPOS) passed User Acceptance Testing and \"is accepted,\" subject only to outstanding minor Severity 3/4 snag items, with no Severity 1 or Severity 2 items recorded at that date. The document materially undermines Meridian's pleaded case that it never accepted the Platform and that critical Severity-1 defects existed.",
+      "findings": [
+        {
+          "propositionId": "P10",
+          "relation": "CONTRADICTS",
+          "confidence": 0.95,
+          "quote": "Meridian confirms that Phase 1 has passed User Acceptance Testing and is accepted, subject to the resolution of the outstanding minor (Severity 3 and 4) items",
+          "rationale": "A certificate signed for Meridian by its Head of Procurement expressly confirming acceptance of Phase 1 directly contradicts the plea that Meridian never accepted the Platform or gave any sign-off."
+        },
+        {
+          "propositionId": "P9",
+          "relation": "CONTRADICTS",
+          "confidence": 0.7,
+          "quote": "No outstanding Severity 1 or Severity 2 items were recorded at the date of this certificate.",
+          "rationale": "Meridian's own contemporaneous record states no Severity 1 (or 2) items existed at 12 Nov 2024, cutting against the plea of critical Severity-1 stock-synchronisation failures, though it speaks only to that date and to Phase 1 scope."
+        },
+        {
+          "propositionId": "P5",
+          "relation": "NEUTRAL",
+          "confidence": 0.6,
+          "quote": "User Acceptance Testing of Phase 1 of the Platform (core inventory and EPOS) was carried out between 21 October and 11 November 2024.",
+          "rationale": "The UAT timeline (completing 11 Nov, certified 12 Nov, before the alleged 18 Nov go-live) is consistent with late delivery but is context rather than proof of the breach as pleaded."
+        },
+        {
+          "propositionId": "P8",
+          "relation": "NEUTRAL",
+          "confidence": 0.55,
+          "quote": "Phase 1 has passed User Acceptance Testing and is accepted, subject to the resolution of the outstanding minor (Severity 3 and 4) items",
+          "rationale": "Acceptance with only minor snags at 12 Nov provides context on the Platform's pre-go-live state but does not itself address availability during Nov-Dec trading hours."
+        },
+        {
+          "propositionId": "P1",
+          "relation": "SUPPORTS",
+          "confidence": 0.5,
+          "quote": "Project: Meridian Platform implementation (MSA 14 March 2024) ... Phase 1 of the Platform (core inventory and EPOS)",
+          "rationale": "The certificate corroborates the existence of the MSA dated 14 March 2024 and that TechFlow was implementing a core inventory and EPOS platform for Meridian."
+        }
+      ]
+    },
+    {
+      "docId": "D09",
+      "docType": "email",
+      "party": "TechFlow",
+      "summary": "A 24 Oct 2024 email thread in which TechFlow's Project Director Marcus Reilly formally recommends deferring go-live to mid-January 2025, citing a still-hardening loyalty module added under Change Order 3 and outstanding stock-sync issues, and warns that going live on 18 November before Black Friday/Christmas carries real risk. Meridian's Programme Director Helena Vance overrules the recommendation, instructs TechFlow to proceed on 18 November, and expressly states she is content to take that risk on Meridian's side. The thread strongly favours TechFlow by inverting the deferral-warning narrative and showing Meridian itself drove the 18 November date.",
+      "findings": [
+        {
+          "propositionId": "P3",
+          "relation": "NEUTRAL",
+          "confidence": 0.5,
+          "quote": "We can hold the 18 November date if Meridian instructs us to, but we would be doing so against our advice.",
+          "rationale": "The parties treat 18 November as the operative go-live target and discuss moving it freely, context inconsistent with 1 October being a time-of-the-essence date, though it does not directly address the original contractual date."
+        },
+        {
+          "propositionId": "P5",
+          "relation": "CONTRADICTS",
+          "confidence": 0.7,
+          "quote": "Please proceed to go-live on 18 November 2024 as planned. I understand your team\u2019s reservations and I am content to take that risk on Meridian\u2019s side.",
+          "rationale": "Meridian's own director directed the 18 November date over TechFlow's contrary recommendation, undercutting the claim that the late go-live was simply TechFlow's delivery failure rather than a date Meridian itself insisted upon."
+        },
+        {
+          "propositionId": "P6",
+          "relation": "CONTRADICTS",
+          "confidence": 0.85,
+          "quote": "the loyalty module added under Change Order 3 is still being hardened and we have a handful of stock-sync issues we would like to close out under controlled conditions.",
+          "rationale": "Reference to a loyalty module 'added under Change Order 3' is contemporaneous evidence that the scope of works was changed, contradicting the plea that Meridian never requested any scope change."
+        },
+        {
+          "propositionId": "P7",
+          "relation": "CONTRADICTS",
+          "confidence": 0.95,
+          "quote": "Our clear recommendation is to defer go-live to mid-January 2025, after the peak trading period... Please proceed to go-live on 18 November 2024 as planned.",
+          "rationale": "It was TechFlow, not Meridian, that warned of unreadiness and requested deferral, and Meridian overrode that warning, directly inverting and contradicting the pleaded allegation."
+        },
+        {
+          "propositionId": "P9",
+          "relation": "SUPPORTS",
+          "confidence": 0.4,
+          "quote": "we have a handful of stock-sync issues we would like to close out under controlled conditions.",
+          "rationale": "TechFlow's own acknowledgement of unresolved stock-sync issues at go-live lends some support to the existence of stock-synchronisation defects, though it characterises them as minor rather than critical."
+        },
+        {
+          "propositionId": "P10",
+          "relation": "NEUTRAL",
+          "confidence": 0.5,
+          "quote": "Let\u2019s get the remaining stock-sync items onto the snag list and press on.",
+          "rationale": "Meridian directing go-live with outstanding items relegated to a snag list suggests informal acceptance of the platform to proceed, context that cuts against an absolute no-acceptance plea without amounting to formal sign-off."
+        }
+      ]
+    },
+    {
+      "docId": "D10",
+      "docType": "email",
+      "party": "TechFlow",
+      "summary": "Email thread (21-27 Aug 2024) in which Meridian's Helena Vance requests that a new customer loyalty module (points, redemption, member database) be added to the platform before go-live, acknowledging it was not in the original SOW and accepting a possible knock-on to the go-live date. TechFlow's Marcus Reilly scopes the change at GBP 180,000, states go-live must move from 1 October to 18 November 2024, and says he will issue Change Order 3 for Meridian's (Priya Nair's) signature to confirm both scope and the revised date. The document strongly undermines Meridian's pleaded case that it never requested scope changes and that all delay was TechFlow's fault.",
+      "findings": [
+        {
+          "propositionId": "P6",
+          "relation": "CONTRADICTS",
+          "confidence": 0.97,
+          "quote": "the board wants a customer loyalty capability included in the platform before we go live ... I appreciate this was not in the original SOW ... Can you scope this as a change",
+          "rationale": "Meridian itself initiated a change to the agreed scope of works, directly contradicting the plea that it never at any time requested any scope change and that all delay was TechFlow's fault."
+        },
+        {
+          "propositionId": "P3",
+          "relation": "CONTRADICTS",
+          "confidence": 0.85,
+          "quote": "We accept there may be a knock-on to the go-live date and we are willing to discuss a revised date to accommodate it.",
+          "rationale": "Meridian's willingness to move the go-live date to accommodate its own new requirement undermines the plea that 1 October was fixed and time was of the essence."
+        },
+        {
+          "propositionId": "P5",
+          "relation": "CONTRADICTS",
+          "confidence": 0.88,
+          "quote": "given the additional build and test, we will need to move go-live from 1 October to 18 November 2024",
+          "rationale": "It shows the 18 November date was a revised go-live agreed to accommodate Meridian's late scope addition, rather than simply TechFlow delivering ~7 weeks late as pleaded."
+        },
+        {
+          "propositionId": "P10",
+          "relation": "CONTRADICTS",
+          "confidence": 0.55,
+          "quote": "I'll issue Change Order 3 for Priya's signature to confirm both the scope and the revised date.",
+          "rationale": "It evidences a contemplated written sign-off process by Meridian (Change Order 3), which weakens the absolute plea that no acceptance or sign-off was ever given, though the email only anticipates rather than records a signature."
+        },
+        {
+          "propositionId": "P7",
+          "relation": "CONTRADICTS",
+          "confidence": 0.45,
+          "quote": "we are willing to discuss a revised date to accommodate it.",
+          "rationale": "Meridian here proactively invites deferral of go-live to suit its own new requirement, which sits awkwardly with the plea that it repeatedly warned the platform was not ready and pressed TechFlow to defer."
+        }
+      ]
+    },
+    {
+      "docId": "D11",
+      "docType": "email",
+      "party": "Neutral",
+      "summary": "An email from TechFlow's Service Manager Sanjay Patel to Meridian (26 Nov 2024) reporting the incident review for a ~5-hour outage on 25 Nov 2024. TechFlow attributes that specific outage to a loss of wide-area network connectivity at Meridian's data centre (provider Northgate Telecom, ref NT-22841), not the Platform, while admitting it continues to work and owns the stock-sync defects as a Platform issue.",
+      "findings": [
+        {
+          "propositionId": "P8",
+          "relation": "CONTRADICTS",
+          "confidence": 0.55,
+          "quote": "The root cause was a loss of wide-area network connectivity at your data centre provided by Northgate Telecom, not the Platform. During the window the Platform application and database remained healthy but could not be reached because the network link was down.",
+          "rationale": "For at least the 25 Nov outage TechFlow attributes the unavailability to Meridian's own network provider rather than the Platform, cutting against the claim that the post-go-live unavailability was caused by Platform failures."
+        },
+        {
+          "propositionId": "P9",
+          "relation": "SUPPORTS",
+          "confidence": 0.75,
+          "quote": "we are continuing to work the stock-sync defects, which are a Platform issue and which we own.",
+          "rationale": "TechFlow expressly admits ongoing stock-synchronisation defects are a Platform issue it owns, corroborating the pleaded stock-sync defects."
+        },
+        {
+          "propositionId": "P8",
+          "relation": "NEUTRAL",
+          "confidence": 0.5,
+          "quote": "We've completed the incident review for yesterday's outage (approx. 13:10\u201318:05, around five hours).",
+          "rationale": "Confirms a substantial outage (~5 hours) did occur on 25 Nov 2024 during trading, evidencing the fact of unavailability even while disputing its cause."
+        }
+      ]
+    },
+    {
+      "docId": "D12",
+      "docType": "email",
+      "party": "TechFlow",
+      "summary": "Internal Meridian email (8 Dec 2024) from Raymond Okafor to Helena Vance, ahead of a board call, candidly attributing poor December trading to multiple non-platform causes: a 10-day flood of the Lutterworth distribution centre affecting ~40 stores, a soft market with sector-wide footfall declines and competitor discounting, and already-behind like-for-likes from October. It acknowledges platform stock-sync problems but downplays them, noting teams largely worked around them, and warns against attributing the whole shortfall to the platform. The email materially undermines Meridian's causation and quantum case on lost profit.",
+      "findings": [
+        {
+          "propositionId": "P9",
+          "relation": "SUPPORTS",
+          "confidence": 0.5,
+          "quote": "the platform stock-sync problems haven't helped at the tills, though the teams have largely been working around them with manual checks",
+          "rationale": "This internally acknowledges the existence of stock-synchronisation problems affecting the tills, corroborating that such defects existed, albeit characterising them as worked-around rather than critical."
+        },
+        {
+          "propositionId": "P8",
+          "relation": "CONTRADICTS",
+          "confidence": 0.5,
+          "quote": "the platform stock-sync problems haven't helped at the tills, though the teams have largely been working around them with manual checks",
+          "rationale": "Describing the platform issues as 'largely' worked around with manual checks cuts against the pleaded claim of widespread till failures and the Platform being unavailable for over 40% of trading hours."
+        },
+        {
+          "propositionId": "P13",
+          "relation": "CONTRADICTS",
+          "confidence": 0.9,
+          "quote": "I'd be wary of attributing the whole shortfall to the platform when the DC flood and the wider market are doing a lot of the damage.",
+          "rationale": "Meridian's own director attributes the Q4 trading shortfall largely to a DC flood and soft market rather than the platform, directly undermining the pleaded loss-of-profit claim that the damage was caused by TechFlow's breaches."
+        },
+        {
+          "propositionId": "P8",
+          "relation": "CONTRADICTS",
+          "confidence": 0.75,
+          "quote": "The Lutterworth distribution centre flooded on 3 December and was effectively out of action for around ten days. Roughly 40 stores had gaps on key lines through the first half of the month as a result. This is unrelated to the platform.",
+          "rationale": "Meridian internally attributes the December disruption across ~40 stores to a non-platform flood, undercutting the inference that store-estate trading failures in Nov-Dec were caused by Platform unavailability."
+        }
+      ]
+    },
+    {
+      "docId": "D13",
+      "docType": "record",
+      "party": "TechFlow",
+      "summary": "An extract from the platform defect/issue log covering 18 Nov 2024 to 10 Jan 2025, listing six logged issues with severity, description and cause. It records two Sev-1 stock-sync defects but attributes the single largest outage (a ~5-hour total EPOS loss) and the intermittent till freezes to network connectivity provided by Meridian, not the Platform, and characterises Platform-attributable unavailability as \"modest.\" On balance the document favours TechFlow, undercutting Meridian's downtime and quality allegations.",
+      "findings": [
+        {
+          "propositionId": "P5",
+          "relation": "SUPPORTS",
+          "confidence": 0.5,
+          "quote": "Extract \u2014 18 November 2024 to 10 January 2025",
+          "rationale": "The defect log only begins on 18 November 2024, consistent with the Platform having gone live on that date rather than the contractual 1 October date."
+        },
+        {
+          "propositionId": "P8",
+          "relation": "CONTRADICTS",
+          "confidence": 0.8,
+          "quote": "Recorded Platform unavailability attributable to Platform defects over the period was modest; the single largest outage (D-003) and the intermittent till freezes (D-006) were attributable to network connectivity provided by Meridian, not to the Platform.",
+          "rationale": "This directly undercuts Meridian's claim that the Platform was unavailable for over 40% of trading hours by characterising Platform-caused downtime as modest and blaming the largest outages on Meridian's own network."
+        },
+        {
+          "propositionId": "P9",
+          "relation": "SUPPORTS",
+          "confidence": 0.65,
+          "quote": "D-001   19 Nov 2024   Sev 1      Stock-sync: tills show incorrect stock counts; oversell on promotional lines",
+          "rationale": "The log records critical Severity-1 stock-synchronisation defects causing oversell on incorrect stock, precisely the defect Meridian pleads, though it also shows both Sev-1 defects were fixed within weeks."
+        },
+        {
+          "propositionId": "P3",
+          "relation": "NEUTRAL",
+          "confidence": 0.3,
+          "quote": "Extract \u2014 18 November 2024 to 10 January 2025",
+          "rationale": "The log's start date is consistent with go-live around 18 November 2024 but says nothing about whether 1 October was the fixed date or whether time was of the essence."
+        }
+      ]
+    },
+    {
+      "docId": "D14",
+      "docType": "letter",
+      "party": "Meridian",
+      "summary": "Letter before action and notice of termination dated 20 January 2025 from Meridian's solicitors (Caldwell Pryce LLP) to TechFlow, asserting repudiatory breach of the 14 March 2024 MSA. It alleges late delivery, serious post-go-live failures including stock-synchronisation defects, and that the Platform was not of satisfactory quality or fit for purpose, and states Meridian accepts the conduct as terminating the MSA and will seek damages for wasted expenditure and loss of profit during peak trading.",
+      "findings": [
+        {
+          "propositionId": "P1",
+          "relation": "SUPPORTS",
+          "confidence": 0.85,
+          "quote": "Master Services Agreement dated 14 March 2024 ... your design, build and implementation of the inventory and EPOS platform under the above Agreement (\"the MSA\").",
+          "rationale": "The letter confirms the MSA dated 14 March 2024 governed TechFlow's design, build and implementation of an inventory and EPOS platform for Meridian, matching the proposition; though it is Meridian's own characterisation."
+        },
+        {
+          "propositionId": "P5",
+          "relation": "SUPPORTS",
+          "confidence": 0.7,
+          "quote": "(i) you delivered the Platform late; (ii) following go-live on 18 November 2024 the Platform suffered serious and repeated failures",
+          "rationale": "The letter asserts late delivery and dates go-live at 18 November 2024, consistent with the pleaded late-delivery proposition, though as advocacy it is self-serving rather than independent proof of lateness."
+        },
+        {
+          "propositionId": "P8",
+          "relation": "SUPPORTS",
+          "confidence": 0.4,
+          "quote": "following go-live on 18 November 2024 the Platform suffered serious and repeated failures ... These failures occurred during our client's most important trading period and caused substantial loss.",
+          "rationale": "The letter alleges serious repeated post-go-live failures during peak trading, broadly consistent with the unavailability claim, but it does not state the 40% figure or quantify downtime so it only weakly corroborates P8."
+        },
+        {
+          "propositionId": "P9",
+          "relation": "SUPPORTS",
+          "confidence": 0.75,
+          "quote": "including critical defects in the stock-synchronisation module; and (iii) the Platform was not of satisfactory quality nor fit for purpose.",
+          "rationale": "The letter expressly alleges critical stock-synchronisation defects and that the Platform was not of satisfactory quality or fit for purpose, directly mirroring the pleaded defect/quality proposition, though it is Meridian's own assertion."
+        },
+        {
+          "propositionId": "P10",
+          "relation": "SUPPORTS",
+          "confidence": 0.55,
+          "quote": "Our client accepts your conduct as terminating the MSA with immediate effect and reserves all of its rights.",
+          "rationale": "Meridian's election to treat the breach as repudiatory and terminate is consistent with its case that it never accepted the Platform, though acceptance of repudiation is a different legal concept from acceptance/sign-off of the deliverable and the letter does not expressly state no sign-off was given."
+        },
+        {
+          "propositionId": "P12",
+          "relation": "SUPPORTS",
+          "confidence": 0.35,
+          "quote": "Our client will be seeking damages, including wasted expenditure and loss of profit during the peak trading period, which are substantial.",
+          "rationale": "The letter foreshadows a wasted-expenditure claim but gives no figure, so it supports the existence of the head of loss without corroborating the GBP 1,800,000 quantum."
+        },
+        {
+          "propositionId": "P13",
+          "relation": "SUPPORTS",
+          "confidence": 0.35,
+          "quote": "loss of profit during the peak trading period, which are substantial.",
+          "rationale": "The letter asserts a loss-of-profit claim for the peak trading period, supporting the existence of the head of loss but providing no quantum to corroborate the GBP 4,200,000 figure."
+        }
+      ]
+    },
+    {
+      "docId": "D15",
+      "docType": "letter",
+      "party": "TechFlow",
+      "summary": "TechFlow's solicitors' response (Harborne Quinn LLP) to Meridian's letter before action, dated 7 Feb 2025, denying the claim in its entirety and disputing both liability and quantum. It asserts go-live was a target that moved due to a customer-requested Change Order No. 3, that TechFlow recommended deferring go-live but Meridian's Programme Director insisted on proceeding, that Meridian signed an Acceptance Certificate for Phase 1, and that the loss claim is overstated and excluded/capped by clause 14.",
+      "findings": [
+        {
+          "propositionId": "P3",
+          "relation": "CONTRADICTS",
+          "confidence": 0.75,
+          "quote": "The go-live date was a target, not a fixed date. It moved from 1 October to 18 November 2024 by reason of Change Order No. 3",
+          "rationale": "TechFlow directly disputes that 1 October was a fixed date or that time was of the essence, characterising it instead as a movable target."
+        },
+        {
+          "propositionId": "P6",
+          "relation": "CONTRADICTS",
+          "confidence": 0.85,
+          "quote": "Change Order No. 3, signed by your client on 2 September 2024, which added a customer loyalty module that your client requested and which was not in the original scope. Your client's assertion that it requested no change to scope is wrong",
+          "rationale": "This is direct evidence that Meridian did request and sign off on a scope change, squarely contradicting Meridian's pleaded case that it never requested any scope change."
+        },
+        {
+          "propositionId": "P5",
+          "relation": "NEUTRAL",
+          "confidence": 0.7,
+          "quote": "It moved from 1 October to 18 November 2024 by reason of Change Order No. 3",
+          "rationale": "TechFlow concedes go-live did not occur until 18 November 2024 (the factual delay Meridian pleads) but attributes it to a change order rather than its own default, confirming the date while disputing the cause."
+        },
+        {
+          "propositionId": "P7",
+          "relation": "CONTRADICTS",
+          "confidence": 0.8,
+          "quote": "Our client expressly recommended, in writing on 24 October 2024, that go-live be deferred to January 2025... Your client's Programme Director rejected that recommendation and instructed our client to proceed on 18 November 2024, accepting the associated risk.",
+          "rationale": "This reverses Meridian's narrative: it asserts TechFlow urged deferral and Meridian insisted on proceeding, contradicting the claim that TechFlow ignored Meridian's warnings."
+        },
+        {
+          "propositionId": "P8",
+          "relation": "CONTRADICTS",
+          "confidence": 0.7,
+          "quote": "The Platform was not \"unavailable for more than 40% of trading hours\". The most significant outage, on 25 November 2024, was caused by the failure of your client's own network provider, Northgate Telecom, and not by the Platform.",
+          "rationale": "TechFlow denies the 40% unavailability figure and attributes the principal outage to Meridian's own network provider rather than the Platform."
+        },
+        {
+          "propositionId": "P10",
+          "relation": "CONTRADICTS",
+          "confidence": 0.85,
+          "quote": "Your client accepted Phase 1 by a signed Acceptance Certificate dated 12 November 2024.",
+          "rationale": "This directly contradicts Meridian's plea that no acceptance or sign-off was ever given, asserting a signed Acceptance Certificate exists for Phase 1."
+        },
+        {
+          "propositionId": "P13",
+          "relation": "CONTRADICTS",
+          "confidence": 0.7,
+          "quote": "Your client's pleaded loss of profit is grossly overstated and ignores (a) the flooding of your client's Lutterworth distribution centre in December 2024 and (b) the well-documented downturn in the retail sector during that quarter. In any event, clause 14 of the MSA excludes liability for loss of profit",
+          "rationale": "TechFlow disputes the loss-of-profit quantum, raises alternative causes, and asserts a contractual exclusion of loss of profit, directly undermining the pleaded GBP 4.2m claim."
+        },
+        {
+          "propositionId": "P12",
+          "relation": "CONTRADICTS",
+          "confidence": 0.4,
+          "quote": "clause 14 of the MSA... caps our client's liability at the charges actually paid. Your client has wrongly withheld the final two milestone payments totalling \u00a3600,000, which remain due to our client.",
+          "rationale": "TechFlow asserts a liability cap and that two milestones remain unpaid, which undermines recoverability of the GBP 1.8m wasted-expenditure figure and implies Meridian withheld GBP 600,000 of the GBP 2.4m total."
+        }
+      ]
+    },
+    {
+      "docId": "D16",
+      "docType": "witness",
+      "party": "TechFlow",
+      "summary": "Witness statement of Helena Vance, Meridian's Programme Director, dated 13 March 2026. Although a Claimant witness, her evidence cuts heavily against Meridian's pleaded case: she admits Meridian requested an out-of-scope loyalty module (Change Order No. 3, signed by Priya Nair on 2 Sept 2024), that this change order moved the go-live date to 18 November 2024, that TechFlow recommended in writing delaying go-live to January 2025 but she/the board decided to proceed anyway, and that some connectivity/till problems were due to Meridian's own store broadband. She does confirm serious stock-synchronisation defects and post-go-live disruption.",
+      "findings": [
+        {
+          "propositionId": "P3",
+          "relation": "CONTRADICTS",
+          "confidence": 0.85,
+          "quote": "It was documented in Change Order No. 3, which my colleague Priya Nair signed on 2 September 2024, and which also moved the go-live date to 18 November 2024.",
+          "rationale": "Meridian's own Programme Director admits the go-live date was contractually moved by a signed change order to 18 November, undermining the pleaded case that go-live was fixed at 1 October with time of the essence."
+        },
+        {
+          "propositionId": "P6",
+          "relation": "CONTRADICTS",
+          "confidence": 0.97,
+          "quote": "I asked TechFlow to add a loyalty module. I accept this was not in the original Statement of Work. It was documented in Change Order No. 3, which my colleague Priya Nair signed on 2 September 2024",
+          "rationale": "This is a direct admission by Meridian that it did request a change to the agreed scope, flatly contradicting the plea that Meridian never requested any scope change."
+        },
+        {
+          "propositionId": "P5",
+          "relation": "CONTRADICTS",
+          "confidence": 0.8,
+          "quote": "Change Order No. 3, which my colleague Priya Nair signed on 2 September 2024, and which also moved the go-live date to 18 November 2024.",
+          "rationale": "If the contractual go-live date was moved to 18 November by signed change order, delivery on 18 November was on time rather than ~7 weeks late as pleaded."
+        },
+        {
+          "propositionId": "P7",
+          "relation": "CONTRADICTS",
+          "confidence": 0.95,
+          "quote": "Marcus Reilly recommended in writing that we delay until January 2025... I decided that we should go live on 18 November 2024... I took the decision to proceed despite TechFlow's advice.",
+          "rationale": "It was TechFlow that warned and recommended deferring go-live, and Meridian that insisted on proceeding, the reverse of the pleaded allegation that Meridian warned and TechFlow ignored it."
+        },
+        {
+          "propositionId": "P9",
+          "relation": "SUPPORTS",
+          "confidence": 0.85,
+          "quote": "After go-live there were real problems with the stock-synchronisation module. Tills in some stores showed the wrong stock numbers, and on promotional lines we oversold in places. These problems were serious",
+          "rationale": "Meridian's witness confirms serious stock-synchronisation defects causing selling against incorrect stock, supporting the pleaded defect allegations."
+        },
+        {
+          "propositionId": "P8",
+          "relation": "CONTRADICTS",
+          "confidence": 0.6,
+          "quote": "I could not say for how long in total, and I understand some of the connectivity problems were to do with our own store broadband rather than the platform itself",
+          "rationale": "Meridian's witness cannot quantify downtime and attributes part of the connectivity problems to Meridian's own broadband, undermining the precise pleaded figure of over 40% unavailability caused by the Platform."
+        },
+        {
+          "propositionId": "P13",
+          "relation": "CONTRADICTS",
+          "confidence": 0.55,
+          "quote": "The board was firm that we needed the platform live for peak trading, and I took the decision to proceed despite TechFlow's advice... going live just before Black Friday was optimistic.",
+          "rationale": "Any peak-trading loss flows substantially from Meridian's own decision to go live against TechFlow's written advice, weakening the causal link to TechFlow for the pleaded loss of profit."
+        },
+        {
+          "propositionId": "P10",
+          "relation": "NEUTRAL",
+          "confidence": 0.4,
+          "quote": "I considered that the platform we were given was not what we had paid for, and that is why Meridian decided to bring the relationship to an end.",
+          "rationale": "She states Meridian rejected the platform and terminated, broadly consistent with non-acceptance, but the signed Change Order No. 3 and decision to go live could be argued as conduct touching on acceptance, so this is context rather than clear support."
+        },
+        {
+          "propositionId": "P1",
+          "relation": "NEUTRAL",
+          "confidence": 0.5,
+          "quote": "I had overall responsibility for the Platform implementation programme on Meridian's side.",
+          "rationale": "Confirms the existence of a platform implementation programme between the parties, providing background context to the MSA without addressing its specific terms."
+        }
+      ]
+    },
+    {
+      "docId": "D17",
+      "docType": "witness",
+      "party": "TechFlow",
+      "summary": "Second witness statement for the Claimant from Raymond Okafor, Meridian's Head of Retail Operations, dated 13 March 2026. Although a Meridian witness, he candidly concedes that many post-go-live problems and the poor December trading had causes other than the platform: dropped in-store broadband, a data-centre network failure on 25 November, a distribution-centre flood on 3 December, and a weak market. He confirms the platform's stock-sync issues did hurt the business but characterises them as \"one factor among several,\" materially undermining Meridian's causation and loss case.",
+      "findings": [
+        {
+          "propositionId": "P5",
+          "relation": "SUPPORTS",
+          "confidence": 0.95,
+          "quote": "The new platform went live on 18 November 2024, immediately before our peak trading period.",
+          "rationale": "Confirms the platform went live on 18 November 2024, the late go-live date pleaded by Meridian."
+        },
+        {
+          "propositionId": "P8",
+          "relation": "CONTRADICTS",
+          "confidence": 0.85,
+          "quote": "A number of the till outages in stores turned out to be caused by the broadband connections in the stores dropping out, rather than the platform itself. There was also a complete outage on 25 November that I am told was a network failure at our data centre provider, not the platform.",
+          "rationale": "Meridian's own witness attributes much of the till downtime to in-store broadband and a data-centre network failure rather than the platform, undermining the pleaded claim that platform unavailability caused the till failures."
+        },
+        {
+          "propositionId": "P9",
+          "relation": "SUPPORTS",
+          "confidence": 0.7,
+          "quote": "None of this is to say the platform problems did not hurt us \u2014 they did, especially the stock-sync issues",
+          "rationale": "Confirms the platform suffered stock-sync defects that harmed the business, consistent with the pleaded Severity-1 stock-synchronisation failures."
+        },
+        {
+          "propositionId": "P13",
+          "relation": "CONTRADICTS",
+          "confidence": 0.9,
+          "quote": "Our trading in December 2024 was poor, but the platform was not the only reason. Our distribution centre at Lutterworth flooded on 3 December 2024 and was effectively out of action for about ten days... The market was also weak that quarter, with footfall down across the sector and heavy discounting by competitors.",
+          "rationale": "Identifies multiple non-platform causes (DC flood, weak market, discounting) for the poor December trading, severely undermining Meridian's claim that the platform caused GBP 4.2m of lost peak-season profit."
+        }
+      ]
+    },
+    {
+      "docId": "D18",
+      "docType": "witness",
+      "party": "TechFlow",
+      "summary": "Witness statement of Priya Nair, Meridian's Head of Procurement, who handled the contractual/commercial administration of the TechFlow contract. Although a Claimant witness, her evidence damages Meridian's case: she confirms Meridian itself requested a scope change (the loyalty module via Change Order No. 3), that the same Change Order jointly revised the go-live date to 18 November 2024, and that she signed a Phase 1 Acceptance Certificate on 12 November 2024 with no critical items outstanding. She confirms the contract value (GBP 2.4m), that Meridian paid GBP 1.8m, and disclaims any view on technical performance.",
+      "findings": [
+        {
+          "propositionId": "P1",
+          "relation": "SUPPORTS",
+          "confidence": 0.7,
+          "quote": "I signed the Master Services Agreement on Meridian's behalf on 14 March 2024, and the related Order Form. The total contract value was \u00a32.4 million.",
+          "rationale": "Confirms the existence and execution of the MSA dated 14 March 2024 between the parties, the foundation of P1."
+        },
+        {
+          "propositionId": "P2",
+          "relation": "SUPPORTS",
+          "confidence": 0.85,
+          "quote": "I signed the Master Services Agreement on Meridian's behalf on 14 March 2024, and the related Order Form. The total contract value was \u00a32.4 million.",
+          "rationale": "Directly confirms the total contract value of GBP 2.4 million pleaded in P2."
+        },
+        {
+          "propositionId": "P3",
+          "relation": "CONTRADICTS",
+          "confidence": 0.75,
+          "quote": "On 2 September 2024 I signed Change Order No. 3... and it revised the go-live date from 1 October to 18 November 2024. I understood at the time that we were changing both the scope and the date.",
+          "rationale": "If the 1 October date could be, and was, contractually revised by a signed change order, that undermines the contention that time was of the essence and the date was fixed."
+        },
+        {
+          "propositionId": "P5",
+          "relation": "CONTRADICTS",
+          "confidence": 0.8,
+          "quote": "it revised the go-live date from 1 October to 18 November 2024. I understood at the time that we were changing both the scope and the date.",
+          "rationale": "The 18 November go-live alleged as ~7 weeks late was in fact the contractually revised date Meridian itself agreed, so delivery on that date was not late delay attributable to TechFlow."
+        },
+        {
+          "propositionId": "P6",
+          "relation": "CONTRADICTS",
+          "confidence": 0.95,
+          "quote": "This added the customer loyalty module, which Helena Vance had asked TechFlow to provide and which was not in the original Statement of Work... I understood at the time that we were changing both the scope.",
+          "rationale": "Meridian's own procurement head confirms Meridian (via Helena Vance) requested an out-of-scope module and signed a change order changing scope, directly contradicting the plea that Meridian never requested any scope change."
+        },
+        {
+          "propositionId": "P10",
+          "relation": "CONTRADICTS",
+          "confidence": 0.9,
+          "quote": "On 12 November 2024 I signed the Phase 1 Acceptance Certificate, confirming that Phase 1 of the platform had passed user acceptance testing. There were some minor snags listed, but no critical items were outstanding at that point.",
+          "rationale": "Meridian's own signatory confirms it gave a formal Phase 1 acceptance/sign-off, directly contradicting the plea that no acceptance or sign-off was ever given."
+        },
+        {
+          "propositionId": "P12",
+          "relation": "CONTRADICTS",
+          "confidence": 0.7,
+          "quote": "In total Meridian paid TechFlow \u00a31.8 million. We withheld the final two milestone payments of \u00a3300,000 each \u2014 \u00a3600,000 in total \u2014 because of the problems we experienced after go-live.",
+          "rationale": "While it confirms GBP 1.8m was paid, it shows Meridian retained GBP 600,000, qualifying the 'wasted expenditure' claim by reference to sums it deliberately withheld and to value received."
+        },
+        {
+          "propositionId": "P9",
+          "relation": "NEUTRAL",
+          "confidence": 0.6,
+          "quote": "I am not in a position to comment on the technical performance of the platform; that is a matter for my operational and technical colleagues.",
+          "rationale": "The witness expressly disclaims any evidence on technical defects or fitness for purpose, so her statement neither supports nor undermines P9."
+        },
+        {
+          "propositionId": "P8",
+          "relation": "NEUTRAL",
+          "confidence": 0.55,
+          "quote": "We withheld the final two milestone payments of \u00a3300,000 each \u2014 \u00a3600,000 in total \u2014 because of the problems we experienced after go-live.",
+          "rationale": "Acknowledges unspecified post-go-live problems but gives no detail on availability or till failures, so it is mere context for P8 rather than support."
+        }
+      ]
+    },
+    {
+      "docId": "D19",
+      "docType": "expert",
+      "party": "Neutral",
+      "summary": "CPR Part 35 IT expert report of Dr Alan Whitfield, instructed by Meridian's solicitors, on (a) Platform availability post go-live and (b) defects. He finds the Platform contained genuine Severity 1 stock-synchronisation defects persisting ~6 weeks, falling below the expected standard \u2014 but rejects the pleaded 40% unavailability figure, putting actual Platform-attributable unavailability at ~6.2% and attributing the largest outage to Meridian's own network provider. Despite being Meridian's expert, the report substantially undermines Meridian's availability case.",
+      "findings": [
+        {
+          "propositionId": "P8",
+          "relation": "CONTRADICTS",
+          "confidence": 0.95,
+          "quote": "the total Platform unavailability attributable to the Platform itself was approximately 6.2% of trading hours over the period. That figure is materially lower than the figure of \"more than 40% of trading hours\" referred to in the pleadings. I have found no support in the logs for a figure of that order.",
+          "rationale": "Meridian's own IT expert directly rejects the pleaded 40%-unavailability figure, putting Platform-attributable unavailability at roughly 6.2%, which squarely contradicts P8."
+        },
+        {
+          "propositionId": "P8",
+          "relation": "CONTRADICTS",
+          "confidence": 0.85,
+          "quote": "The single largest outage occurred on 25 November 2024 and lasted approximately five hours. In my opinion this outage was not caused by the Platform... the cause was a loss of wide-area network connectivity at the Claimant's data-centre provider (Northgate Telecom).",
+          "rationale": "The biggest outage is attributed to Meridian's own network provider rather than the Platform, further undermining the pleaded claim that the Platform caused 40% unavailability and till failures."
+        },
+        {
+          "propositionId": "P9",
+          "relation": "SUPPORTS",
+          "confidence": 0.95,
+          "quote": "the Platform did contain genuine and serious defects in the stock-synchronisation module (defects D-001 and D-002 in the log). These were correctly categorised as Severity 1. They caused incorrect stock figures at the point of sale and overselling on certain lines, and persisted for approximately six weeks before being resolved.",
+          "rationale": "The expert confirms genuine Severity 1 stock-synchronisation defects causing selling against incorrect stock, directly supporting the defects alleged in P9."
+        },
+        {
+          "propositionId": "P9",
+          "relation": "SUPPORTS",
+          "confidence": 0.9,
+          "quote": "the presence of Severity 1 stock-synchronisation defects of this kind, persisting for around six weeks across a live store estate, falls below the standard reasonably to be expected of a competent supplier exercising reasonable skill and care.",
+          "rationale": "The expert opines the defects fell below the standard of a competent supplier, supporting the not-fit-for-purpose / unsatisfactory-quality element of P9."
+        }
+      ]
+    },
+    {
+      "docId": "D20",
+      "docType": "expert",
+      "party": "Neutral",
+      "summary": "Independent forensic accounting (quantum) expert report by Fiona Greenhalgh FCA, instructed by the Defendant's solicitors. She accepts the pleaded GBP 1,800,000 wasted expenditure as supportable, but opines that the pleaded GBP 4,200,000 loss of profit is substantially overstated, with a supportable figure of only around GBP 1,300,000, attributing roughly GBP 1,500,000 of the Q4 shortfall to non-Platform causes (a distribution-centre flood and a sector-wide retail downturn). She also flags clause 14 of the MSA (loss-of-profit exclusion and liability cap) as a matter for the Court.",
+      "findings": [
+        {
+          "propositionId": "P12",
+          "relation": "SUPPORTS",
+          "confidence": 0.9,
+          "quote": "The pleaded wasted expenditure of \u00a31,800,000 is consistent with the Claimant's accounting records and the sums invoiced and paid under the Master Services Agreement. I have no reason to challenge this element on a wasted-expenditure basis.",
+          "rationale": "The Defendant's own quantum expert confirms the GBP 1,800,000 wasted expenditure figure is consistent with accounting records and sums paid under the MSA."
+        },
+        {
+          "propositionId": "P13",
+          "relation": "CONTRADICTS",
+          "confidence": 0.92,
+          "quote": "In my opinion the pleaded loss of profit of \u00a34,200,000 is substantially overstated... the incremental lost gross profit capable of being attributed to the Platform's defects is of the order of \u00a31,300,000, not \u00a34,200,000.",
+          "rationale": "The expert directly undermines the pleaded GBP 4,200,000 loss-of-profit figure, opining the Platform-attributable loss is only about GBP 1,300,000."
+        },
+        {
+          "propositionId": "P2",
+          "relation": "SUPPORTS",
+          "confidence": 0.5,
+          "quote": "clause 14 of the Master Services Agreement appears to exclude liability for loss of profit and to cap the Supplier's liability at the charges paid (approximately \u00a31,800,000).",
+          "rationale": "The expert corroborates that the charges paid under the MSA were approximately GBP 1,800,000, consistent with (and a partial payment against) the pleaded GBP 2,400,000 total contract charges."
+        },
+        {
+          "propositionId": "P8",
+          "relation": "NEUTRAL",
+          "confidence": 0.55,
+          "quote": "A material part of the Q4 sales shortfall is, in my opinion, attributable to causes unconnected with the Platform. In particular: (a) the flooding of the Claimant's Lutterworth distribution centre in early December 2024... and (b) a sector-wide downturn in retail trading.",
+          "rationale": "On causation the expert attributes much of the Q4 trading shortfall to a flood and a market downturn rather than Platform unavailability, providing context that complicates (though does not directly disprove) the pleaded till-failure losses."
+        },
+        {
+          "propositionId": "P9",
+          "relation": "NEUTRAL",
+          "confidence": 0.4,
+          "quote": "the incremental lost gross profit capable of being attributed to the Platform's defects is of the order of \u00a31,300,000",
+          "rationale": "The expert implicitly accepts that the Platform had defects causing some attributable loss, but the report is on quantum/causation and does not assess the existence or severity of the defects themselves."
+        }
+      ]
+    }
+  ],
+  "matrix": {
+    "propositions": [
+      {
+        "propositionId": "P1",
+        "status": "WELL_SUPPORTED",
+        "riskScore": 5,
+        "headline": "The MSA obligation is rock solid \u2014 every document confirms TechFlow agreed to design, build and implement the platform; nobody disputes it.",
+        "supportingDocIds": [
+          "D03",
+          "D04",
+          "D05",
+          "D06",
+          "D07",
+          "D08",
+          "D14",
+          "D18"
+        ],
+        "contradictingDocIds": [],
+        "gapNote": "No gap. Clause 1.1 of the MSA plus the SOW, order form, deed of variation, change order, acceptance certificate and Nair's witness evidence all confirm the obligation. Uncontested."
+      },
+      {
+        "propositionId": "P2",
+        "status": "WELL_SUPPORTED",
+        "riskScore": 8,
+        "headline": "The \u00a32.4m milestone price is documented to the penny \u2014 even the defendant's quantum expert confirms the figure.",
+        "supportingDocIds": [
+          "D03",
+          "D05",
+          "D06",
+          "D07",
+          "D18",
+          "D20"
+        ],
+        "contradictingDocIds": [],
+        "gapNote": "Price and milestone structure proven by the MSA, order form, deed of variation and Nair's statement. Note CO3 added \u00a3180k of out-of-scope charges on top, and only \u00a31.8m of the \u00a32.4m was actually paid (\u00a3600k withheld) \u2014 relevant to quantum but not to the existence of the \u00a32.4m base charge."
+      },
+      {
+        "propositionId": "P3",
+        "status": "CONTRADICTED",
+        "riskScore": 85,
+        "headline": "There is no 'time of the essence' \u2014 the contract itself calls 1 October a 'target' and 'planning estimate', and the date was lawfully moved by signed change order.",
+        "supportingDocIds": [],
+        "contradictingDocIds": [
+          "D03",
+          "D04",
+          "D07",
+          "D15",
+          "D16",
+          "D18"
+        ],
+        "gapNote": "Zero affirmative support anywhere in the bundle. MSA cl 3.1 and SOW expressly designate go-live a reasonable-endeavours target subject to change control; CO3 moved it; both Meridian witnesses (Nair, Vance) concede the date was contractually revised. The plea is unsustainable as pleaded."
+      },
+      {
+        "propositionId": "P4",
+        "status": "GAP",
+        "riskScore": 72,
+        "headline": "The 10,000-transaction representation is a ghost \u2014 no witness, no note, no proof it was made or that it was false, and the non-reliance clause bars it absent fraud.",
+        "supportingDocIds": [],
+        "contradictingDocIds": [
+          "D03"
+        ],
+        "gapNote": "Critical evidential void: nothing in the bundle proves Frost made the statement on 5 Feb 2024, that Meridian relied on it, or that the platform was incapable of 10,000 concurrent transactions. There is no Frost or Meridian witness on the meeting and no load-test evidence. Compounding the gap, MSA cl 22.1/22.2 (entire-agreement / non-reliance) defeats the claim unless fraud is pleaded and proved \u2014 which it is not on this material. Needs contemporaneous notes of the 5 Feb meeting and technical capacity evidence, or the claim should be dropped."
+      },
+      {
+        "propositionId": "P5",
+        "status": "CONTRADICTED",
+        "riskScore": 80,
+        "headline": "The 18 November go-live wasn't late \u2014 it was the contractually agreed date under Change Order No. 3, and Meridian's own director insisted on it over TechFlow's deferral advice.",
+        "supportingDocIds": [
+          "D14",
+          "D17",
+          "D08",
+          "D13"
+        ],
+        "contradictingDocIds": [
+          "D07",
+          "D09",
+          "D10",
+          "D15",
+          "D16",
+          "D18"
+        ],
+        "gapNote": "The 18 Nov date is well-proven, but the operative allegation \u2014 that it was ~7 weeks late and TechFlow's fault \u2014 is contradicted. CO3 (signed 2 Sept 2024) revised go-live from 1 Oct to 18 Nov to accommodate Meridian's own loyalty-module request; both Meridian witnesses concede this; and Meridian directed the 18 Nov date against TechFlow's written recommendation to defer to January 2025. Delivery on the revised contractual date is not breach."
+      },
+      {
+        "propositionId": "P6",
+        "status": "CONTRADICTED",
+        "riskScore": 95,
+        "headline": "This plea is demonstrably false \u2014 Meridian requested the out-of-scope loyalty module, signed Change Order No. 3 for it, and its own three witnesses admit it.",
+        "supportingDocIds": [],
+        "contradictingDocIds": [
+          "D07",
+          "D10",
+          "D15",
+          "D16",
+          "D18",
+          "D09",
+          "D03",
+          "D04"
+        ],
+        "gapNote": "No support; overwhelming contradiction. Vance's 21-27 Aug emails request the loyalty module 'not in the original SOW'; CO3 records Meridian as requestor and is signed by Nair; Vance, Nair and Okafor all admit the scope change in their statements. Pleading that Meridian 'did not at any time request any change to the agreed scope' is flatly contradicted by signed contemporaneous documents and is the single most damaging credibility problem in the case. Consider amending or abandoning before trial."
+      },
+      {
+        "propositionId": "P7",
+        "status": "CONTRADICTED",
+        "riskScore": 93,
+        "headline": "The deferral narrative is inverted \u2014 it was TechFlow that warned in writing and urged delay to January; Meridian overruled it and 'took the risk on Meridian's side'.",
+        "supportingDocIds": [],
+        "contradictingDocIds": [
+          "D09",
+          "D16",
+          "D15",
+          "D10"
+        ],
+        "gapNote": "No support. The 24 Oct email thread shows Marcus Reilly (TechFlow) formally recommending deferral to mid-January 2025 and Vance (Meridian) overruling him and accepting the risk; Vance's own witness statement repeats this admission. The pleaded allegation that Meridian warned and TechFlow ignored it is the precise reverse of the contemporaneous record."
+      },
+      {
+        "propositionId": "P8",
+        "status": "CONTRADICTED",
+        "riskScore": 90,
+        "headline": "The 40% unavailability figure is fiction \u2014 Meridian's own IT expert puts platform-attributable downtime at ~6.2% and blames the biggest outage on Meridian's own network.",
+        "supportingDocIds": [
+          "D14"
+        ],
+        "contradictingDocIds": [
+          "D19",
+          "D13",
+          "D15",
+          "D16",
+          "D17",
+          "D11",
+          "D12"
+        ],
+        "gapNote": "Catastrophic for Meridian: its own CPR Part 35 expert (Whitfield) finds ~6.2% platform-attributable unavailability and 'no support in the logs' for 40%; the largest (~5hr) outage on 25 Nov was Meridian's data-centre network (Northgate Telecom); much till downtime traced to Meridian's own store broadband (Okafor, Vance); the December disruption across ~40 stores was the Lutterworth DC flood. The pleaded figure must be corrected or it will collapse and damage credibility on everything else."
+      },
+      {
+        "propositionId": "P9",
+        "status": "WELL_SUPPORTED",
+        "riskScore": 22,
+        "headline": "Meridian's strongest card: genuine, serious Severity-1 stock-sync defects persisting ~6 weeks, below the standard of a competent supplier \u2014 confirmed by the IT expert and admitted by TechFlow.",
+        "supportingDocIds": [
+          "D19",
+          "D13",
+          "D16",
+          "D17",
+          "D11",
+          "D14"
+        ],
+        "contradictingDocIds": [],
+        "gapNote": "Solidly supported and the spine of any viable case. Independent expert Whitfield confirms genuine Sev-1 stock-sync defects causing oversell, persisting ~6 weeks and falling below the reasonable-skill-and-care standard; the defect log records D-001/D-002 as Sev-1; TechFlow's service manager admits the stock-sync defects 'are a Platform issue and which we own'. Caveat: the defects were fixed within ~6 weeks and internal Meridian emails describe them as 'largely worked around', which goes to loss/causation rather than existence. This is the proposition to anchor the case to."
+      },
+      {
+        "propositionId": "P10",
+        "status": "CONTRADICTED",
+        "riskScore": 82,
+        "headline": "The absolute 'no sign-off ever' plea is broken by a signed Phase 1 Acceptance Certificate \u2014 Meridian's own Head of Procurement confirms she signed it on 12 November.",
+        "supportingDocIds": [
+          "D14"
+        ],
+        "contradictingDocIds": [
+          "D08",
+          "D18",
+          "D15",
+          "D07"
+        ],
+        "gapNote": "The plea that 'no acceptance or sign-off was given at any time' is contradicted by the 12 Nov 2024 Phase 1 UAT Acceptance Certificate signed by Nair, who confirms it in her statement (Phase 1 accepted, no critical items outstanding), plus the signed CO3. Meridian can argue acceptance of repudiation/termination (D14) is a different legal concept, and that Phase 1 acceptance is not whole-platform acceptance, but the unqualified pleading is false on its face and hands TechFlow a quality/acceptance argument. Reframe to 'no final/whole-platform acceptance'."
+      },
+      {
+        "propositionId": "P11",
+        "status": "CONTRADICTED",
+        "riskScore": 68,
+        "headline": "Training was Meridian's job, not TechFlow's \u2014 the SOW puts end-user training on Meridian and limits TechFlow to a train-the-trainer session and user guides.",
+        "supportingDocIds": [],
+        "contradictingDocIds": [
+          "D04"
+        ],
+        "gapNote": "The pleaded duty does not exist as framed: SOW-01 expressly allocates training of store/head-office staff to Meridian and limits TechFlow's obligation to a train-the-trainer session plus written user guides. There is no evidence in the bundle that TechFlow failed even that narrow duty, so the claim is both contractually misconceived and evidentially empty. Would need proof TechFlow failed to deliver the train-the-trainer session/guides to revive it; otherwise drop."
+      },
+      {
+        "propositionId": "P12",
+        "status": "CONTESTED",
+        "riskScore": 58,
+        "headline": "The \u00a31.8m paid is verified by the defendant's own accountant \u2014 but recoverability as 'wasted' is squeezed by the clause 14 cap, Phase 1 acceptance and the \u00a3600k Meridian chose to withhold.",
+        "supportingDocIds": [
+          "D20",
+          "D18",
+          "D14"
+        ],
+        "contradictingDocIds": [
+          "D15",
+          "D03"
+        ],
+        "gapNote": "The quantum of sums paid (\u00a31.8m of the \u00a32.4m, with \u00a3600k withheld) is firmly established and accepted by quantum expert Greenhalgh. The contest is over recoverability: MSA cl 14.2 caps aggregate liability at sums actually paid (~\u00a31.8m), TechFlow counterclaims the withheld \u00a3600k as due, and the signed Phase 1 acceptance/value-received undercuts a pure 'wholly wasted' characterisation. Net recovery is plausible but materially at risk; plead in the alternative and address the cap and the counterclaim head-on."
+      },
+      {
+        "propositionId": "P13",
+        "status": "CONTRADICTED",
+        "riskScore": 92,
+        "headline": "The \u00a34.2m loss-of-profit claim is both overstated ~3x and contractually excluded \u2014 clause 14.1 bars it, the expert allows only ~\u00a31.3m, and a DC flood and market downturn caused most of the shortfall.",
+        "supportingDocIds": [
+          "D14"
+        ],
+        "contradictingDocIds": [
+          "D20",
+          "D03",
+          "D12",
+          "D17",
+          "D16",
+          "D15"
+        ],
+        "gapNote": "Double-barrelled failure. (1) Exclusion: MSA cl 14.1 expressly excludes loss of profit/revenue/consequential loss, defeating the claim unless the clause is held unenforceable or fraud is proved \u2014 neither supported here. (2) Causation/quantum: defendant's quantum expert (and Meridian's own Okafor/board emails) attribute ~\u00a31.5m of the Q4 shortfall to the Lutterworth DC flood and a sector-wide downturn, leaving only ~\u00a31.3m even arguably platform-attributable; and Meridian chose to go live for peak trading against TechFlow's written advice, weakening causation further. The \u00a34.2m figure is unsustainable."
+      }
+    ],
+    "overallScore": 28,
+    "trialReadiness": "Meridian's case is not trial-ready and, as pleaded, is dangerously overstated. The structural facts (P1 contract, P2 price) and one genuine liability point \u2014 serious Severity-1 stock-synchronisation defects that the independent IT expert and TechFlow itself accept fell below standard (P9) \u2014 give Meridian a real but narrow foothold. Everything built on top of that foothold is compromised, much of it by Meridian's own witnesses and its own experts. The 'no scope change' (P6) and 'we warned, they ignored' (P7) pleas are not merely weak but affirmatively false on the contemporaneous record: Meridian requested the loyalty module, signed Change Order No. 3, and overruled TechFlow's written recommendation to defer go-live to January 2025. The 'time of the essence' (P3) and 'late delivery' (P5) pleas fail because the go-live date was a contractual target that Meridian itself moved to 18 November. The headline damages are eviscerated: the 40% downtime allegation (P8) is rejected by Meridian's own IT expert (~6.2%, with the biggest outages on Meridian's own network), and the \u00a34.2m loss of profit (P13) is both excluded by clause 14.1 and reduced by the quantum expert to ~\u00a31.3m after a distribution-centre flood and a market downturn are stripped out. The absolute 'no acceptance' plea (P10) is broken by a signed Phase 1 acceptance certificate. Realistically, Meridian's best outcome is a defect/quality claim (P9) feeding capped wasted-expenditure recovery (P12, ~\u00a31.8m subject to the clause 14 cap and TechFlow's \u00a3600k counterclaim), with loss of profit largely or wholly excluded. Before any trial the particulars urgently need amendment to abandon or recast P3, P4, P6, P7, P8, P10 and P11 and to right-size P13 \u2014 pressing them unamended will destroy witness credibility and hand TechFlow the case. Priority work: secure the Whitfield defect findings, obtain genuine 5 Feb meeting evidence or drop P4, and run the clause 14 enforceability argument (UCTA reasonableness) as the linchpin for any meaningful recovery.",
+    "biggestVulnerabilities": [
+      "P6 is provably false: Meridian requested the loyalty module and signed Change Order No. 3 for it \u2014 confirmed by all three of its own witnesses and the signed CO3, destroying the 'no scope change / all delay was TechFlow's fault' pleading and Meridian's overall credibility.",
+      "P7 is inverted: TechFlow recommended deferring go-live to January 2025 in writing on 24 Oct and Meridian's Programme Director overruled it and 'took the risk on Meridian's side' \u2014 the opposite of the pleaded allegation.",
+      "P8's 40% unavailability figure is demolished by Meridian's own CPR Part 35 IT expert (~6.2% platform-attributable), with the largest outages traced to Meridian's own data-centre network and store broadband.",
+      "P13's \u00a34.2m loss of profit is both contractually excluded by clause 14.1 and reduced by the quantum expert to ~\u00a31.3m, with a DC flood and sector downturn (admitted in Meridian's own internal emails and witness statements) causing most of the shortfall.",
+      "P3/P5 collapse because go-live was a contractual 'target' lawfully moved to 18 Nov by signed change order \u2014 'time of the essence' and '~7 weeks late' are unsustainable.",
+      "P10's absolute 'no sign-off ever' plea is contradicted by the signed 12 Nov Phase 1 Acceptance Certificate, admitted by Meridian's own Head of Procurement.",
+      "P4's oral 10,000-transaction representation has zero affirmative evidence (no witness, no falsity/capacity proof) and is barred by the entire-agreement / non-reliance clause absent fraud.",
+      "Clause 14 liability cap (~\u00a31.8m paid) plus TechFlow's counterclaim for the withheld \u00a3600k caps and erodes even the well-evidenced wasted-expenditure recovery (P12)."
+    ],
+    "counts": {
+      "wellSupported": 3,
+      "contested": 1,
+      "contradicted": 8,
+      "gaps": 1
+    }
+  }
+}
