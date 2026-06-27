@@ -4,8 +4,10 @@ import { Wordmark } from './Wordmark'
 import { CaseSelector } from './CaseSelector'
 import { useCases } from '../hooks/queries'
 import { cn } from '../lib/cn'
+import { DATASET_CASE, GENERALIZES_LINE } from '../lib/framing'
 
 export const SECTIONS = [
+  { key: 'lab', label: 'Extraction Lab' },
   { key: 'dashboard', label: 'Dashboard' },
   { key: 'pleading', label: 'Pleading' },
   { key: 'graph', label: 'Graph' },
@@ -15,6 +17,13 @@ export const SECTIONS = [
 export type SectionKey = (typeof SECTIONS)[number]['key']
 
 const NAV_GLYPH: Record<SectionKey, ReactNode> = {
+  lab: (
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
+      <path d="M6.5 2 V6.2 L3.4 12 A1.2 1.2 0 0 0 4.5 13.8 H11.5 A1.2 1.2 0 0 0 12.6 12 L9.5 6.2 V2" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
+      <path d="M5.5 2 H10.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+      <path d="M5 9.5 H11" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" opacity="0.6" />
+    </svg>
+  ),
   dashboard: (
     <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
       <path d="M2 8 A6 6 0 0 1 14 8" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
@@ -108,7 +117,21 @@ export function AppShell({ children }: { children: ReactNode }) {
         </nav>
 
         <div className="mt-auto px-6 pb-6 pt-8">
-          <div className="hairline mb-4" />
+          {/* Persistent framing: this is the curated demo dataset, but the
+              engine generalizes to any bundle. */}
+          <div className="mb-4 rounded-panel border border-ink-line bg-ink/50 px-3 py-2.5">
+            <div className="flex items-center gap-1.5">
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold/80" aria-hidden />
+              <span className="eyebrow text-gold/70">Demo dataset</span>
+            </div>
+            <p className="mt-1.5 font-serif text-[11.5px] italic leading-snug text-parchment-body">
+              {DATASET_CASE}
+            </p>
+            <p className="mt-1 font-mono text-[9.5px] leading-relaxed text-parchment-muted/80">
+              {GENERALIZES_LINE}
+            </p>
+          </div>
+          <div className="hairline mb-3" />
           <p className="font-mono text-[10px] leading-relaxed text-parchment-muted/70">
             Two-stage retrieval + LLM-judge with abstention. Validated against{' '}
             <span className="text-parchment-muted">Bates v Post Office</span>.
