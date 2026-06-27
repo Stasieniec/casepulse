@@ -1,6 +1,7 @@
-import { readFileSync } from 'fs'
-import { buildSeed } from './seed-transform'
 import type { CaseSummary, Stats, GdsOverlays, Evidence, RedTeamItem } from '../../shared/types'
+import { buildSeed } from './seed-transform'
+import matrixJson from '../../seed/meridian.matrix.json'
+import { MERIDIAN_PLEADING_RAW } from './pleading-data'
 
 // docId → human-readable document title
 export const DOC_TITLES: Record<string, string> = {
@@ -45,23 +46,12 @@ let _cached: SeedData | null = null
 export function loadSeed(): SeedData {
   if (_cached) return _cached
 
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const matrix = JSON.parse(readFileSync('seed/meridian.matrix.json', 'utf8'))
-  const rawPleading = readFileSync('seed/meridian.pleading.txt', 'utf8')
-
-  const { claims, evidence: rawEvidence, edges, normalizedPleading } = buildSeed(matrix, rawPleading)
+  const { claims, evidence: rawEvidence, edges, normalizedPleading } = buildSeed(matrixJson as any, MERIDIAN_PLEADING_RAW)
 
   // Enrich evidence titles
   const evidence: Evidence[] = rawEvidence.map(e => ({
     ...e,
     title: titleOf(e.id),
-    text: (() => {
-      try {
-        return readFileSync(`seed/docs/${e.id}.txt`, 'utf8')
-      } catch {
-        return undefined
-      }
-    })(),
   }))
 
   const caseSummary: CaseSummary = {
@@ -72,7 +62,7 @@ export function loadSeed(): SeedData {
     claimNo: 'HT-2025-000231',
   }
 
-  const m = matrix.matrix
+  const m = (matrixJson as any).matrix
   const stats: Stats = {
     wellSupported: m.counts.wellSupported,
     contested: m.counts.contested,
@@ -84,7 +74,7 @@ export function loadSeed(): SeedData {
     biggestVulnerabilities: m.biggestVulnerabilities,
   }
 
-  // Minimal GDS overlays — simple degree-based centrality, no communities yet
+  // Minimal GDS overlays — degree-based centrality
   const centrality: Record<string, number> = {}
   const communities: Record<string, number> = {}
   const missingEvidence: string[] = claims
