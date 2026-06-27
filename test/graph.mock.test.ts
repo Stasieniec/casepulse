@@ -18,6 +18,8 @@ describe('MockGraphProvider', () => {
     const s = await g.getStats('meridian')
     expect(s.overallScore).toBe(28)
     expect(s.contradicted).toBe(8)
+    expect(s.wellSupported).toBe(3)
+    expect(s.gaps).toBe(1)
   })
 
   it('claim detail splits supporting/contradicting', async () => {

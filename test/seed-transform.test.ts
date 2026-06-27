@@ -24,7 +24,6 @@ describe('buildSeed', () => {
 
   it('assigns spans within the pleading text for each claim', () => {
     const s = buildSeed(matrix as any, readPleading())
-    const pleading = readPleading()
-    expect(s.claims.every(c => c.spanEnd > c.spanStart && c.spanEnd <= pleading.length)).toBe(true)
+    expect(s.claims.every(c => c.spanEnd > c.spanStart && c.spanEnd <= s.normalizedPleading.length)).toBe(true)
   })
 })

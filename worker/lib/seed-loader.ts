@@ -74,7 +74,9 @@ export function loadSeed(): SeedData {
     biggestVulnerabilities: m.biggestVulnerabilities,
   }
 
-  // Minimal GDS overlays — degree-based centrality
+  // Minimal GDS overlays — degree-based centrality.
+  // `communities` is an intentional stub (all nodes in cluster 0) until real
+  // Louvain/community detection lands in Task 3.3.
   const centrality: Record<string, number> = {}
   const communities: Record<string, number> = {}
   const missingEvidence: string[] = claims

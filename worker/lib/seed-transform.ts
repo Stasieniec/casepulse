@@ -14,6 +14,23 @@ const REL_MAP: Record<string, Relation> = {
   NEUTRAL: 'neutral',
 }
 
+// Actual pleading paragraph references (from the Particulars of Claim) per proposition.
+const PARAGRAPH_REF: Record<string, string> = {
+  P1: '¶3',
+  P2: '¶5',
+  P3: '¶6',
+  P4: '¶7',
+  P5: '¶8',
+  P6: '¶9',
+  P7: '¶10',
+  P8: '¶11',
+  P9: '¶12',
+  P10: '¶13',
+  P11: '¶14',
+  P12: '¶15(a)',
+  P13: '¶15(b)',
+}
+
 // Verbatim snippets from the normalized pleading (whitespace-collapsed).
 // Each snippet is a distinctive phrase that exists exactly once in the normalized text.
 const SNIPPET: Record<string, string> = {
@@ -60,7 +77,7 @@ export function buildSeed(
     return {
       id: p.propositionId,
       label: p.propositionId,
-      paragraphRef: p.propositionId,
+      paragraphRef: PARAGRAPH_REF[p.propositionId] ?? p.propositionId,
       text: snip,
       spanStart,
       spanEnd,
@@ -79,9 +96,11 @@ export function buildSeed(
 
   const edges: Edge[] = []
   for (const a of matrix.analyses) {
-    for (const f of a.findings) {
+    // Include the finding index so ids stay unique when one doc has multiple
+    // findings about the same proposition (otherwise PK collisions in D1).
+    a.findings.forEach((f: any, i: number) => {
       edges.push({
-        id: `${a.docId}-${f.propositionId}`,
+        id: `${a.docId}-${f.propositionId}-${i}`,
         claimId: f.propositionId,
         documentId: a.docId,
         relation: REL_MAP[f.relation] ?? 'neutral',
@@ -89,7 +108,7 @@ export function buildSeed(
         quote: f.quote,
         rationale: f.rationale,
       })
-    }
+    })
   }
 
   return { claims, evidence, edges, normalizedPleading: pleading }
