@@ -6,6 +6,7 @@ import { Dashboard } from '../components/Dashboard'
 import { PleadingView } from '../components/PleadingView'
 import { GraphView } from '../components/GraphView'
 import { RedTeamPanel } from '../components/RedTeamPanel'
+import EvidenceRepository from './EvidenceRepository'
 import { cn } from '../lib/cn'
 
 export default function CaseView() {
@@ -68,6 +69,7 @@ export default function CaseView() {
         {active === 'pleading' && <PleadingView caseId={caseId} analysisId={analysisId} />}
         {active === 'graph' && <GraphView caseId={caseId} analysisId={analysisId} />}
         {active === 'redteam' && <RedTeamPanel caseId={caseId} analysisId={analysisId} />}
+        {active === 'evidence' && <EvidenceRepository caseId={caseId} analysisId={analysisId} />}
       </div>
     </div>
   )

@@ -12,11 +12,20 @@ export const SECTIONS = [
   { key: 'pleading', label: 'Pleading' },
   { key: 'graph', label: 'Graph' },
   { key: 'redteam', label: 'Red-Team' },
+  { key: 'evidence', label: 'Evidence' },
 ] as const
 
 export type SectionKey = (typeof SECTIONS)[number]['key']
 
 const NAV_GLYPH: Record<SectionKey, ReactNode> = {
+  evidence: (
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
+      <rect x="2" y="3" width="12" height="10" rx="1" stroke="currentColor" strokeWidth="1.3" />
+      <path d="M5 6.5 H11 M5 9 H9" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+      <path d="M10.5 9.5 L13 12" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+      <circle cx="10.5" cy="9" r="1.8" stroke="currentColor" strokeWidth="1.1" />
+    </svg>
+  ),
   lab: (
     <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
       <path d="M6.5 2 V6.2 L3.4 12 A1.2 1.2 0 0 0 4.5 13.8 H11.5 A1.2 1.2 0 0 0 12.6 12 L9.5 6.2 V2" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
