@@ -4,5 +4,6 @@
   "compatibility_date": "2025-06-01",
   "compatibility_flags": ["nodejs_compat"],
   "assets": { "directory": "./dist", "binding": "ASSETS", "not_found_handling": "single-page-application" },
-  "observability": { "enabled": true }
+  "observability": { "enabled": true },
+  "d1_databases": [{ "binding": "DB", "database_name": "crucible", "database_id": "3b404f1f-025f-4168-ba9c-47948e57027d", "migrations_dir": "migrations" }]
 }
