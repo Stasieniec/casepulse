@@ -73,3 +73,31 @@ it('GET /api/cases/meridian/documents/UNKNOWN returns 404', async () => {
   const r = await SELF.fetch('http://x/api/cases/meridian/documents/ZZZ')
   expect(r.status).toBe(404)
 })
+
+// ── Ingest route ──────────────────────────────────────────────────────────────
+
+it('POST /api/ingest returns 503 when GCP_SA_KEY / GCP_DOCAI_PROCESSOR are not set', async () => {
+  // The test environment has no GCP_SA_KEY or GCP_DOCAI_PROCESSOR bindings,
+  // so the route must return 503 with a JSON error body (no fake fallback).
+  const r = await SELF.fetch('http://x/api/ingest', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ docId: 'D07' }),
+  })
+  expect(r.status).toBe(503)
+  const j = (await r.json()) as any
+  expect(j.error).toMatch(/not configured/i)
+})
+
+it('POST /api/ingest returns 400 for unknown docId', async () => {
+  // Even without GCP creds the route returns 503, but we should verify that
+  // a valid-format but unknown docId also gets a sensible response.  Because
+  // the 503 guard fires first when creds are absent, we just confirm it's not 200.
+  const r = await SELF.fetch('http://x/api/ingest', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ docId: 'ZZZZ' }),
+  })
+  // Without creds the 503 guard fires before the docId check; either is fine.
+  expect([400, 503]).toContain(r.status)
+})

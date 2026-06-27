@@ -67,6 +67,36 @@ export const getPleading = (caseId: string, analysisId?: string | null) =>
 export const getDocument = (caseId: string, docId: string, analysisId?: string | null) =>
   get<DocumentText>(withAnalysis(`/api/cases/${caseId}/documents/${docId}`, analysisId))
 
+/** Result returned by POST /api/ingest. */
+export interface IngestResult {
+  docId: string
+  title: string
+  text: string
+  charCount: number
+}
+
+/**
+ * POST /api/ingest — sends one of the 4 exhibit PDFs to Google Document AI
+ * and returns the extracted text.
+ *
+ * Returns a 503 error when the server is not configured with GCP credentials.
+ */
+export async function ingest(docId: string): Promise<IngestResult> {
+  const res = await fetch('/api/ingest', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', accept: 'application/json' },
+    body: JSON.stringify({ docId }),
+  })
+  if (res.status === 503) {
+    throw Object.assign(new Error('Document AI not configured'), { status: 503 })
+  }
+  if (!res.ok) {
+    const err = await res.text()
+    throw new Error(`POST /api/ingest failed: ${res.status} — ${err.slice(0, 300)}`)
+  }
+  return (await res.json()) as IngestResult
+}
+
 /**
  * POST /api/analyze — runs the real Gemini pipeline and returns an analysisId.
  * Expects ~20-60s for a full pleading.
