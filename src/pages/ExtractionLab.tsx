@@ -46,9 +46,14 @@ export default function ExtractionLab() {
   const [liveId, setLiveId] = useState<string | null>(null)
   const [liveError, setLiveError] = useState<string | null>(null)
 
-  // Replay always reads the seed; once a live run lands, we re-read with its id.
-  const { data: graph } = useGraph(caseId, liveId ?? undefined)
-  const { data: stats } = useStats(caseId, liveId ?? undefined)
+  // The choreography ALWAYS animates over the seed graph/stats — instant,
+  // stable, and honest (the seed IS real analysis output). A live run genuinely
+  // re-runs the engine and produces `liveId`, which is threaded into navigation
+  // and the explore views so they show the live analysis. Reading seed here (not
+  // the live query) keeps the timeline from tearing down while the live result
+  // loads, and the curated case is identical either way.
+  const { data: graph } = useGraph(caseId)
+  const { data: stats } = useStats(caseId)
 
   const ready = !!graph && !!stats
 
@@ -483,8 +488,6 @@ function PleadingStage({
  * moves on.
  */
 function SourceColumn({ caseId, liveId, dim }: { caseId: string; liveId: string | null; dim: boolean }) {
-  const { data } = useGraph(caseId, liveId ?? undefined) // keep cache warm
-  void data
   const [text, setText] = useState<string>('')
   useEffect(() => {
     let alive = true
@@ -747,8 +750,8 @@ function EvidenceStage({
   const building = choreo.building
   const shown = building ? links.length : Math.min(choreo.drawnEdges, links.length)
 
-  const contradicts = links.filter((l) => l.relation === 'contradicts').map((l) => l.claimId)
-  const supports = links.filter((l) => l.relation === 'supports').map((l) => l.claimId)
+  const contradicts = [...new Set(links.filter((l) => l.relation === 'contradicts').map((l) => l.claimId))]
+  const supports = [...new Set(links.filter((l) => l.relation === 'supports').map((l) => l.claimId))]
 
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
