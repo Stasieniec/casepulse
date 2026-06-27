@@ -17,11 +17,15 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@fontsource-variable/inter": "^5.2.8",
+    "@fontsource/fraunces": "^5.2.9",
+    "@fontsource/ibm-plex-mono": "^5.2.7",
     "@tanstack/react-query": "^5.101.1",
     "hono": "^4.12.27",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "react-force-graph-2d": "^1.29.1"
+    "react-force-graph-2d": "^1.29.1",
+    "react-router-dom": "^7.18.0"
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "^0.16.20",

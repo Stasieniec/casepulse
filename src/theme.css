@@ -1,3 +1,81 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-ink text-parchment-body font-sans antialiased;
+    /* Subtle vignette + grain-free atmospheric depth: a faint warm glow
+       toward the top-left where the gold accent lives, fading into deep ink. */
+    background-color: #0b0e14;
+    background-image:
+      radial-gradient(120% 90% at 12% -10%, rgba(224, 168, 106, 0.06), transparent 55%),
+      radial-gradient(90% 80% at 100% 100%, rgba(46, 56, 78, 0.18), transparent 60%);
+    background-attachment: fixed;
+    font-feature-settings: 'cv01', 'cv03', 'ss01';
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply text-parchment font-serif;
+    font-optical-sizing: auto;
+  }
+
+  ::selection {
+    background: rgba(224, 168, 106, 0.28);
+    color: #ece7da;
+  }
+
+  /* Restrained, on-theme scrollbars */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #2a3142 transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: #2a3142;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: #3a4356;
+    background-clip: padding-box;
+  }
+}
+
+@layer components {
+  /* Small-caps editorial label used for section eyebrows / UI metadata */
+  .eyebrow {
+    @apply font-sans uppercase tracking-label text-[11px] font-semibold text-parchment-muted;
+  }
+
+  /* Hairline divider that reads as engraved rather than boxed */
+  .hairline {
+    @apply border-t border-ink-line;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
