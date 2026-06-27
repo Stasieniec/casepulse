@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import type { CaseGraph, Edge, Relation } from '../../shared/types'
 import { useGraph, useStats } from '../hooks/queries'
-import { analyze } from '../api'
+import { analyze, ingest, type IngestResult } from '../api'
 import { useLabChoreography, type LabPhase } from '../hooks/useLabChoreography'
 import { prefersReducedMotion } from '../hooks/useCountUp'
 import { ReadinessGauge } from '../components/ReadinessGauge'
@@ -39,7 +39,12 @@ export default function ExtractionLab() {
   const [params] = useSearchParams()
   const sourceParam = params.get('source') // undefined => pleading mode; else an evidence id
 
-  const mode: 'pleading' | 'evidence' = sourceParam ? 'evidence' : 'pleading'
+  const modeParam = params.get('mode') // 'ingest' → ingest beat
+  const mode: 'pleading' | 'evidence' | 'ingest' = modeParam === 'ingest'
+    ? 'ingest'
+    : sourceParam
+      ? 'evidence'
+      : 'pleading'
 
   // Live mode state. Default = replay (no network).
   const [live, setLive] = useState(false)
@@ -92,7 +97,7 @@ export default function ExtractionLab() {
   }
 
   const choreo = useLabChoreography({
-    mode,
+    mode: mode === 'ingest' ? 'pleading' : mode,
     ready,
     claimCount,
     evidenceCount,
@@ -130,6 +135,13 @@ export default function ExtractionLab() {
     navigate(`/case/${caseId}/${section}${q}`)
   }
 
+  function gotoIngest() {
+    navigate(`/case/${caseId}/lab?mode=ingest`)
+  }
+  function gotoLabDefault() {
+    navigate(`/case/${caseId}/lab`)
+  }
+
   return (
     <div className="flex min-h-screen flex-col">
       <LabTopBar
@@ -137,9 +149,12 @@ export default function ExtractionLab() {
         onReplay={() => switchMode(false)}
         onLive={() => switchMode(true)}
         onSkip={choreo.skip}
-        showSkip={choreo.started && choreo.phase !== 'done'}
+        showSkip={choreo.started && choreo.phase !== 'done' && mode !== 'ingest'}
         onExit={() => navigate('/')}
         liveActive={live && !!liveId}
+        ingestMode={mode === 'ingest'}
+        onIngest={gotoIngest}
+        onLabDefault={gotoLabDefault}
       />
 
       {liveError && (
@@ -152,11 +167,13 @@ export default function ExtractionLab() {
       )}
 
       <div className="flex-1 px-6 pb-10 pt-4 lg:px-10 xl:px-14">
-        <StageHeader mode={mode} choreo={choreo} sourceId={sourceParam} live={live} liveId={liveId} />
+        {mode !== 'ingest' && (
+          <StageHeader mode={mode} choreo={choreo} sourceId={sourceParam} live={live} liveId={liveId} />
+        )}
 
         {mode === 'pleading' ? (
           <PleadingStage caseId={caseId} graph={graph} stats={stats} choreo={choreo} liveId={liveId} liveScore={liveScore} />
-        ) : (
+        ) : mode === 'evidence' ? (
           <EvidenceStage
             caseId={caseId}
             graph={graph}
@@ -166,9 +183,11 @@ export default function ExtractionLab() {
             liveId={liveId}
             liveScore={liveScore}
           />
+        ) : (
+          <IngestStage />
         )}
 
-        {choreo.phase === 'done' && (
+        {mode !== 'ingest' && choreo.phase === 'done' && (
           <DoneCtas onDashboard={gotoDashboard} onSection={gotoSection} live={!!liveId} />
         )}
       </div>
@@ -185,6 +204,9 @@ function LabTopBar({
   showSkip,
   onExit,
   liveActive,
+  ingestMode,
+  onIngest,
+  onLabDefault,
 }: {
   live: boolean
   onReplay: () => void
@@ -193,6 +215,9 @@ function LabTopBar({
   showSkip: boolean
   onExit: () => void
   liveActive: boolean
+  ingestMode: boolean
+  onIngest: () => void
+  onLabDefault: () => void
 }) {
   return (
     <div className="sticky top-0 z-30 flex flex-wrap items-center justify-between gap-3 border-b border-ink-line bg-ink/85 px-6 py-3 backdrop-blur-md lg:px-10 xl:px-14">
@@ -211,26 +236,45 @@ function LabTopBar({
       </div>
 
       <div className="flex items-center gap-3">
-        {/* Replay / Live toggle — switching restarts the run in that mode. */}
+        {/* Lab mode: Analysis vs Ingest */}
         <div className="flex items-center gap-1 rounded-full border border-ink-line bg-ink-panel/70 p-0.5">
-          <SegBtn active={!live} onClick={onReplay}>
-            Replay
+          <SegBtn active={!ingestMode} onClick={onLabDefault}>
+            Analysis
           </SegBtn>
-          <SegBtn active={live} onClick={onLive} accent>
+          <SegBtn active={ingestMode} onClick={onIngest} accent>
             <span className="flex items-center gap-1.5">
-              {live && liveActive && <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-status-supported" />}
-              Run it live
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden>
+                <path d="M6 1 V8 M6 8 L3.5 5.5 M6 8 L8.5 5.5 M1.5 10.5 H10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Ingest
             </span>
           </SegBtn>
         </div>
 
-        {showSkip && (
-          <button
-            onClick={onSkip}
-            className="rounded-panel border border-ink-line px-3 py-1.5 font-sans text-[12px] font-medium text-parchment-muted transition-colors hover:border-gold-dim/50 hover:text-parchment-body"
-          >
-            Skip to results
-          </button>
+        {!ingestMode && (
+          <>
+            {/* Replay / Live toggle — only shown in analysis modes */}
+            <div className="flex items-center gap-1 rounded-full border border-ink-line bg-ink-panel/70 p-0.5">
+              <SegBtn active={!live} onClick={onReplay}>
+                Replay
+              </SegBtn>
+              <SegBtn active={live} onClick={onLive} accent>
+                <span className="flex items-center gap-1.5">
+                  {live && liveActive && <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-status-supported" />}
+                  Run it live
+                </span>
+              </SegBtn>
+            </div>
+
+            {showSkip && (
+              <button
+                onClick={onSkip}
+                className="rounded-panel border border-ink-line px-3 py-1.5 font-sans text-[12px] font-medium text-parchment-muted transition-colors hover:border-gold-dim/50 hover:text-parchment-body"
+              >
+                Skip to results
+              </button>
+            )}
+          </>
         )}
       </div>
     </div>
@@ -883,6 +927,282 @@ function EvidenceStage({
         target={evidenceTarget}
         onClose={() => setEvidenceTarget(null)}
       />
+    </div>
+  )
+}
+
+// ── Ingest beat ──────────────────────────────────────────────────────────────
+
+/** The 4 exhibit PDFs the ingest beat can process. */
+const INGEST_DOCS = [
+  { id: 'D07', title: 'Change Order No. 3' },
+  { id: 'D08', title: 'Phase-1 UAT Acceptance Certificate' },
+  { id: 'D09', title: 'Email — go-live decision' },
+  { id: 'D19', title: 'Expert report — Dr Whitfield (IT)' },
+] as const
+
+type IngestDocId = (typeof INGEST_DOCS)[number]['id']
+
+type IngestPhase = 'idle' | 'uploading' | 'extracting' | 'done' | 'unconfigured' | 'error'
+
+/**
+ * IngestStage — send an exhibit PDF to Google Document AI and reveal the
+ * extracted text with an animated pipeline beat.
+ */
+function IngestStage() {
+  const [selected, setSelected] = useState<IngestDocId | null>(null)
+  const [phase, setPhase] = useState<IngestPhase>('idle')
+  const [result, setResult] = useState<IngestResult | null>(null)
+  const [errorMsg, setErrorMsg] = useState<string | null>(null)
+
+  // Auto-advance from 'uploading' to 'extracting' after a brief pause
+  // so the two states are each visible.
+  useEffect(() => {
+    if (phase !== 'uploading') return
+    const t = setTimeout(() => setPhase('extracting'), 1800)
+    return () => clearTimeout(t)
+  }, [phase])
+
+  async function run(docId: IngestDocId) {
+    setSelected(docId)
+    setResult(null)
+    setErrorMsg(null)
+    setPhase('uploading')
+
+    try {
+      const data = await ingest(docId)
+      setResult(data)
+      setPhase('done')
+    } catch (err) {
+      const e = err as Error & { status?: number }
+      if (e.status === 503 || e.message?.includes('not configured')) {
+        setPhase('unconfigured')
+      } else {
+        setErrorMsg(e.message ?? String(err))
+        setPhase('error')
+      }
+    }
+  }
+
+  return (
+    <div className="mx-auto mt-5 w-full max-w-[900px] animate-fade-rise">
+      {/* Section header */}
+      <div className="mb-6">
+        <div className="eyebrow text-gold/70">Google Cloud Document AI</div>
+        <h1 className="mt-1.5 font-serif text-[1.9rem] font-semibold leading-tight text-parchment">
+          Ingest an exhibit
+        </h1>
+        <p className="mt-1.5 font-sans text-[13px] leading-relaxed text-parchment-muted">
+          Select one of the 4 exhibit PDFs. CasePulse will send the raw PDF bytes to Google
+          Document AI, extract the full text, and return it for the analysis pipeline.
+        </p>
+        <p className="mt-3 border-t border-ink-line pt-3 font-mono text-[10.5px] text-parchment-muted/70">
+          {DATASET_CASE} — <span className="text-parchment-muted">{GENERALIZES_LINE}</span>
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
+        {/* Left: exhibit picker */}
+        <section>
+          <div className="eyebrow border-b border-ink-line pb-2">Choose an exhibit</div>
+          <div className="mt-3 flex flex-col gap-2.5">
+            {INGEST_DOCS.map((doc) => {
+              const active = selected === doc.id
+              const running = active && (phase === 'uploading' || phase === 'extracting')
+              return (
+                <button
+                  key={doc.id}
+                  onClick={() => {
+                    if (!running) run(doc.id)
+                  }}
+                  disabled={running}
+                  className={cn(
+                    'group flex w-full items-start gap-3 rounded-panel border px-3.5 py-3.5 text-left transition-all',
+                    active
+                      ? 'border-gold/50 bg-gold/[0.06]'
+                      : 'border-ink-line bg-ink-panel/70 hover:border-gold-dim/50 hover:bg-ink-raised',
+                    running && 'cursor-wait',
+                  )}
+                >
+                  <span
+                    className={cn(
+                      'mt-0.5 shrink-0 rounded-[3px] px-1.5 py-0.5 font-mono text-[11px] font-semibold transition-colors',
+                      active ? 'bg-gold/20 text-gold' : 'bg-ink-raised text-parchment-muted group-hover:bg-gold/10 group-hover:text-gold',
+                    )}
+                  >
+                    {doc.id}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <span className="block font-serif text-[13.5px] font-medium leading-snug text-parchment-body">
+                      {doc.title}
+                    </span>
+                    <span className="mt-0.5 block font-mono text-[10px] text-parchment-muted/70">
+                      PDF · exhibit bundle
+                    </span>
+                  </div>
+                  {running && (
+                    <span className="mt-1 inline-flex shrink-0 gap-0.5" aria-hidden>
+                      {[0, 1, 2].map((i) => (
+                        <span
+                          key={i}
+                          className="inline-block h-1 w-1 animate-pulse rounded-full bg-gold"
+                          style={{ animationDelay: `${i * 160}ms` }}
+                        />
+                      ))}
+                    </span>
+                  )}
+                  {active && phase === 'done' && (
+                    <span className="mt-1 inline-block h-2 w-2 shrink-0 rounded-full bg-status-supported" />
+                  )}
+                </button>
+              )
+            })}
+          </div>
+
+          {/* Pipeline feed affordance */}
+          <div className="mt-5 rounded-panel border border-dashed border-ink-line bg-ink/30 px-4 py-3.5">
+            <div className="flex items-center gap-2">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden className="shrink-0 text-gold/70">
+                <path d="M3 8 H12 M9 5 L12 8 L9 11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <span className="font-sans text-[11px] font-semibold uppercase tracking-wide text-parchment-muted">
+                Feeds the analysis pipeline
+              </span>
+            </div>
+            <p className="mt-1.5 font-mono text-[10px] leading-relaxed text-parchment-muted/75">
+              Extracted text flows into chunk indexing → vector retrieval → claim–evidence
+              cross-examination. Ingest is the first step of the real pipeline.
+            </p>
+          </div>
+        </section>
+
+        {/* Right: status + result panel */}
+        <section>
+          <div className="eyebrow border-b border-ink-line pb-2">Extraction result</div>
+          <div className="mt-3">
+            {phase === 'idle' && (
+              <div className="flex h-48 items-center justify-center rounded-panel border border-dashed border-ink-line bg-ink-panel/40">
+                <p className="font-sans text-[13px] text-parchment-muted/60">
+                  Select an exhibit to begin
+                </p>
+              </div>
+            )}
+
+            {(phase === 'uploading' || phase === 'extracting') && (
+              <div className="rounded-panel border border-gold/30 bg-gold/[0.04] px-5 py-5 animate-fade-rise">
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-gold/30 bg-gold/10">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden className="text-gold">
+                      <path d="M8 2 V9 M8 9 L5 6.5 M8 9 L11 6.5 M2 13 H14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                  <div>
+                    <div className="font-sans text-[13px] font-semibold text-parchment">
+                      {phase === 'uploading'
+                        ? 'Uploading to Google Document AI…'
+                        : 'Extracting text…'}
+                    </div>
+                    <div className="mt-0.5 font-mono text-[10.5px] text-parchment-muted/80">
+                      {phase === 'uploading'
+                        ? 'Sending PDF bytes to the Document AI process endpoint'
+                        : 'Document AI is parsing the PDF layout and extracting content'}
+                    </div>
+                  </div>
+                </div>
+                {/* Animated progress bar */}
+                <div className="mt-4 h-[3px] overflow-hidden rounded-full bg-ink-line">
+                  <div
+                    className={cn(
+                      'h-full rounded-full bg-gold transition-all duration-[1800ms] ease-out',
+                      phase === 'uploading' ? 'w-[30%]' : 'w-[85%]',
+                    )}
+                  />
+                </div>
+                <div className="mt-2 font-mono text-[9.5px] text-parchment-muted/60">
+                  {selected && INGEST_DOCS.find((d) => d.id === selected)?.title}
+                </div>
+              </div>
+            )}
+
+            {phase === 'done' && result && (
+              <div className="animate-fade-rise">
+                {/* Attribution caption */}
+                <div className="mb-2 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-status-supported" />
+                    <span className="font-sans text-[11px] font-semibold text-status-supported">
+                      Extracted by Google Cloud Document AI
+                    </span>
+                  </div>
+                  <span className="font-mono text-[10px] text-parchment-muted/70 tabular-nums">
+                    {result.charCount.toLocaleString()} chars
+                  </span>
+                </div>
+
+                {/* Extracted text panel */}
+                <div className="relative max-h-[480px] overflow-hidden rounded-panel border border-status-supported/20 bg-ink-panel/80">
+                  <span className="pointer-events-none absolute inset-y-5 left-0 w-px bg-gradient-to-b from-status-supported/30 via-status-supported/05 to-transparent" />
+                  <div className="h-full max-h-[480px] overflow-y-auto px-5 py-4">
+                    <pre className="whitespace-pre-wrap break-words font-mono text-[11.5px] leading-[1.75] text-parchment-body/90">
+                      {result.text}
+                    </pre>
+                  </div>
+                  {/* Fade out at bottom */}
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-ink-panel to-transparent" />
+                </div>
+
+                <div className="mt-2 font-mono text-[10px] text-parchment-muted/60">
+                  {result.docId} · {result.title}
+                </div>
+              </div>
+            )}
+
+            {phase === 'unconfigured' && (
+              <div className="rounded-panel border border-ink-line bg-ink-panel/60 px-5 py-6 animate-fade-rise">
+                <div className="flex items-start gap-3">
+                  <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-gold-dim/40 bg-ink-raised">
+                    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden className="text-gold-dim">
+                      <path d="M8 5 V8.5 M8 10.5 V11" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+                      <circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1.4" />
+                    </svg>
+                  </span>
+                  <div>
+                    <div className="font-serif text-[1rem] font-semibold text-parchment">
+                      Connect Google Cloud to run live extraction
+                    </div>
+                    <p className="mt-1.5 font-sans text-[12.5px] leading-relaxed text-parchment-muted">
+                      This worker is not yet wired to a Google Cloud project. Once
+                      the controller provisions a service-account key and a Document AI
+                      processor, extraction will run live here.
+                    </p>
+                    <div className="mt-3 space-y-1 font-mono text-[10.5px] text-parchment-muted/70">
+                      <div>
+                        <span className="text-gold/70">GCP_SA_KEY</span>
+                        {' '}— service-account JSON (set as a secret)
+                      </div>
+                      <div>
+                        <span className="text-gold/70">GCP_DOCAI_PROCESSOR</span>
+                        {' '}— projects/{'{num}'}/locations/{'{loc}'}/processors/{'{id}'}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {phase === 'error' && errorMsg && (
+              <div className="rounded-panel border border-status-contradicted/40 bg-status-contradicted/[0.07] px-5 py-4 animate-fade-rise">
+                <div className="font-sans text-[12.5px] font-semibold text-status-contradicted">
+                  Extraction failed
+                </div>
+                <p className="mt-1 font-mono text-[10.5px] text-parchment-muted/80 break-words">
+                  {errorMsg.slice(0, 400)}
+                </p>
+              </div>
+            )}
+          </div>
+        </section>
+      </div>
     </div>
   )
 }
